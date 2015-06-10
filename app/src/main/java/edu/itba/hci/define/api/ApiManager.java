@@ -60,13 +60,13 @@ public class ApiManager {
 
     }
 
-    static private <T> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
+    static private <T extends ApiResponse> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
 
         String url = buildUrl(service, method, parameters);
 
         Log.d(LOG_TAG, "Calling URL: " + url);
 
-        new ApiCallTask<>(callback, type).execute(url);
+        new ApiCallTask<T>(callback, type).execute(url);
 
     }
 
@@ -92,18 +92,14 @@ public class ApiManager {
         }
 
         @Override
-        public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc)
-                throws JsonParseException {
-            // Get the "content" element from the parsed JSON
+        public T deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
+
             JsonElement content = je.getAsJsonObject().get(container);
 
             T response = new Gson().fromJson(content, type);
 
             if (response == null) {
-                //response=((Class<T>)type).newInstance();
-
                 Class<T> tClass = (Class<T>) type;
-
 
                 try {
                     response = tClass.newInstance();
@@ -121,16 +117,12 @@ public class ApiManager {
                 response.setError(error);
             }
 
-            Log.v(LOG_TAG, response.toString());
-
-            // Deserialize it. You use a new instance of Gson to avoid infinite recursion
-            // to this deserializer
             return response;
 
         }
     }
 
-    static private class ApiCallTask<T> extends AsyncTask<String, Void, T> {
+    static private class ApiCallTask<T extends ApiResponse> extends AsyncTask<String, Void, T> {
 
         private Callback<T> callback;
 
@@ -162,9 +154,6 @@ public class ApiManager {
                     urlConnection.disconnect();
                 }
 
-                Log.v(LOG_TAG, response);
-                Log.v(LOG_TAG, type.toString());
-
                 return gson.fromJson(response, type);
 
             } catch (IOException e) {
@@ -177,9 +166,24 @@ public class ApiManager {
         protected void onPostExecute(T result) {
             //textView.setText(result);
 
+            if (result == null) {
+                callback.onErrorConnection();
+                return;
+            }
+
             Log.v(LOG_TAG, result.toString());
 
-            callback.onSuccess(result);
+            if (result.hasError()) {
+
+                callback.onError(result.getError());
+
+            } else {
+
+                callback.onSuccess(result);
+
+            }
+
+
         }
     }
 
