@@ -14,6 +14,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -21,6 +22,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
 
 public class ApiManager {
@@ -56,13 +58,13 @@ public class ApiManager {
 
         params.put("id", Integer.toString(id));
         params.put("username", "janedoe");//fixme
-        params.put("authentication_token", "a8c0d2a9d332574951a8e4a0af7d516f");//fixme
+        params.put("authentication_token", "a8c0d2a9d332574951a8e4a0af7d516");//fixme
 
         makeApiCall("Order", "GetOrderById", params, callback, Order.class);
 
     }
 
-    private <T> void makeApiCall(String service, String method, HashMap<String, String> parameters, Callback<T> callback, Class<T> type) {
+    private <T> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
 
         String url = buildUrl(service, method, parameters);
 
@@ -72,7 +74,7 @@ public class ApiManager {
 
     }
 
-    private String buildUrl(String service, String method, HashMap<String, String> parameters) {
+    private String buildUrl(String service, String method, Map<String, String> parameters) {
         String url = BASE_URL + service + ".groovy?method=" + method;
 
         for (Map.Entry<String, String> e : parameters.entrySet()) {
@@ -83,7 +85,7 @@ public class ApiManager {
 
     }
 
-    static private class ApiDeserializer<T> implements JsonDeserializer<T> {
+    static private class ApiDeserializer<T extends ApiResponse> implements JsonDeserializer<T> {
 
         private String container;
 
@@ -99,9 +101,36 @@ public class ApiManager {
             // Get the "content" element from the parsed JSON
             JsonElement content = je.getAsJsonObject().get(container);
 
+            T response = new Gson().fromJson(content, type);
+
+            if (response == null) {
+                //response=((Class<T>)type).newInstance();
+
+                Class<T> tClass =(Class<T>)type;
+
+
+                try {
+                    response = tClass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                ;
+            }
+
+
+            ApiError error = null;
+
+            if (je.getAsJsonObject().has("error")) {
+                JsonElement errorElement = je.getAsJsonObject().get("error");
+                error = new Gson().fromJson(errorElement, ApiError.class);
+                response.setError(error);
+            }
+
             // Deserialize it. You use a new instance of Gson to avoid infinite recursion
             // to this deserializer
-            return new Gson().fromJson(content, type);
+            return response;
 
         }
     }
@@ -111,7 +140,6 @@ public class ApiManager {
         private Callback<T> callback;
 
         private Class<T> type;
-
 
         public ApiCallTask(Callback<T> callback, Class<T> type) {
             super();
@@ -139,9 +167,6 @@ public class ApiManager {
                     urlConnection.disconnect();
                 }
 
-
-                Log.v(LOG_TAG, response);
-
                 return gson.fromJson(response, type);
 
             } catch (IOException e) {
@@ -154,6 +179,7 @@ public class ApiManager {
         protected void onPostExecute(T result) {
             //textView.setText(result);
 
+            Log.v(LOG_TAG, result.toString());
 
             callback.onSuccess(result);
         }

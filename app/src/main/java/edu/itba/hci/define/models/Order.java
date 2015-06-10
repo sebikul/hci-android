@@ -1,11 +1,11 @@
 package edu.itba.hci.define.models;
 
-import java.util.Date;
+import edu.itba.hci.define.api.ApiError;
 
 /**
  * Created by sebikul on 6/9/15.
  */
-public class Order {
+public class Order extends ApiResponse {
 
     private int id;
     private Address address;
@@ -31,17 +31,22 @@ public class Order {
         this.longitude = longitude;
     }
 
+    public Order() {
+
+    }
+
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "error=" + error +
+                ", id=" + id +
                 ", address=" + address +
                 ", creditCard=" + creditCard +
                 ", status=" + status +
-                ", receivedDate=" + receivedDate +
-                ", processedDate=" + processedDate +
-                ", shippedDate=" + shippedDate +
-                ", deliveredDate=" + deliveredDate +
+                ", receivedDate='" + receivedDate + '\'' +
+                ", processedDate='" + processedDate + '\'' +
+                ", shippedDate='" + shippedDate + '\'' +
+                ", deliveredDate='" + deliveredDate + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
