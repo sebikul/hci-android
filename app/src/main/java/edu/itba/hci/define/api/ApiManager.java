@@ -1,5 +1,6 @@
 package edu.itba.hci.define.api;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,7 +15,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,51 +30,47 @@ public class ApiManager {
     static private final String LOG_TAG = "ApiManager";
 
     static private final String BASE_URL = "http://eiffel.itba.edu.ar/hci/service3/";
-    static private ApiManager obj;
     static private Gson gson;
+    static private SharedPreferences preferences;
 
 
     private ApiManager() {
     }
 
-    static public ApiManager getService() {
+    static public void initialize(SharedPreferences pref) {
 
-        if (obj == null) {
-            obj = new ApiManager();
+        Log.d(LOG_TAG, "Inicializando ApiManager");
 
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
-                    .create();
+        gson = new GsonBuilder()
+                .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
+                .create();
 
-        }
-
-        return obj;
-
+        preferences = pref;
     }
 
-    public void getOrderById(int id, Callback<Order> callback) {
+    static public void getOrderById(int id, Callback<Order> callback) {
 
-        HashMap<String, String> params = new HashMap<>(3);
+        Map<String, String> params = new HashMap<>(3);
 
         params.put("id", Integer.toString(id));
-        params.put("username", "janedoe");//fixme
-        params.put("authentication_token", "a8c0d2a9d332574951a8e4a0af7d516");//fixme
+
+        fillAuthenticationData(params);
 
         makeApiCall("Order", "GetOrderById", params, callback, Order.class);
 
     }
 
-    private <T> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
+    static private <T> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
 
         String url = buildUrl(service, method, parameters);
 
         Log.d(LOG_TAG, "Calling URL: " + url);
 
-        new ApiCallTask<T>(callback, type).execute(url);
+        new ApiCallTask<>(callback, type).execute(url);
 
     }
 
-    private String buildUrl(String service, String method, Map<String, String> parameters) {
+    static private String buildUrl(String service, String method, Map<String, String> parameters) {
         String url = BASE_URL + service + ".groovy?method=" + method;
 
         for (Map.Entry<String, String> e : parameters.entrySet()) {
@@ -106,7 +102,7 @@ public class ApiManager {
             if (response == null) {
                 //response=((Class<T>)type).newInstance();
 
-                Class<T> tClass =(Class<T>)type;
+                Class<T> tClass = (Class<T>) type;
 
 
                 try {
@@ -116,17 +112,16 @@ public class ApiManager {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                ;
+
             }
-
-
-            ApiError error = null;
 
             if (je.getAsJsonObject().has("error")) {
                 JsonElement errorElement = je.getAsJsonObject().get("error");
-                error = new Gson().fromJson(errorElement, ApiError.class);
+                ApiError error = new Gson().fromJson(errorElement, ApiError.class);
                 response.setError(error);
             }
+
+            Log.v(LOG_TAG, response.toString());
 
             // Deserialize it. You use a new instance of Gson to avoid infinite recursion
             // to this deserializer
@@ -135,7 +130,7 @@ public class ApiManager {
         }
     }
 
-    private class ApiCallTask<T> extends AsyncTask<String, Void, T> {
+    static private class ApiCallTask<T> extends AsyncTask<String, Void, T> {
 
         private Callback<T> callback;
 
@@ -167,6 +162,9 @@ public class ApiManager {
                     urlConnection.disconnect();
                 }
 
+                Log.v(LOG_TAG, response);
+                Log.v(LOG_TAG, type.toString());
+
                 return gson.fromJson(response, type);
 
             } catch (IOException e) {
@@ -185,7 +183,7 @@ public class ApiManager {
         }
     }
 
-    private String readStream(InputStream is) {
+    static private String readStream(InputStream is) {
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             int i = is.read();
@@ -197,6 +195,13 @@ public class ApiManager {
         } catch (IOException e) {
             return "";
         }
+    }
+
+    static private void fillAuthenticationData(Map<String, String> params) {
+
+        params.put("username", preferences.getString("username", null));
+        params.put("authentication_token", preferences.getString("authentication_token", null));
+
     }
 
 }
