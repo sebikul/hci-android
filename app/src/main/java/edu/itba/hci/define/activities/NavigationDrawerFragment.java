@@ -1,16 +1,18 @@
-package edu.itba.hci.define;
+package edu.itba.hci.define.activities;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +23,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import edu.itba.hci.define.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -95,6 +99,14 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
+                Intent intent=null;
+                Log.v("NavigationDrawerFrag", "position=" + position);
+                if(position>=0 && position<=4) {
+                    intent = new Intent(getActivity(), CategoryActivity.class);
+                    intent.putExtra("categoryName",(String)mDrawerListView.getAdapter().getItem(position));
+                }
+
+                startActivity(intent);
             }
         });
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
@@ -102,9 +114,12 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
+                        getString(R.string.category0),
+                        getString(R.string.category1),
+                        getString(R.string.category2),
+                        getString(R.string.category3),
+                        getString(R.string.category4),
+                        getString(R.string.category5),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -129,6 +144,7 @@ public class NavigationDrawerFragment extends Fragment {
         // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
