@@ -1,26 +1,25 @@
 package edu.itba.hci.define.activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.api.ApiError;
+import edu.itba.hci.define.api.ApiManager;
+import edu.itba.hci.define.api.Callback;
+import edu.itba.hci.define.models.Order;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -42,15 +41,36 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+        Log.v(MainActivity.class.toString(), "Testing api");
+
+        ApiManager.getOrderById(4, new Callback<Order>() {
+            @Override
+            public void onSuccess(Order response) {
+                Log.v("Success", response.toString());
+            }
+
+            @Override
+            public void onError(ApiError error) {
+                Log.v("Error", error.toString());
+            }
+
+            @Override
+            public void onErrorConnection() {
+                Log.v(MainActivity.class.toString(), "Error connection");
+            }
+        });
     }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        /*// update the main content by replacing fragments
+        // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();*/
+                .commit();
     }
 
     public void onSectionAttached(int number) {}
