@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_main);
 
-        Intent settings = new Intent(this, FooActivity.class);
+        Intent settings = new Intent(this, BasicActivity.class);
         startActivity(settings);
 
         //INTENTO DE LISTA////
@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
 
         switch (id) {
             case R.id.action_settings:
-                Intent settings = new Intent(this, FooActivity.class);
+                Intent settings = new Intent(this, BasicActivity.class);
                 startActivity(settings);
                 return true;
             case R.id.search_button:

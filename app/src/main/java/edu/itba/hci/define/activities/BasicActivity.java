@@ -15,10 +15,10 @@ import android.view.MenuItem;
 
 import edu.itba.hci.define.R;
 
-public class FooActivity extends AppCompatActivity {
+public class BasicActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle drawerToggle;
+    private Toolbar mToolbar;
+    private ActionBarDrawerToggle toggleDrawer;
     private NavigationView nvDrawer;
 
     @Override
@@ -28,13 +28,13 @@ public class FooActivity extends AppCompatActivity {
         setContentView(R.layout.activity_foo);
 
         // Set a Toolbar to replace the ActionBar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
-        mDrawer.setDrawerListener(drawerToggle);
+        toggleDrawer = setupDrawerToggle();
+        mDrawer.setDrawerListener(toggleDrawer);
 
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
@@ -43,7 +43,7 @@ public class FooActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -61,14 +61,14 @@ public class FooActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawerToggle.syncState();
+        toggleDrawer.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
-        drawerToggle.onConfigurationChanged(newConfig);
+        toggleDrawer.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class FooActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
+        if (toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -93,13 +93,13 @@ public class FooActivity extends AppCompatActivity {
         Fragment fragment = null;
 
         switch(menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
+            case R.id.category_item1:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.nav_second_fragment:
+            case R.id.category_item2:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.nav_third_fragment:
+            case R.id.category_item3:
                 fragment = new CategoryFragment();
                 break;
             default:

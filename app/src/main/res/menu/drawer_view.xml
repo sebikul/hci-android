@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_fragment"
-            android:icon="@mipmap/ic_launcher"
-            android:title="First" />
+            android:id="@+id/home_item"
+            android:icon="@drawable/ic_action_home"
+            android:title="@string/home_title" />
         <item
-            android:id="@+id/nav_second_fragment"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Second" />
-        <item
-            android:id="@+id/nav_third_fragment"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Third" />
+            android:id="@+id/purchases_item"
+            android:icon="@drawable/ic_action_shopping_basket"
+            android:title="@string/purchases_title" />
     </group>
-
-    <item android:title="Sub items">
+    <item android:title="@string/category_title">
         <menu>
             <item
+                android:id="@+id/category_item1"
                 android:icon="@mipmap/ic_launcher"
-                android:title="Sub item 1" />
+                android:title="@string/category_item1" />
             <item
+                android:id="@+id/category_item2"
                 android:icon="@mipmap/ic_launcher"
-                android:title="Sub item 2" />
+                android:title="@string/category_item2" />
+            <item
+                android:id="@+id/category_item3"
+                android:icon="@mipmap/ic_launcher"
+                android:title="@string/category_item3" />
+            <item
+                android:id="@+id/category_item4"
+                android:icon="@mipmap/ic_launcher"
+                android:title="@string/category_item4" />
+            <item
+                android:id="@+id/category_item5"
+                android:icon="@mipmap/ic_launcher"
+                android:title="@string/category_item5" />
+        </menu>
+    </item>
+    <item android:title="@string/menu_misc_title">
+        <menu>
+            <item
+                android:id="@+id/settings_item"
+                android:icon="@drawable/ic_action_settings"
+                android:title="@string/settings_title" />
+            <item
+                android:id="@+id/help_item"
+                android:icon="@drawable/ic_action_help"
+                android:title="@string/help_title" />
         </menu>
     </item>
 </menu>
