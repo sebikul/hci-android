@@ -2,7 +2,9 @@ package edu.itba.hci.define.activities;
 
 import android.os.Bundle;
 
-public class MainActivity extends NavBasicActivity {
+import edu.itba.hci.define.ToolbarActivity;
+
+public class HelpActivity extends ToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

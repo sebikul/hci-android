@@ -12,21 +12,23 @@
     <string name="title_activity_account">Account</string>
     <string name="title_activity_purchases">Purchases</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_foo">FooActivity</string>
+    <!-- Our -->
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="category_title">Categories</string>
-    <string name="category_item1">Women</string>
-    <string name="category_item2">Men</string>
-    <string name="category_item3">Girls</string>
-    <string name="category_item4">Boys</string>
-    <string name="category_item5">Babies</string>
-    <string name="settings_title">Settings</string>
-    <string name="help_title">Help</string>
-    <string name="purchases_title">My Purchases</string>
-    <string name="home_title">Home</string>
-    <string name="menu_misc_title">Miscellaneous</string>
+    <string name="title_category">Categories</string>
+    <string name="category_woman">Women</string>
+    <string name="category_men">Men</string>
+    <string name="category_girls">Girls</string>
+    <string name="category_boys">Boys</string>
+    <string name="category_babies">Babies</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="title_help">Help</string>
+    <string name="title_purchases">My Purchases</string>
+    <string name="title_home">Home</string>
+    <string name="title_misc">Miscellaneous</string>
+    <string name="hello_blank_fragment">hello</string>
+
 </resources>

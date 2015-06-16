@@ -12,7 +12,6 @@ import java.util.Map;
 
 import edu.itba.hci.define.R;
 
-
 public class PurchasesActivityNav extends NavBasicActivity {
     ListView listView;
 

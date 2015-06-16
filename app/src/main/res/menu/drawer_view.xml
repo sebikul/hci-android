@@ -2,48 +2,49 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/home_item"
+            android:id="@+id/item_home"
             android:icon="@drawable/ic_action_home"
-            android:title="@string/home_title" />
+            android:title="@string/title_home" />
         <item
-            android:id="@+id/purchases_item"
+            android:id="@+id/item_purchases"
             android:icon="@drawable/ic_action_shopping_basket"
-            android:title="@string/purchases_title" />
+            android:title="@string/title_purchases" />
     </group>
-    <item android:title="@string/category_title">
+    <item android:title="@string/title_category">
+        <!-- TODO: ICONS! -->
         <menu>
             <item
-                android:id="@+id/category_item1"
+                android:id="@+id/item_category_1"
                 android:icon="@mipmap/ic_launcher"
-                android:title="@string/category_item1" />
+                android:title="@string/category_woman" />
             <item
-                android:id="@+id/category_item2"
+                android:id="@+id/item_category_2"
                 android:icon="@mipmap/ic_launcher"
-                android:title="@string/category_item2" />
+                android:title="@string/category_men" />
             <item
-                android:id="@+id/category_item3"
+                android:id="@+id/item_category_3"
                 android:icon="@mipmap/ic_launcher"
-                android:title="@string/category_item3" />
+                android:title="@string/category_girls" />
             <item
-                android:id="@+id/category_item4"
+                android:id="@+id/item_category_4"
                 android:icon="@mipmap/ic_launcher"
-                android:title="@string/category_item4" />
+                android:title="@string/category_boys" />
             <item
-                android:id="@+id/category_item5"
+                android:id="@+id/item_category_5"
                 android:icon="@mipmap/ic_launcher"
-                android:title="@string/category_item5" />
+                android:title="@string/category_babies" />
         </menu>
     </item>
-    <item android:title="@string/menu_misc_title">
+    <item android:title="@string/title_misc">
         <menu>
             <item
-                android:id="@+id/settings_item"
+                android:id="@+id/item_settings"
                 android:icon="@drawable/ic_action_settings"
-                android:title="@string/settings_title" />
+                android:title="@string/title_settings" />
             <item
-                android:id="@+id/help_item"
+                android:id="@+id/item_help"
                 android:icon="@drawable/ic_action_help"
-                android:title="@string/help_title" />
+                android:title="@string/title_help" />
         </menu>
     </item>
 </menu>

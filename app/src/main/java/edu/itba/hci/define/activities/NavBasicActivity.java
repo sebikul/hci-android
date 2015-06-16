@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.old.CategoryFragment;
 
 public class NavBasicActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -72,13 +72,13 @@ public class NavBasicActivity extends AppCompatActivity {
         toggleDrawer.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        // Uncomment to inflate menu items to Action Bar
-        inflater.inflate(R.menu.menu_foo, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        // Uncomment to inflate menu items to Action Bar
+//        inflater.inflate(R.menu.menu_foo, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -95,35 +95,39 @@ public class NavBasicActivity extends AppCompatActivity {
         Intent activity = null;
 
         switch(menuItem.getItemId()) {
-            case R.id.home_item:
+            case R.id.item_home:
                 if(!this.getClass().equals(MainActivity.class)) {
                     activity = new Intent(this, MainActivity.class);
                 }
                 break;
-            case R.id.purchases_item:
+            case R.id.item_purchases:
                 Intent purchases = new Intent(this, PurchasesActivityNav.class);
                 startActivity(purchases);
                 break;
-            case R.id.category_item1:
+            case R.id.item_category_1:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.category_item2:
+            case R.id.item_category_2:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.category_item3:
+            case R.id.item_category_3:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.category_item4:
+            case R.id.item_category_4:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.category_item5:
+            case R.id.item_category_5:
                 fragment = new CategoryFragment();
                 break;
-            case R.id.settings_item:
+            case R.id.item_settings:
                 if(!this.getClass().equals(SettingsActivity.class)) {
                     activity = new Intent(this, SettingsActivity.class);
                 }
-
+                break;
+            case R.id.item_help:
+                if(!this.getClass().equals(HelpActivity.class)) {
+                    activity = new Intent(this, HelpActivity.class);
+                }
                 break;
             default:
                 fragment = new CategoryFragment();
@@ -131,21 +135,18 @@ public class NavBasicActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         if(fragment != null) {
-//            if(this.getClass().equals(CategoryActivity.class)) {
-//                //FragmentManager fragmentManager = getSupportFragmentManager();
-//                //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-//                // Highlight the selected item, update the title, and close the drawer
-//                menuItem.setChecked(true);
-//                setTitle(menuItem.getTitle());
-//            } else {
-//                activity = new Intent(this, CategoryActivity.class);
-//            }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
+
+            // Highlight the selected item, update the title, and close the drawer
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
         }
 
         if(activity != null) {
             startActivity(activity);
         }
 
-        mDrawer.closeDrawers(); //TODO: AFUERA O ADENTRO?
+        mDrawer.closeDrawers();
     }
 }

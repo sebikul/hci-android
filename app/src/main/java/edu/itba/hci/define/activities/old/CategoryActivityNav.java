@@ -18,7 +18,6 @@ import java.util.Locale;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.NavBasicActivity;
 
-
 public class CategoryActivityNav extends NavBasicActivity implements ActionBar.TabListener {
 
     /**
