@@ -60,6 +60,19 @@ public class ApiManager {
 
     }
 
+    static public <T extends ApiResponse> void genericCall(String service, String method, Callback<T> callback, Class<T> type) {
+        makeApiCall(service, method, null, callback, type);
+    }
+
+    static public <T extends ApiResponse> void genericCallWithAuth(String service, String method, Callback<T> callback, Class<T> type) {
+
+        Map<String, String> params = new HashMap<>(2);
+
+        fillAuthenticationData(params);
+
+        makeApiCall(service, method, params, callback, type);
+    }
+
     static private <T extends ApiResponse> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
 
         String url = buildUrl(service, method, parameters);
@@ -73,9 +86,12 @@ public class ApiManager {
     static private String buildUrl(String service, String method, Map<String, String> parameters) {
         String url = BASE_URL + service + ".groovy?method=" + method;
 
-        for (Map.Entry<String, String> e : parameters.entrySet()) {
-            url += "&" + e.getKey() + "=" + URLEncoder.encode(e.getValue());
+        if (parameters != null) {
+            for (Map.Entry<String, String> e : parameters.entrySet()) {
+                url += "&" + e.getKey() + "=" + URLEncoder.encode(e.getValue());
+            }
         }
+
 
         return url;
 

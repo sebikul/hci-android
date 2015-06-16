@@ -1,30 +1,25 @@
 package edu.itba.hci.define.activities;
 
-import java.util.Locale;
-
-import android.app.Activity;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import java.util.Locale;
 
 import edu.itba.hci.define.R;
 
-public class CategoryActivity extends ActionBarActivity implements ActionBar.TabListener
-        ,NavigationDrawerFragment.NavigationDrawerCallbacks{
+
+public class CategoryActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,26 +35,15 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        Log.d("CategoryActivity", "NavigationDrawerFragment = " + mNavigationDrawerFragment);
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
-
-        setTitle(getIntent().getStringExtra("categoryName"));
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -81,10 +65,6 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
             actionBar.addTab(
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
@@ -97,6 +77,9 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_category, menu);
+
+        //Activate up button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
@@ -130,11 +113,6 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-    }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -163,11 +141,11 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.fixed_tab1).toUpperCase(l);
+                    return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
-                    return getString(R.string.fixed_tab2).toUpperCase(l);
+                    return getString(R.string.title_section2).toUpperCase(l);
                 case 2:
-                    return getString(R.string.fixed_tab3).toUpperCase(l);
+                    return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;
         }
@@ -201,15 +179,8 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_category, container, false);
             return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 
