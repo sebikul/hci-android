@@ -11,6 +11,7 @@
     <string name="title_section3">Sales</string>
     <string name="title_activity_account">Account</string>
     <string name="title_activity_purchases">Purchases</string>
+    <string name="hello_blank_fragment">hello</string>
 
     <!-- Our -->
 
@@ -29,6 +30,9 @@
     <string name="title_purchases">My Purchases</string>
     <string name="title_home">Home</string>
     <string name="title_misc">Miscellaneous</string>
-    <string name="hello_blank_fragment">hello</string>
+
+    <string name="title_sales">On sale</string>
+    <string name="title_new">New</string>
+    <string name="title_subcategories">Subcategories</string>
 
 </resources>

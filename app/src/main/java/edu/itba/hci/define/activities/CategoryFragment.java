@@ -1,7 +1,6 @@
 package edu.itba.hci.define.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +25,18 @@ public class CategoryFragment extends Fragment {
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.tabs_view);
         setupViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs_menu);
-        tabLayout.setupWithViewPager(viewPager);
+
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+        tabs.setViewPager(viewPager);
 
         return view;
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFrag(new PurchaseFragment(), "CAT");
-        adapter.addFrag(new PurchaseFragment(), "DOG");
-        adapter.addFrag(new PurchaseFragment(), "MOUSE");
+        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_subcategories));
+        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_sales));
+        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_new));
         viewPager.setAdapter(adapter);
     }
 
