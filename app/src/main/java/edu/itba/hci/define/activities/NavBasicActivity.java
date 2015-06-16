@@ -1,10 +1,10 @@
 package edu.itba.hci.define.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.old.CategoryFragment;
 
-public class BasicActivity extends AppCompatActivity {
+public class NavBasicActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private ActionBarDrawerToggle toggleDrawer;
@@ -25,7 +26,7 @@ public class BasicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_foo);
+        setContentView(R.layout.app_nav);
 
         // Set a Toolbar to replace the ActionBar.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -81,7 +82,7 @@ public class BasicActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggleDrawer.onOptionsItemSelected(item)) {
+        if(toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -91,8 +92,18 @@ public class BasicActivity extends AppCompatActivity {
         // Create a new fragment and specify the planet to show based on
         // position
         Fragment fragment = null;
+        Intent activity = null;
 
         switch(menuItem.getItemId()) {
+            case R.id.home_item:
+                if(!this.getClass().equals(MainActivity.class)) {
+                    activity = new Intent(this, MainActivity.class);
+                }
+                break;
+            case R.id.purchases_item:
+                Intent purchases = new Intent(this, PurchasesActivityNav.class);
+                startActivity(purchases);
+                break;
             case R.id.category_item1:
                 fragment = new CategoryFragment();
                 break;
@@ -102,17 +113,39 @@ public class BasicActivity extends AppCompatActivity {
             case R.id.category_item3:
                 fragment = new CategoryFragment();
                 break;
+            case R.id.category_item4:
+                fragment = new CategoryFragment();
+                break;
+            case R.id.category_item5:
+                fragment = new CategoryFragment();
+                break;
+            case R.id.settings_item:
+                if(!this.getClass().equals(SettingsActivity.class)) {
+                    activity = new Intent(this, SettingsActivity.class);
+                }
+
+                break;
             default:
                 fragment = new CategoryFragment();
         }
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        if(fragment != null) {
+//            if(this.getClass().equals(CategoryActivity.class)) {
+//                //FragmentManager fragmentManager = getSupportFragmentManager();
+//                //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//                // Highlight the selected item, update the title, and close the drawer
+//                menuItem.setChecked(true);
+//                setTitle(menuItem.getTitle());
+//            } else {
+//                activity = new Intent(this, CategoryActivity.class);
+//            }
+        }
 
-        // Highlight the selected item, update the title, and close the drawer
-        menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
-        mDrawer.closeDrawers();
+        if(activity != null) {
+            startActivity(activity);
+        }
+
+        mDrawer.closeDrawers(); //TODO: AFUERA O ADENTRO?
     }
 }

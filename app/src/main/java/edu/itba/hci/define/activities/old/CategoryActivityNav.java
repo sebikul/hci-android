@@ -1,4 +1,4 @@
-package edu.itba.hci.define.activities;
+package edu.itba.hci.define.activities.old;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +16,10 @@ import android.view.ViewGroup;
 import java.util.Locale;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.NavBasicActivity;
 
 
-public class CategoryActivity extends ActionBarActivity implements ActionBar.TabListener {
+public class CategoryActivityNav extends NavBasicActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,7 +39,7 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.old_activity_category);
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -179,7 +179,7 @@ public class CategoryActivity extends ActionBarActivity implements ActionBar.Tab
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_category, container, false);
+            View rootView = inflater.inflate(R.layout.old_fragment_category, container, false);
             return rootView;
         }
     }

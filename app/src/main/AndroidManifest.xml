@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
+        android:theme="@style/MyTheme"
         android:name=".DefineApplication">
 
         <activity
@@ -28,7 +28,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.CategoryActivity"
+            android:name=".activities.old.CategoryActivityNav"
             android:label="@string/title_activity_category"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
@@ -45,15 +45,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.AccountActivity"
-            android:label="@string/title_activity_account"
-            android:parentActivityName="activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activities.PurchasesActivity"
+            android:name=".activities.PurchasesActivityNav"
             android:label="@string/title_activity_purchases"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
@@ -61,7 +53,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.BasicActivity"
+            android:name=".activities.NavBasicActivity"
             android:label="@string/title_activity_foo" >
         </activity>
 

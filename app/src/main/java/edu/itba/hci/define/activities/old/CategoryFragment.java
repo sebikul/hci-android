@@ -1,4 +1,4 @@
-package edu.itba.hci.define.activities;
+package edu.itba.hci.define.activities.old;
 
 import android.net.Uri;
 import android.os.Bundle;
