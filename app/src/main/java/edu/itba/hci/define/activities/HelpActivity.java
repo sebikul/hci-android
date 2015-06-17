@@ -2,7 +2,7 @@ package edu.itba.hci.define.activities;
 
 import android.os.Bundle;
 
-import edu.itba.hci.define.ToolbarActivity;
+import edu.itba.hci.define.activities.base.ToolbarActivity;
 
 public class HelpActivity extends ToolbarActivity {
 

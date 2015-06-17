@@ -24,5 +24,9 @@
         <item name="overlapAnchor">true</item>
     </style>
 
-    <style name="MyTheme.Detail" parent="MyTheme"></style>
+    <style name="MyTheme.Detail" parent="MyTheme"/>
+
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

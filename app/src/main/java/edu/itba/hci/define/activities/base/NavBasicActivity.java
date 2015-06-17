@@ -1,4 +1,4 @@
-package edu.itba.hci.define.activities;
+package edu.itba.hci.define.activities.base;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,11 +10,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.CategoryFragment;
+import edu.itba.hci.define.activities.HelpActivity;
+import edu.itba.hci.define.activities.MainActivity;
+import edu.itba.hci.define.activities.PurchasesActivityNav;
+import edu.itba.hci.define.activities.SettingsActivity;
 
 public class NavBasicActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;

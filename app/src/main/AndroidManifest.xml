@@ -61,7 +61,7 @@
                 android:value=".activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.NavBasicActivity">
+            android:name=".activities.base.NavBasicActivity">
         </activity>
 
 

@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import java.util.Locale;
 
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.NavBasicActivity;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 
 public class CategoryActivityNav extends NavBasicActivity implements ActionBar.TabListener {
 

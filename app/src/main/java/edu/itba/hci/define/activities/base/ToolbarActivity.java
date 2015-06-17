@@ -1,9 +1,11 @@
-package edu.itba.hci.define;
+package edu.itba.hci.define.activities.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+
+import edu.itba.hci.define.R;
 
 public class ToolbarActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
