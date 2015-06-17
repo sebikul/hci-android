@@ -12,16 +12,15 @@ import java.util.Map;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
+import edu.itba.hci.define.activities.base.ToolbarActivity;
 
-public class PurchasesActivityNav extends NavBasicActivity {
+public class PurchasesActivity extends ToolbarActivity {
     ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchases);
-
-
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -44,7 +43,7 @@ public class PurchasesActivityNav extends NavBasicActivity {
         List<Map<String, String>> values = Arrays.asList(values1, values2, values3, values4, values4, values3, values2, values1);
 
         PurchaseListAdapter adapter =
-                new PurchaseListAdapter(PurchasesActivityNav.this, R.layout.purchase_list_item, values);
+                new PurchaseListAdapter(PurchasesActivity.this, R.layout.purchase_list_item, values);
         listView.setClickable(true);
 
         listView.setAdapter(adapter);

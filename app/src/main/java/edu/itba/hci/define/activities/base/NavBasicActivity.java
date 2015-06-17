@@ -6,17 +6,20 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 
+import edu.itba.hci.define.HomeFragment;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.CategoryFragment;
 import edu.itba.hci.define.activities.HelpActivity;
-import edu.itba.hci.define.activities.MainActivity;
-import edu.itba.hci.define.activities.PurchasesActivityNav;
+import edu.itba.hci.define.activities.PurchasesActivity;
 import edu.itba.hci.define.activities.SettingsActivity;
 
 public class NavBasicActivity extends AppCompatActivity {
@@ -44,6 +47,10 @@ public class NavBasicActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
+
+        if(savedInstanceState == null) {
+            selectDrawerItem(nvDrawer.getMenu().getItem(0));
+        }
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -99,13 +106,12 @@ public class NavBasicActivity extends AppCompatActivity {
 
         switch(menuItem.getItemId()) {
             case R.id.item_home:
-                if(!this.getClass().equals(MainActivity.class)) {
-                    activity = new Intent(this, MainActivity.class);
-                }
+                fragment = new HomeFragment();
                 break;
             case R.id.item_purchases:
-                Intent purchases = new Intent(this, PurchasesActivityNav.class);
-                startActivity(purchases);
+                if(!this.getClass().equals(PurchasesActivity.class)) {
+                    activity = new Intent(this, PurchasesActivity.class);
+                }
                 break;
             case R.id.item_category_1:
                 fragment = new CategoryFragment();
@@ -138,8 +144,10 @@ public class NavBasicActivity extends AppCompatActivity {
 
         // Insert the fragment by replacing any existing fragment
         if(fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, fragment);
+            //transaction.addToBackStack(null);
+            transaction.commit();
 
             // Highlight the selected item, update the title, and close the drawer
             menuItem.setChecked(true);
@@ -152,4 +160,13 @@ public class NavBasicActivity extends AppCompatActivity {
 
         mDrawer.closeDrawers();
     }
+
+    @Override
+    public void onBackPressed() {
+        if(mDrawer.isDrawerOpen(nvDrawer))
+            mDrawer.closeDrawer(nvDrawer);
+        else
+            super.onBackPressed();
+    }
+
 }
