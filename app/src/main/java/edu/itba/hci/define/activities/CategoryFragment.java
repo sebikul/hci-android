@@ -25,9 +25,11 @@ public class CategoryFragment extends Fragment {
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.tabs_view);
         setupViewPager(viewPager);
+        viewPager.setCurrentItem(1);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
+
 
         return view;
     }
