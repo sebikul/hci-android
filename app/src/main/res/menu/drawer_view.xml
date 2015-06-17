@@ -14,9 +14,6 @@
             android:enabled="false"
             android:title="@string/title_category" />
         <item
-            android:enabled="false"
-            android:title="@string/title_category"/>
-        <item
             android:id="@+id/item_category_1"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/category_woman" />
