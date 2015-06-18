@@ -1,6 +1,7 @@
 package edu.itba.hci.define.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
     public PurchaseListAdapter(Context context, int resource, List<Order> orderList) {
         super(context, resource, orderList);
+
         this.orderList = orderList;
     }
 
@@ -28,10 +30,10 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
         View rowView = inflater.inflate(R.layout.purchase_list_item, parent, false);
 
         TextView textView1 = (TextView) rowView.findViewById(R.id.name);
-        textView1.setText(orderList.get(position).getId());
+        textView1.setText(""+orderList.get(position).getId());
 
         TextView textView2 = (TextView) rowView.findViewById(R.id.receivedDate);
-        textView2.setText(orderList.get(position).getStatus());
+        textView2.setText(""+orderList.get(position).getStatus());
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         imageView.setImageResource(R.mipmap.ic_launcher);
