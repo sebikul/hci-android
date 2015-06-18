@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -228,9 +229,15 @@ public class NavBasicActivity extends AppCompatActivity {
 
                 Log.v(LOG_TAG, "Reemplazando el header con el de la sesion.");
 
-                nvDrawer.removeHeaderView(guestView);
+                if (context.isLoggedIn()) {
 
-                nvDrawer.addHeaderView(sessionView);
+                    nvDrawer.removeHeaderView(guestView);
+
+                    nvDrawer.addHeaderView(sessionView);
+
+                    MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
+                    purchases.setVisible(true);
+                }
 
 
                 // The user picked a contact.
