@@ -34,5 +34,6 @@
     <string name="title_sales">On sale</string>
     <string name="title_new">New</string>
     <string name="title_subcategories">Subcategories</string>
+    <string name="title_login">Login</string>
 
 </resources>

@@ -5,28 +5,32 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import edu.itba.hci.define.HomeFragment;
+import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.CategoryFragment;
 import edu.itba.hci.define.activities.HelpActivity;
+import edu.itba.hci.define.activities.LoginActivity;
 import edu.itba.hci.define.activities.PurchasesActivity;
 import edu.itba.hci.define.activities.SettingsActivity;
+import edu.itba.hci.define.api.ApiManager;
 
 public class NavBasicActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private ActionBarDrawerToggle toggleDrawer;
     private NavigationView nvDrawer;
+
+    static private final String LOG_TAG = "NavBasicActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +49,38 @@ public class NavBasicActivity extends AppCompatActivity {
 
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        View header;
+
+        if (ApiManager.isLoggedIn()) {
+            Log.v(LOG_TAG, "Agregando header con sesion activa al navdrawer");
+
+            header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+        } else {
+            Log.v(LOG_TAG, "Agregando header con sesion de invitado al navdrawer");
+            header = LayoutInflater.from(this).inflate(R.layout.nav_header_guest, null);
+        }
+
+        header.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(NavBasicActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
+
+        nvDrawer.addHeaderView(header);
+
         // Setup drawer view
         setupDrawerContent(nvDrawer);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             selectDrawerItem(nvDrawer.getMenu().getItem(0));
         }
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -92,7 +118,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggleDrawer.onOptionsItemSelected(item)) {
+        if (toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -104,15 +130,25 @@ public class NavBasicActivity extends AppCompatActivity {
         Fragment fragment = null;
         Intent activity = null;
 
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.item_home:
                 fragment = new HomeFragment();
                 break;
+
+            //Seccion de invitado
+            case R.id.item_login:
+
+                break;
+            //END Seccion de invitado
+
+            //Seccion con sesion activa
             case R.id.item_purchases:
-                if(!this.getClass().equals(PurchasesActivity.class)) {
+                if (!this.getClass().equals(PurchasesActivity.class)) {
                     activity = new Intent(this, PurchasesActivity.class);
                 }
                 break;
+            //END Seccion con sesion activa
+
             case R.id.item_category_1:
                 fragment = new CategoryFragment();
                 break;
@@ -129,12 +165,12 @@ public class NavBasicActivity extends AppCompatActivity {
                 fragment = new CategoryFragment();
                 break;
             case R.id.item_settings:
-                if(!this.getClass().equals(SettingsActivity.class)) {
+                if (!this.getClass().equals(SettingsActivity.class)) {
                     activity = new Intent(this, SettingsActivity.class);
                 }
                 break;
             case R.id.item_help:
-                if(!this.getClass().equals(HelpActivity.class)) {
+                if (!this.getClass().equals(HelpActivity.class)) {
                     activity = new Intent(this, HelpActivity.class);
                 }
                 break;
@@ -143,7 +179,7 @@ public class NavBasicActivity extends AppCompatActivity {
         }
 
         // Insert the fragment by replacing any existing fragment
-        if(fragment != null) {
+        if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, fragment);
             //transaction.addToBackStack(null);
@@ -154,7 +190,7 @@ public class NavBasicActivity extends AppCompatActivity {
             setTitle(menuItem.getTitle());
         }
 
-        if(activity != null) {
+        if (activity != null) {
             startActivity(activity);
         }
 
@@ -163,7 +199,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mDrawer.isDrawerOpen(nvDrawer))
+        if (mDrawer.isDrawerOpen(nvDrawer))
             mDrawer.closeDrawer(nvDrawer);
         else
             super.onBackPressed();

@@ -5,14 +5,29 @@
             android:id="@+id/item_home"
             android:icon="@drawable/ic_action_home"
             android:title="@string/title_home" />
+
+        <!-- Seccion de invitado-->
+        <item
+            android:id="@+id/item_login"
+            android:icon="@drawable/ic_perm_identity_black"
+            android:title="@string/title_login" />
+        <!-- END Seccion de invitado-->
+
+
+        <!-- Seccion con sesion activa-->
         <item
             android:id="@+id/item_purchases"
             android:icon="@drawable/ic_action_shopping_basket"
-            android:title="@string/title_purchases" />
+            android:title="@string/title_purchases"
+            android:visible="false" />
+        <!-- END Seccion con sesion activa-->
+
+
         <item
             android:actionLayout="@layout/abc_action_bar_title_item"
             android:enabled="false"
             android:title="@string/title_category" />
+
         <item
             android:id="@+id/item_category_1"
             android:icon="@mipmap/ic_launcher"
@@ -33,17 +48,20 @@
             android:id="@+id/item_category_5"
             android:icon="@mipmap/ic_launcher"
             android:title="@string/category_babies" />
+
+        <item android:title="@string/title_misc">
+            <menu>
+                <item
+                    android:id="@+id/item_settings"
+                    android:icon="@drawable/ic_action_settings"
+                    android:title="@string/title_settings" />
+                <item
+                    android:id="@+id/item_help"
+                    android:icon="@drawable/ic_action_help"
+                    android:title="@string/title_help" />
+            </menu>
+        </item>
+
     </group>
-    <item android:title="@string/title_misc">
-        <menu>
-            <item
-                android:id="@+id/item_settings"
-                android:icon="@drawable/ic_action_settings"
-                android:title="@string/title_settings" />
-            <item
-                android:id="@+id/item_help"
-                android:icon="@drawable/ic_action_help"
-                android:title="@string/title_help" />
-        </menu>
-    </item>
+
 </menu>

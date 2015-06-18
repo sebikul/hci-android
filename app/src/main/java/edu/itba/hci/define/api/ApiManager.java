@@ -24,6 +24,7 @@ import java.util.Map;
 
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
+import edu.itba.hci.define.models.User;
 
 public class ApiManager {
 
@@ -32,9 +33,17 @@ public class ApiManager {
     static private final String BASE_URL = "http://eiffel.itba.edu.ar/hci/service3/";
     static private Gson gson;
     static private SharedPreferences preferences;
-
+    static private User session;
 
     private ApiManager() {
+    }
+
+    public static User getSession() {
+        return session;
+    }
+
+    public static boolean isLoggedIn(){
+        return session!=null;
     }
 
     static public void initialize(SharedPreferences pref) {
@@ -94,6 +103,27 @@ public class ApiManager {
 
 
         return url;
+
+    }
+
+    static private String readStream(InputStream is) {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            int i = is.read();
+            while (i != -1) {
+                bo.write(i);
+                i = is.read();
+            }
+            return bo.toString();
+        } catch (IOException e) {
+            return "";
+        }
+    }
+
+    static private void fillAuthenticationData(Map<String, String> params) {
+
+        params.put("username", preferences.getString("username", null));
+        params.put("authentication_token", preferences.getString("authentication_token", null));
 
     }
 
@@ -201,27 +231,6 @@ public class ApiManager {
 
 
         }
-    }
-
-    static private String readStream(InputStream is) {
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while (i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            return bo.toString();
-        } catch (IOException e) {
-            return "";
-        }
-    }
-
-    static private void fillAuthenticationData(Map<String, String> params) {
-
-        params.put("username", preferences.getString("username", null));
-        params.put("authentication_token", preferences.getString("authentication_token", null));
-
     }
 
 }

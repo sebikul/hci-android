@@ -1,5 +1,6 @@
-package edu.itba.hci.define;
+package edu.itba.hci.define.activities;
 
+import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.PurchaseFragment;
 import edu.itba.hci.define.activities.base.TabbedFragment;
 
