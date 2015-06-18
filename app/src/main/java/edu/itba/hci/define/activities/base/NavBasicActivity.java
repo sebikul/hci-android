@@ -62,6 +62,13 @@ public class NavBasicActivity extends AppCompatActivity {
         View header;
 
         sessionView = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+        sessionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.v(LOG_TAG, "Abriendo informacion de la cuenta del usuario.");
+            }
+        });
+
         guestView = LayoutInflater.from(this).inflate(R.layout.nav_header_guest, null);
         guestView.setOnClickListener(new View.OnClickListener() {
 
@@ -146,12 +153,6 @@ public class NavBasicActivity extends AppCompatActivity {
             case R.id.item_home:
                 fragment = new HomeFragment();
                 break;
-
-            //Seccion de invitado
-            case R.id.item_login:
-
-                break;
-            //END Seccion de invitado
 
             //Seccion con sesion activa
             case R.id.item_purchases:

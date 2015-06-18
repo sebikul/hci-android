@@ -16,8 +16,8 @@ public class DefineApplication extends Application {
     private SharedPreferences preferences;
     private User session;
 
-    public DefineApplication getInstance() {
-        return singleton;
+    public SharedPreferences getPreferences() {
+        return preferences;
     }
 
     @Override
@@ -29,13 +29,11 @@ public class DefineApplication extends Application {
         preferences = getSharedPreferences(PREFERENCES_BUCKET, MODE_PRIVATE);
         ApiManager.initialize(preferences);
 
+        if (preferences.getString("authentication_token", null) != null) {
+            session = new User();//fixme dummy user
+            Log.v(LOG_TAG, "Session encontrada");
 
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putString("username", "janedoe");
-        editor.putString("authentication_token", "a8c0d2a9d332574951a8e4a0af7d516f");
-
-        editor.apply();
+        }
 
     }
 

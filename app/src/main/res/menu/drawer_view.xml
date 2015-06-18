@@ -6,14 +6,6 @@
             android:icon="@drawable/ic_action_home"
             android:title="@string/title_home" />
 
-        <!-- Seccion de invitado-->
-        <item
-            android:id="@+id/item_login"
-            android:icon="@drawable/ic_perm_identity_black"
-            android:title="@string/title_login" />
-        <!-- END Seccion de invitado-->
-
-
         <!-- Seccion con sesion activa-->
         <item
             android:id="@+id/item_purchases"
