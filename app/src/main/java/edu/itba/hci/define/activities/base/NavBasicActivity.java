@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.CategoryFragment;
@@ -30,13 +31,22 @@ public class NavBasicActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggleDrawer;
     private NavigationView nvDrawer;
 
+    protected DefineApplication context;
+
     static private final String LOG_TAG = "NavBasicActivity";
+
+    static private int LOGIN_REQUEST = 1;
+
+    private View guestView;
+    private View sessionView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.app_nav);
+
+        context = (DefineApplication) getApplicationContext();
 
         // Set a Toolbar to replace the ActionBar.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -51,23 +61,25 @@ public class NavBasicActivity extends AppCompatActivity {
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         View header;
 
-        if (ApiManager.isLoggedIn()) {
-            Log.v(LOG_TAG, "Agregando header con sesion activa al navdrawer");
-
-            header = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
-        } else {
-            Log.v(LOG_TAG, "Agregando header con sesion de invitado al navdrawer");
-            header = LayoutInflater.from(this).inflate(R.layout.nav_header_guest, null);
-        }
-
-        header.setOnClickListener(new View.OnClickListener() {
+        sessionView = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
+        guestView = LayoutInflater.from(this).inflate(R.layout.nav_header_guest, null);
+        guestView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Intent loginIntent = new Intent(NavBasicActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
+                startActivityForResult(loginIntent, LOGIN_REQUEST);
             }
         });
+
+        if (context.isLoggedIn()) {
+            Log.v(LOG_TAG, "Agregando header con sesion activa al navdrawer");
+            header = sessionView;
+        } else {
+            Log.v(LOG_TAG, "Agregando header con sesion de invitado al navdrawer");
+            header = guestView;
+
+        }
 
         nvDrawer.addHeaderView(header);
 
@@ -203,6 +215,29 @@ public class NavBasicActivity extends AppCompatActivity {
             mDrawer.closeDrawer(nvDrawer);
         else
             super.onBackPressed();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == LOGIN_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+                Log.v(LOG_TAG, "Reemplazando el header con el de la sesion.");
+
+                nvDrawer.removeHeaderView(guestView);
+
+                nvDrawer.addHeaderView(sessionView);
+
+
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
     }
 
 }

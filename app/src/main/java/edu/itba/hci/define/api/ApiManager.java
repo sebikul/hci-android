@@ -21,6 +21,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.CRC32;
+import java.util.zip.Checksum;
 
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
@@ -33,18 +35,11 @@ public class ApiManager {
     static private final String BASE_URL = "http://eiffel.itba.edu.ar/hci/service3/";
     static private Gson gson;
     static private SharedPreferences preferences;
-    static private User session;
+
 
     private ApiManager() {
     }
 
-    public static User getSession() {
-        return session;
-    }
-
-    public static boolean isLoggedIn(){
-        return session!=null;
-    }
 
     static public void initialize(SharedPreferences pref) {
 
@@ -52,6 +47,7 @@ public class ApiManager {
 
         gson = new GsonBuilder()
                 .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
+                .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
                 .create();
 
         preferences = pref;
@@ -67,6 +63,23 @@ public class ApiManager {
 
         makeApiCall("Order", "GetOrderById", params, callback, Order.class);
 
+    }
+
+    static public void login(String email, String password, Callback<User> callback) {
+        Map<String, String> params = new HashMap<>(2);
+
+        Checksum checksum = new CRC32();
+
+        byte[] emailBytes = email.getBytes();
+
+        checksum.update(emailBytes, 0, emailBytes.length);
+
+        long checksumValue = checksum.getValue();
+
+        params.put("username", String.valueOf(checksumValue));
+        params.put("password", password);
+
+        makeApiCall("Account", "SignIn", params, callback, User.class);
     }
 
     static public <T extends ApiResponse> void genericCall(String service, String method, Callback<T> callback, Class<T> type) {
@@ -155,6 +168,15 @@ public class ApiManager {
                     e.printStackTrace();
                 }
 
+            } else {
+                if (type == User.class) {
+
+                    JsonElement tokenElement = je.getAsJsonObject().get("authenticationToken");
+
+                    String token = new Gson().fromJson(tokenElement, String.class);
+
+                    ((User) response).setAuthToken(token);
+                }
             }
 
             if (je.getAsJsonObject().has("error")) {
