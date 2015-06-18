@@ -7,7 +7,7 @@ import android.view.Menu;
 
 import edu.itba.hci.define.R;
 
-public class ToolbarActivity extends AppCompatActivity {
+public abstract class ToolbarActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
 
     @Override
@@ -19,6 +19,7 @@ public class ToolbarActivity extends AppCompatActivity {
         // Set a Toolbar to replace the ActionBar.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
     }
 
     @Override
@@ -26,4 +27,5 @@ public class ToolbarActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return true;
     }
+
 }

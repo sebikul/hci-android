@@ -47,7 +47,8 @@ public class DefineApplication extends Application {
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", session.getUsername());
-        editor.putString("authentication_token", "a8c0d2a9d332574951a8e4a0af7d516f");
+        editor.putString("authentication_token", session.getAuthToken());
+        editor.commit();
 
         this.session = session;
 

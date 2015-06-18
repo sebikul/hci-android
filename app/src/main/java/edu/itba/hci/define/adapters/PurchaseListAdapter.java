@@ -1,4 +1,4 @@
-package edu.itba.hci.define.activities;
+package edu.itba.hci.define.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,16 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.models.Order;
 
-public class PurchaseListAdapter extends ArrayAdapter<Map<String, String>> {
-    private List<Map<String,String>> values;
+public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
-    public PurchaseListAdapter(Context context, int resource, List<Map<String,String>> values) {
-        super(context, resource, values);
-        this.values = values;
+    private List<Order> orderList;
+
+    public PurchaseListAdapter(Context context, int resource, List<Order> orderList) {
+        super(context, resource, orderList);
+        this.orderList = orderList;
     }
 
     @Override
@@ -27,10 +28,10 @@ public class PurchaseListAdapter extends ArrayAdapter<Map<String, String>> {
         View rowView = inflater.inflate(R.layout.purchase_list_item, parent, false);
 
         TextView textView1 = (TextView) rowView.findViewById(R.id.name);
-        textView1.setText(values.get(position).get("nombre"));
+        textView1.setText(orderList.get(position).getId());
 
         TextView textView2 = (TextView) rowView.findViewById(R.id.receivedDate);
-        textView2.setText(values.get(position).get("descripcion"));
+        textView2.setText(orderList.get(position).getStatus());
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         imageView.setImageResource(R.mipmap.ic_launcher);

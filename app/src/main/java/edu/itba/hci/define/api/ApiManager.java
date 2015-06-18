@@ -10,6 +10,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,12 +21,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
+import edu.itba.hci.define.models.OrderList;
 import edu.itba.hci.define.models.User;
 
 public class ApiManager {
@@ -48,6 +51,7 @@ public class ApiManager {
         gson = new GsonBuilder()
                 .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
                 .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
+                .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
                 .create();
 
         preferences = pref;
@@ -62,6 +66,16 @@ public class ApiManager {
         fillAuthenticationData(params);
 
         makeApiCall("Order", "GetOrderById", params, callback, Order.class);
+
+    }
+
+    static public void getAllOrders(Callback<OrderList> callback) {
+
+        Map<String, String> params = new HashMap<>(2);
+
+        fillAuthenticationData(params);
+
+        makeApiCall("Order", "GetAllOrders", params, callback, OrderList.class);
 
     }
 
@@ -155,29 +169,46 @@ public class ApiManager {
 
             JsonElement content = je.getAsJsonObject().get(container);
 
-            T response = new Gson().fromJson(content, type);
+            T response;
 
-            if (response == null) {
-                Class<T> tClass = (Class<T>) type;
+            if (type == OrderList.class) {
 
-                try {
-                    response = tClass.newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                Log.v(LOG_TAG,"Deserializando lista de ordenes");
+                Type listType = new TypeToken<List<Order>>() {
+                }.getType();
+                // In this test code i just shove the JSON here as string.
+                List<Order> orderList = new Gson().fromJson(content, listType);
+
+                response = (T) new OrderList(orderList);
+
 
             } else {
-                if (type == User.class) {
+                response = new Gson().fromJson(content, type);
 
-                    JsonElement tokenElement = je.getAsJsonObject().get("authenticationToken");
+                if (response == null) {
+                    Class<T> tClass = (Class<T>) type;
 
-                    String token = new Gson().fromJson(tokenElement, String.class);
+                    try {
+                        response = tClass.newInstance();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
 
-                    ((User) response).setAuthToken(token);
+                } else {
+                    if (type == User.class) {
+
+                        JsonElement tokenElement = je.getAsJsonObject().get("authenticationToken");
+
+                        String token = new Gson().fromJson(tokenElement, String.class);
+
+                        ((User) response).setAuthToken(token);
+                    }
                 }
+
             }
+
 
             if (je.getAsJsonObject().has("error")) {
                 JsonElement errorElement = je.getAsJsonObject().get("error");

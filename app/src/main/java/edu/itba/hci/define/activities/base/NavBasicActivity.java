@@ -82,6 +82,9 @@ public class NavBasicActivity extends AppCompatActivity {
 
         if (context.isLoggedIn()) {
             Log.v(LOG_TAG, "Agregando header con sesion activa al navdrawer");
+            MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
+            purchases.setVisible(true);
+
             header = sessionView;
         } else {
             Log.v(LOG_TAG, "Agregando header con sesion de invitado al navdrawer");
