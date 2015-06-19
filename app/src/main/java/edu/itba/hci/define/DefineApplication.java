@@ -24,8 +24,6 @@ public class DefineApplication extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
-
-
         preferences = getSharedPreferences(PREFERENCES_BUCKET, MODE_PRIVATE);
         ApiManager.initialize(preferences);
 
