@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +42,7 @@ public class PurchasesFragment extends Fragment {
             public void onSuccess(OrderList response) {
                 showProgress(false);
 
-                PurchaseListAdapter adapter =
-                        new PurchaseListAdapter(getActivity(), R.layout.purchase_list_item, response.getOrders());
+                PurchaseListAdapter adapter = new PurchaseListAdapter(getActivity(), R.layout.purchase_list_item, response.getOrders());
                 listView.setClickable(true);
 
                 listView.setAdapter(adapter);

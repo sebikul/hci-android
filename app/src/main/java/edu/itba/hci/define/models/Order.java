@@ -1,16 +1,11 @@
 package edu.itba.hci.define.models;
 
-import edu.itba.hci.define.api.ApiError;
-
-/**
- * Created by sebikul on 6/9/15.
- */
 public class Order extends ApiResponse {
 
     private int id;
     private Address address;
     private CreditCard creditCard;
-    private int status;
+    private OrderStatus status;
     private String receivedDate;
     private String processedDate;
     private String shippedDate;
@@ -18,7 +13,7 @@ public class Order extends ApiResponse {
     private int latitude;
     private int longitude;
 
-    public Order(int id, Address address, CreditCard creditCard, int status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude) {
+    public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude) {
         this.id = id;
         this.address = address;
         this.creditCard = creditCard;
@@ -64,7 +59,7 @@ public class Order extends ApiResponse {
         return creditCard;
     }
 
-    public int getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 

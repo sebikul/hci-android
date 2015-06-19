@@ -1,8 +1,6 @@
 package edu.itba.hci.define.models;
 
-/**
- * Created by sebikul on 6/9/15.
- */
+
 public class CreditCard {
 
     private int id;
@@ -12,6 +10,14 @@ public class CreditCard {
 
         this.id = id;
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public int getId() {
