@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
+import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
@@ -54,7 +55,8 @@ public class ApiManager {
                 .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
                 .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
                 .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
-                .registerTypeAdapter(Product.class, new ApiDeserializer<Product>(""))
+                .registerTypeAdapter(ProductList.class, new ApiDeserializer<ProductList>("products"))
+                .registerTypeAdapter(Product.class,new ApiDeserializer<Product>("products"))
                 .create();
 
         preferences = pref;
@@ -82,8 +84,29 @@ public class ApiManager {
 
     }
 
-    // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
+    static public void getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
 
+        Map<String, String> params = new HashMap<>(2);
+
+        params.put("page", String.valueOf(page));
+
+        if (filter != null) {
+            String filterJson = gson.toJson(filter);
+
+            params.put("filter", "[" + filterJson + "]");
+        }
+
+        makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
+
+    }
+
+    static public void getAllProducts(int page, Callback<ProductList> callback) {
+
+        getAllProducts(page, null, callback);
+
+    }
+
+    // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
 
 
     static public void login(String email, String password, Callback<User> callback) {
@@ -180,7 +203,7 @@ public class ApiManager {
 
             if (type == OrderList.class) {
 
-                Log.v(LOG_TAG,"Deserializando lista de ordenes");
+                Log.v(LOG_TAG, "Deserializando lista de ordenes");
                 Type listType = new TypeToken<List<Order>>() {
                 }.getType();
                 // In this test code i just shove the JSON here as string.
@@ -188,8 +211,22 @@ public class ApiManager {
 
                 response = (T) new OrderList(orderList);
 
+            }else if(type == ProductList.class){
+
+                Log.v(LOG_TAG, "Deserializando lista de productos");
+                Type listType = new TypeToken<List<Product>>() {
+                }.getType();
+                // In this test code i just shove the JSON here as string.
+                List<Product> productList = new Gson().fromJson(content, listType);
+
+                response = (T) new ProductList(productList);
 
             } else {
+
+                if (type == Product.class) {
+                    content = content.getAsJsonArray().get(0);
+                }
+
                 response = new Gson().fromJson(content, type);
 
                 if (response == null) {

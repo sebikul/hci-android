@@ -1,8 +1,8 @@
 package edu.itba.hci.define.models;
 
-/**
- * Created by Diego on 19/06/2015.
- */
+
+import java.util.Arrays;
+
 public class Product extends ApiResponse {
     private int id;
     private String name;
@@ -18,6 +18,18 @@ public class Product extends ApiResponse {
         this.imageUrl = imageUrl;
         this.category = category;
         this.subcategory = subcategory;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", imageUrl=" + Arrays.toString(imageUrl) +
+                ", category=" + category +
+                ", subcategory=" + subcategory +
+                '}';
     }
 
     public int getId() {
