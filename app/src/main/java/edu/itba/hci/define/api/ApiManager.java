@@ -29,6 +29,8 @@ import java.util.zip.Checksum;
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
+import edu.itba.hci.define.models.Product;
+import edu.itba.hci.define.models.ProductList;
 import edu.itba.hci.define.models.User;
 
 public class ApiManager {
@@ -52,6 +54,7 @@ public class ApiManager {
                 .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
                 .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
                 .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
+                .registerTypeAdapter(Product.class, new ApiDeserializer<Product>(""))
                 .create();
 
         preferences = pref;
@@ -78,6 +81,10 @@ public class ApiManager {
         makeApiCall("Order", "GetAllOrders", params, callback, OrderList.class);
 
     }
+
+    // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
+
+
 
     static public void login(String email, String password, Callback<User> callback) {
         Map<String, String> params = new HashMap<>(2);
