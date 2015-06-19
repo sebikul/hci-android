@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.jakewharton.disklrucache.DiskLruCache;
+
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.AccountFragment;

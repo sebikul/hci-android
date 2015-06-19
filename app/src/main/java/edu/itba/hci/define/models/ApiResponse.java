@@ -1,9 +1,11 @@
 package edu.itba.hci.define.models;
 
+import java.io.Serializable;
+
 import edu.itba.hci.define.api.ApiError;
 
 
-public class ApiResponse {
+public class ApiResponse implements Serializable{
 
     protected transient ApiError error;
 

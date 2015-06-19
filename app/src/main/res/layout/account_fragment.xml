@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:paddingLeft="16dp"
+    android:paddingTop="24dp">
 
 
     <TextView
@@ -15,51 +17,75 @@
         android:id="@+id/account_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:text="account_name"
+        android:layout_marginTop="6dp"
+        android:textColor="#ef1e1e1e" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/account_lastname" />
+        android:text="@string/account_lastname"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/account_lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="lastname"
+        android:textSize="18dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#ef1e1e1e" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/account_sex" />
+        android:text="@string/account_sex"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/account_sex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="sex"
+        android:textSize="18dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#ef1e1e1e" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/account_ident" />
+        android:text="@string/account_ident"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/account_ident"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="identity"
+        android:textSize="18dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#ef1e1e1e" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/account_email" />
+        android:text="@string/account_email"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/account_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="email"
+        android:textSize="18dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#ef1e1e1e" />
 
 </LinearLayout>

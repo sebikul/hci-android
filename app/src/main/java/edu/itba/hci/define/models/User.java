@@ -1,7 +1,9 @@
 package edu.itba.hci.define.models;
 
 
-public class User extends ApiResponse {
+import java.io.Serializable;
+
+public class User extends ApiResponse implements Serializable{
 
     private int id;
     private String username;
@@ -51,7 +53,6 @@ public class User extends ApiResponse {
     }
 
     public String getAuthToken() {
-
         return authToken;
     }
 

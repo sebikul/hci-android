@@ -43,6 +43,8 @@
     <string name="account_sex">Sex</string>
     <string name="account_ident">Identity</string>
     <string name="account_email">Email</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_female">Female</string>
 
 
 </resources>

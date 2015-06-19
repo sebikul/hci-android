@@ -84,6 +84,16 @@ public class ApiManager {
 
     }
 
+    static public AsyncTask getAccount(Callback<User> callback) {
+
+        Map<String, String> params = new HashMap<>(2);
+
+        fillAuthenticationData(params);
+
+        return makeApiCall("Account", "GetAccount", params, callback, User.class);
+
+    }
+
     static public AsyncTask getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
 
         Map<String, String> params = new HashMap<>(2);
@@ -179,8 +189,8 @@ public class ApiManager {
 
     static private void fillAuthenticationData(Map<String, String> params) {
 
-        params.put("username", preferences.getString("username", null));
-        params.put("authentication_token", preferences.getString("authentication_token", null));
+        params.put("username", preferences.getString("username", ""));
+        params.put("authentication_token", preferences.getString("authentication_token", ""));
 
     }
 
