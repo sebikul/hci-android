@@ -1,6 +1,7 @@
 package edu.itba.hci.define.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.List;
 
@@ -18,25 +22,61 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
     private List<Order> orderList;
 
+    private TextDrawable.IBuilder drawableBuilder;
+    private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
+
     public PurchaseListAdapter(Context context, int resource, List<Order> orderList) {
         super(context, resource, orderList);
+
+        drawableBuilder = TextDrawable.builder()
+                .beginConfig()
+                .textColor(Color.WHITE)
+                .endConfig()
+                .round();
 
         this.orderList = orderList;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.purchase_list_item, parent, false);
 
-        TextView textView1 = (TextView) rowView.findViewById(R.id.name);
-        textView1.setText(""+orderList.get(position).getId());
+        ImageView image = (ImageView) rowView.findViewById(R.id.purchase_icon);
+        TextView purchaseIdText = (TextView) rowView.findViewById(R.id.purchase_id);
+        TextView purchaseDateText = (TextView) rowView.findViewById(R.id.purchase_date);
 
-        TextView textView2 = (TextView) rowView.findViewById(R.id.receivedDate);
-        textView2.setText(""+orderList.get(position).getStatus());
+        Order order = orderList.get(position);
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        String status = order.getStatus().name();
+
+        int color;
+
+        switch (order.getStatus()) {
+            case CONFIRMED:
+                color = Color.parseColor("#FFA000");
+                break;
+
+            case TRANSPORTED:
+                color = Color.parseColor("#03A9F4");
+                break;
+
+
+            case DELIVERED:
+                color = Color.parseColor("#4CAF50");
+                break;
+
+            default:
+                color = Color.parseColor("#4CAF5");
+
+        }
+
+        TextDrawable drawable = drawableBuilder.build(String.valueOf(status.charAt(0)), color);
+        image.setImageDrawable(drawable);
+
+        purchaseIdText.setText("#" + order.getId());
+        purchaseDateText.setText(order.getReceivedDate());
 
         return rowView;
     }

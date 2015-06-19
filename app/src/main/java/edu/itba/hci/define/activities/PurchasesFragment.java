@@ -63,6 +63,12 @@ public class PurchasesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+
+    }
 
     /**
      * Shows the progress UI and hides the login form.

@@ -10,5 +10,7 @@ public class CategoryFragment extends TabbedFragment {
         adapter.addFrag(new PurchaseFragment(), getString(R.string.title_subcategories));
         adapter.addFrag(new PurchaseFragment(), getString(R.string.title_sales));
         adapter.addFrag(new PurchaseFragment(), getString(R.string.title_new));
+
+
     }
 }
