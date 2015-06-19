@@ -63,7 +63,7 @@ public class ApiManager {
         preferences = pref;
     }
 
-    static public void getOrderById(int id, Callback<Order> callback) {
+    static public AsyncTask getOrderById(int id, Callback<Order> callback) {
 
         Map<String, String> params = new HashMap<>(3);
 
@@ -71,21 +71,21 @@ public class ApiManager {
 
         fillAuthenticationData(params);
 
-        makeApiCall("Order", "GetOrderById", params, callback, Order.class);
+        return makeApiCall("Order", "GetOrderById", params, callback, Order.class);
 
     }
 
-    static public void getAllOrders(Callback<OrderList> callback) {
+    static public AsyncTask getAllOrders(Callback<OrderList> callback) {
 
         Map<String, String> params = new HashMap<>(2);
 
         fillAuthenticationData(params);
 
-        makeApiCall("Order", "GetAllOrders", params, callback, OrderList.class);
+        return makeApiCall("Order", "GetAllOrders", params, callback, OrderList.class);
 
     }
 
-    static public void getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
+    static public AsyncTask getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
 
         Map<String, String> params = new HashMap<>(2);
 
@@ -97,20 +97,20 @@ public class ApiManager {
             params.put("filter", "[" + filterJson + "]");
         }
 
-        makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
+        return makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
 
     }
 
-    static public void getAllProducts(int page, Callback<ProductList> callback) {
+    static public AsyncTask getAllProducts(int page, Callback<ProductList> callback) {
 
-        getAllProducts(page, null, callback);
+        return getAllProducts(page, null, callback);
 
     }
 
     // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
 
 
-    static public void login(String email, String password, Callback<User> callback) {
+    static public AsyncTask login(String email, String password, Callback<User> callback) {
         Map<String, String> params = new HashMap<>(2);
 
         Checksum checksum = new CRC32();
@@ -124,29 +124,29 @@ public class ApiManager {
         params.put("username", String.valueOf(checksumValue));
         params.put("password", password);
 
-        makeApiCall("Account", "SignIn", params, callback, User.class);
+        return makeApiCall("Account", "SignIn", params, callback, User.class);
     }
 
-    static public <T extends ApiResponse> void genericCall(String service, String method, Callback<T> callback, Class<T> type) {
-        makeApiCall(service, method, null, callback, type);
+    static public <T extends ApiResponse> AsyncTask genericCall(String service, String method, Callback<T> callback, Class<T> type) {
+        return makeApiCall(service, method, null, callback, type);
     }
 
-    static public <T extends ApiResponse> void genericCallWithAuth(String service, String method, Callback<T> callback, Class<T> type) {
+    static public <T extends ApiResponse> AsyncTask genericCallWithAuth(String service, String method, Callback<T> callback, Class<T> type) {
 
         Map<String, String> params = new HashMap<>(2);
 
         fillAuthenticationData(params);
 
-        makeApiCall(service, method, params, callback, type);
+        return makeApiCall(service, method, params, callback, type);
     }
 
-    static private <T extends ApiResponse> void makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
+    static private <T extends ApiResponse> AsyncTask makeApiCall(String service, String method, Map<String, String> parameters, Callback<T> callback, Class<T> type) {
 
         String url = buildUrl(service, method, parameters);
 
         Log.d(LOG_TAG, "Calling URL: " + url);
 
-        new ApiCallTask<T>(callback, type).execute(url);
+        return new ApiCallTask<T>(callback, type).execute(url);
 
     }
 
@@ -329,6 +329,14 @@ public class ApiManager {
 
 
         }
+
+        @Override
+        protected void onCancelled(T t) {
+            super.onCancelled(t);
+
+            Log.v(LOG_TAG,"Tarea cancelada.");
+        }
+
     }
 
 }

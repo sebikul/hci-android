@@ -10,7 +10,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.PurchasesActivity;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
@@ -23,13 +23,15 @@ public class NotificationReceiver extends BroadcastReceiver {
         Log.v("NotificationReceiver", "Creando notificacion");
         // Create the intent to start Activity when notification in action bar is
         // clicked.
-        Intent notificationIntent = new Intent(context, PurchasesActivity.class);
+        Intent notificationIntent = new Intent(context, NavBasicActivity.class);
+        notificationIntent.putExtra("action", NavBasicActivity.INTENT_PURCHASES);
+
         // The stack builder object will contain an artificial back stack for the
         // started Activity.
         // This ensures that navigating backward from the Activity leads out of
         // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(PurchasesActivity.class);
+        stackBuilder.addParentStack(NavBasicActivity.class);
         stackBuilder.addNextIntent(notificationIntent);
         // Create the pending intent granting the Operating System to launch activity
         // when notification in action bar is clicked.

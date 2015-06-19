@@ -38,6 +38,11 @@
     <string name="notification_text">Purchases have changed</string>
     <string name="more">MORE</string>
     <string name="image_error">Can\'t load images</string>
+    <string name="account_name">Name:</string>
+    <string name="account_lastname">Last Name:</string>
+    <string name="account_sex">Sex</string>
+    <string name="account_ident">Identity</string>
+    <string name="account_email">Email</string>
 
 
 </resources>

@@ -3,9 +3,11 @@ package edu.itba.hci.define.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ public class PurchasesFragment extends Fragment {
     private ListView listView;
     private View mProgressView;
 
+    private AsyncTask loaderTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class PurchasesFragment extends Fragment {
 
         showProgress(true);
 
-        ApiManager.getAllOrders(new Callback<OrderList>() {
+        loaderTask = ApiManager.getAllOrders(new Callback<OrderList>() {
             @Override
             public void onSuccess(OrderList response) {
                 showProgress(false);
@@ -67,6 +70,9 @@ public class PurchasesFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
+        Log.v(LOG_TAG,"Cancelando la llamada a la api.");
+
+        loaderTask.cancel(true);
 
     }
 

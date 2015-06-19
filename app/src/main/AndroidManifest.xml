@@ -53,14 +53,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity
-            android:name=".activities.PurchasesActivity"
-            android:label="@string/title_activity_purchases"
-            android:parentActivityName=".activities.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
         <activity android:name=".activities.base.NavBasicActivity" >
         </activity>
 

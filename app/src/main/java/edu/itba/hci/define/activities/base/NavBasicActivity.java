@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,21 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import edu.itba.hci.define.DefineApplication;
-import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.AccountFragment;
 import edu.itba.hci.define.activities.CategoryFragment;
 import edu.itba.hci.define.activities.HelpActivity;
+import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.activities.LoginActivity;
-import edu.itba.hci.define.activities.PurchasesActivity;
+import edu.itba.hci.define.activities.PurchasesFragment;
 import edu.itba.hci.define.activities.SettingsActivity;
-import edu.itba.hci.define.api.ApiManager;
 
 public class NavBasicActivity extends AppCompatActivity {
+
+    static public final int INTENT_NONE = 0;
+    static public final int INTENT_PURCHASES = 1;
+
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
     private ActionBarDrawerToggle toggleDrawer;
@@ -66,6 +70,8 @@ public class NavBasicActivity extends AppCompatActivity {
         sessionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                replaceContentWithFragment(new AccountFragment(), "account");
+                mDrawer.closeDrawers();
                 Log.v(LOG_TAG, "Abriendo informacion de la cuenta del usuario.");
             }
         });
@@ -96,6 +102,10 @@ public class NavBasicActivity extends AppCompatActivity {
 
         // Setup drawer view
         setupDrawerContent(nvDrawer);
+
+        if (getIntent().getIntExtra("action", INTENT_NONE) == INTENT_PURCHASES) {
+            replaceContentWithFragment(new AccountFragment(), "account");
+        }
 
         if (savedInstanceState == null) {
             selectDrawerItem(nvDrawer.getMenu().getItem(0));
@@ -131,13 +141,6 @@ public class NavBasicActivity extends AppCompatActivity {
         toggleDrawer.onConfigurationChanged(newConfig);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        // Uncomment to inflate menu items to Action Bar
-//        inflater.inflate(R.menu.menu_foo, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,68 +151,56 @@ public class NavBasicActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the planet to show based on
-        // position
-        Fragment fragment = null;
-        Intent activity = null;
+
+        Intent activity;
 
         switch (menuItem.getItemId()) {
             case R.id.item_home:
-                fragment = new HomeFragment();
+                replaceContentWithFragment(new HomeFragment(), "home", menuItem);
                 break;
 
             //Seccion con sesion activa
             case R.id.item_purchases:
-                if (!this.getClass().equals(PurchasesActivity.class)) {
-                    activity = new Intent(this, PurchasesActivity.class);
-                }
+                replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
                 break;
             //END Seccion con sesion activa
 
             case R.id.item_category_1:
-                fragment = new CategoryFragment();
+                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
                 break;
+
             case R.id.item_category_2:
-                fragment = new CategoryFragment();
+                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
                 break;
+
             case R.id.item_category_3:
-                fragment = new CategoryFragment();
+                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
                 break;
+
             case R.id.item_category_4:
-                fragment = new CategoryFragment();
+                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
                 break;
+
             case R.id.item_category_5:
-                fragment = new CategoryFragment();
+                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
                 break;
+
             case R.id.item_settings:
                 if (!this.getClass().equals(SettingsActivity.class)) {
                     activity = new Intent(this, SettingsActivity.class);
+                    startActivity(activity);
                 }
                 break;
+
             case R.id.item_help:
                 if (!this.getClass().equals(HelpActivity.class)) {
                     activity = new Intent(this, HelpActivity.class);
+                    startActivity(activity);
                 }
                 break;
-            default:
-                fragment = new CategoryFragment();
+
         }
 
-        // Insert the fragment by replacing any existing fragment
-        if (fragment != null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, fragment);
-            //transaction.addToBackStack(null);
-            transaction.commit();
-
-            // Highlight the selected item, update the title, and close the drawer
-            menuItem.setChecked(true);
-            setTitle(menuItem.getTitle());
-        }
-
-        if (activity != null) {
-            startActivity(activity);
-        }
 
         mDrawer.closeDrawers();
     }
@@ -222,12 +213,40 @@ public class NavBasicActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
+    private void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
+        if (currentFragment != null && currentFragment.isVisible()) {
+            Log.v(LOG_TAG, "Este fragmento ya esta encajado wacho");
+            return;
+        }
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content, fragment, tag);
+
+        transaction.commit();
+
+        if (trigger != null) {
+            trigger.setChecked(true);
+            setTitle(trigger.getTitle());
+
+        }
+
+    }
+
+    private void replaceContentWithFragment(Fragment fragment, String tag) {
+
+        replaceContentWithFragment(fragment, tag, null);
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
+
         if (requestCode == LOGIN_REQUEST) {
-            // Make sure the request was successful
             if (resultCode == RESULT_OK) {
 
                 Log.v(LOG_TAG, "Reemplazando el header con el de la sesion.");
@@ -235,7 +254,6 @@ public class NavBasicActivity extends AppCompatActivity {
                 if (context.isLoggedIn()) {
 
                     nvDrawer.removeHeaderView(guestView);
-
                     nvDrawer.addHeaderView(sessionView);
 
                     MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
@@ -243,10 +261,6 @@ public class NavBasicActivity extends AppCompatActivity {
                 }
 
 
-                // The user picked a contact.
-                // The Intent's data Uri identifies which contact was selected.
-
-                // Do something with the contact here (bigger example below)
             }
         }
     }
