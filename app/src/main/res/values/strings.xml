@@ -37,6 +37,7 @@
     <string name="title_login">Login</string>
     <string name="notification_text">Purchases have changed</string>
     <string name="more">MORE</string>
+    <string name="image_error">Can\'t load images</string>
 
 
 </resources>
