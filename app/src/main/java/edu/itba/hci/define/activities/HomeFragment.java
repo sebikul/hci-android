@@ -1,14 +1,18 @@
 package edu.itba.hci.define.activities;
 
-import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.PurchaseFragment;
-import edu.itba.hci.define.activities.base.TabbedFragment;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class HomeFragment extends TabbedFragment {
+import edu.itba.hci.define.R;
+
+public class HomeFragment extends Fragment {
 
     @Override
-    protected void setupViewPager() {
-        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_sales));
-        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_new));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        return view;
     }
 }
