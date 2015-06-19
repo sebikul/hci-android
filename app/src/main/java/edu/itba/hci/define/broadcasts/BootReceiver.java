@@ -18,25 +18,25 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.v("BootReceiver","Iniciando broadcast");
-        if (conditions(context)) {
+        Intent alarmIntent =
+                new Intent(context, AlarmReceiver.class);
+        if (conditions(context, alarmIntent)) {
             Log.v("BootReceiver","Estableciendo alarma");
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Intent alarmIntent =
-                    new Intent(context, AlarmReceiver.class);
             PendingIntent alarmPendingIntent =
                     PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
-            // TODO: Se tiene que guardar la configuración de cada cuanto se quiere hacer la consulta.
             DefineApplication app= (DefineApplication) context.getApplicationContext();
             long alarmInterval = app.getPreferences().getLong("alarmInterval", AlarmManager.INTERVAL_FIFTEEN_MINUTES);
-            /*alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    alarmInterval,alarmInterval, alarmPendingIntent);*/
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 60 * 2, 1000 * 60*2,alarmPendingIntent);
-
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval,alarmPendingIntent);
         }
     }
 
-    private boolean conditions(Context context) {
+    private boolean conditions(Context context, Intent alarmIntent) {
+        DefineApplication app = (DefineApplication) context.getApplicationContext();
+        String authToken = app.getPreferences().getString("authentication_token",null);
+        if(authToken==null)
+            return false;
         return true;
     }
 }

@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.PurchasesActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
+
+    private final int NOTIFICATION_ID = 137;
     public NotificationReceiver() {
     }
 
@@ -33,9 +36,9 @@ public class NotificationReceiver extends BroadcastReceiver {
         final PendingIntent contentIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder notificationBuilder = new Notification.Builder(context)
-                .setTicker("Hola")
-                .setContentText("Hola")
-                .setSmallIcon(android.R.drawable.ic_menu_info_details)
+                .setTicker(context.getResources().getString(R.string.notification_text))
+                .setContentText(context.getResources().getString(R.string.notification_text))
+                .setSmallIcon(R.drawable.ic_action_shopping_basket)
                         // Cancel notification if action bar is clicked.
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent);
@@ -45,7 +48,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         // Ignore deprecated warning. In newer devices SDK 16+ should use build() method.
         // getNotification() method should be used since minSdkVersion is set to 15.
         // getNotification() method internally calls build() method.
-        notificationManager.notify(100, notificationBuilder.getNotification());
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.getNotification());
 
     }
 }

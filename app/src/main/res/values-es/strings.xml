@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Define</string>
+
+    <string name="hello_world">Hola Mundo!</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="title_activity_settings">Configuraciones</string>
+    <string name="title_activity_category">Categorias</string>
+
+    <string name="title_section1">Subcategorias</string>
+    <string name="title_section2">Novedads</string>
+    <string name="title_section3">Ofertas</string>
+    <string name="title_activity_account">Cuenta</string>
+    <string name="title_activity_purchases">Compras</string>
+    <string name="hello_blank_fragment">Hola</string>
+
+    <!-- Our -->
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="title_category">Categorias</string>
+    <string name="category_woman">Mujeres</string>
+    <string name="category_men">Hombres</string>
+    <string name="category_girls">Niñas</string>
+    <string name="category_boys">Niños</string>
+    <string name="category_babies">Bebés</string>
+
+    <string name="title_settings">Configuraciones</string>
+    <string name="title_help">Ayuda</string>
+    <string name="title_purchases">Mis Compras</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_misc">Miscelanea</string>
+
+    <string name="title_sales">Ofertas</string>
+    <string name="title_new">Novedades</string>
+    <string name="title_subcategories">Subcategories</string>
+    <string name="title_login">Ingresar</string>
+    <string name="notification_text">Las compras han cambiado</string>
+
+
+</resources>
