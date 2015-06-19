@@ -1,5 +1,6 @@
 package edu.itba.hci.define.api;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -56,7 +57,7 @@ public class ApiManager {
                 .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
                 .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
                 .registerTypeAdapter(ProductList.class, new ApiDeserializer<ProductList>("products"))
-                .registerTypeAdapter(Product.class,new ApiDeserializer<Product>("products"))
+                .registerTypeAdapter(Product.class, new ApiDeserializer<Product>("products"))
                 .create();
 
         preferences = pref;
@@ -211,7 +212,7 @@ public class ApiManager {
 
                 response = (T) new OrderList(orderList);
 
-            }else if(type == ProductList.class){
+            } else if (type == ProductList.class) {
 
                 Log.v(LOG_TAG, "Deserializando lista de productos");
                 Type listType = new TypeToken<List<Product>>() {
@@ -219,7 +220,7 @@ public class ApiManager {
                 // In this test code i just shove the JSON here as string.
                 List<Product> productList = new Gson().fromJson(content, listType);
 
-                response = (T) new ProductList(productList);
+                response = (T) new ProductList(productList, je.getAsJsonObject().get("total").getAsInt());
 
             } else {
 
@@ -265,7 +266,7 @@ public class ApiManager {
         }
     }
 
-    static private class ApiCallTask<T extends ApiResponse> extends AsyncTask<String, Void, T> {
+    static public class ApiCallTask<T extends ApiResponse> extends AsyncTask<String, Void, T> {
 
         private Callback<T> callback;
 
