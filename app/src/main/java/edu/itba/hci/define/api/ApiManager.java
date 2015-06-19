@@ -1,6 +1,5 @@
 package edu.itba.hci.define.api;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -94,7 +93,7 @@ public class ApiManager {
         if (filter != null) {
             String filterJson = gson.toJson(filter);
 
-            params.put("filter", "[" + filterJson + "]");
+            params.put("filters", "[" + filterJson + "]");
         }
 
         return makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
