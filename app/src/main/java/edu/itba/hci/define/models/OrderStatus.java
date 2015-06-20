@@ -3,7 +3,9 @@ package edu.itba.hci.define.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum OrderStatus {
+import java.io.Serializable;
+
+public enum OrderStatus implements Serializable{
 
     @SerializedName("1")
     CREATED,

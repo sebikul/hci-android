@@ -1,7 +1,9 @@
 package edu.itba.hci.define.models;
 
 
-public class CreditCard {
+import java.io.Serializable;
+
+public class CreditCard implements Serializable {
 
     private int id;
     private String name;

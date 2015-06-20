@@ -1,7 +1,9 @@
 package edu.itba.hci.define.models;
 
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
 
     private int id;
     private String name;
