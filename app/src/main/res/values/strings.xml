@@ -46,11 +46,11 @@
     <string name="sex_male">Male</string>
     <string name="sex_female">Female</string>
     <string name="purchases_updated">Purchases list updated</string>
-    <string name="error_img" />
-    <string name="error_conection" />
     <string name="settings_notifications_enable">Enable Notifications</string>
     <string name="notification_interval_title">Update interval</string>
     <string name="notification_interval_summary">%s</string>
+    <string name="error_img"> An error has occurred while downloading images </string>
+    <string name="error_conection"> Conection error </string>
 
 
 </resources>
