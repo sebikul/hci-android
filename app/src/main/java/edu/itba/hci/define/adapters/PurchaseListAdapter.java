@@ -82,4 +82,6 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
         return rowView;
     }
+
+
 }

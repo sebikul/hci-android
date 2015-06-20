@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.broadcasts.AlarmReceiver;
+import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
 
 
@@ -39,12 +41,15 @@ public class PurchasesFragment extends Fragment {
 
     private ListView listView;
     private View mProgressView;
-    private BroadcastReceiver broadcastReceiver;
+
     private AsyncTask loaderTask;
 
     private SwipeRefreshLayout swipeContainer;
 
     private DefineApplication context;
+
+    BroadcastReceiver broadcastReceiver;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +62,22 @@ public class PurchasesFragment extends Fragment {
         mProgressView = view.findViewById(R.id.purchases_progress);
 
         listView.setClickable(true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                Order order = (Order) listView.getItemAtPosition(position);
+
+                Log.v(LOG_TAG, "Click!");
+
+                Intent purchaseIntent = new Intent(PurchasesFragment.this.getActivity(), PurchaseActivity.class);
+                purchaseIntent.putExtra("orderid", String.valueOf(order.getId()));
+                startActivity(purchaseIntent);
+
+            }
+        });
 
         showProgress(true);
 
@@ -72,8 +93,7 @@ public class PurchasesFragment extends Fragment {
                 // once the network request has completed successfully.
                 Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
                 updateOrderList(true);
-                //fixme
-                //todo
+
             }
         });
         // Configure the refreshing colors
@@ -81,7 +101,7 @@ public class PurchasesFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        
+
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -94,10 +114,11 @@ public class PurchasesFragment extends Fragment {
                 swipeContainer.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
-        
-        broadcastReceiver = new BroadcastReceiver(){
+
+
+        broadcastReceiver = new BroadcastReceiver() {
 
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -113,12 +134,14 @@ public class PurchasesFragment extends Fragment {
         intentFilter.setPriority(3);
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
 
+
+
         return view;
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
         Log.v(LOG_TAG, "Cancelando la llamada a la api.");
 

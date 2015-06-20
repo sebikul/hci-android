@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/purchase_title_summary"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Resumen"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#ef1e1e1e"/>
+
+            <TextView
+                android:id="@+id/purchase_subtotal_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_title_summary"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Subtotal: "
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_subtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="subtotal"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/purchase_subtotal_label"
+                android:layout_below="@+id/purchase_title_summary" />
+
+            <TextView
+                android:id="@+id/purchase_interes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_subtotal_label"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Interes: "
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_interes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="interes"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/purchase_interes_label"
+                android:layout_below="@+id/purchase_subtotal" />
+
+            <TextView
+                android:id="@+id/purchase_cuota_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_interes_label"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Cuota: "
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_cuota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="cuota"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/purchase_cuota_label"
+                android:layout_below="@+id/purchase_interes" />
+
+            <TextView
+                android:id="@+id/purchase_total_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_cuota"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Total: "
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="total"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/purchase_cuota_label"
+                android:layout_below="@+id/purchase_cuota" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_ddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/purchase_title_address"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Address"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#ef1e1e1e"/>
+
+            <TextView
+                android:id="@+id/purchase_address1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_title_address"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="direccion1"
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_address2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="direccion2"
+                android:textSize="16dp"
+                android:layout_below="@+id/purchase_address1" />
+
+            <TextView
+                android:id="@+id/purchase_address_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/purchase_address2"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="Phone: "
+                android:textSize="16dp"
+                android:textColor="#ef1e1e1e" />
+
+            <TextView
+                android:id="@+id/purchase_address_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="phone"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/purchase_address_phone_label"
+                android:layout_below="@+id/purchase_address2" />
+
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
