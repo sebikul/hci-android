@@ -1,5 +1,7 @@
 package edu.itba.hci.define.models;
 
+import java.util.Arrays;
+
 public class Order extends ApiResponse {
 
     private int id;
@@ -13,8 +15,9 @@ public class Order extends ApiResponse {
     private int latitude;
     private int longitude;
     private boolean notifications = false;
+    private OrderItem[] items;
 
-    public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude) {
+    public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude, OrderItem[] items) {
         this.id = id;
         this.address = address;
         this.creditCard = creditCard;
@@ -25,6 +28,7 @@ public class Order extends ApiResponse {
         this.deliveredDate = deliveredDate;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.items = items;
     }
 
     public Order() {
@@ -53,8 +57,7 @@ public class Order extends ApiResponse {
     @Override
     public String toString() {
         return "Order{" +
-                "error=" + error +
-                ", id=" + id +
+                "id=" + id +
                 ", address=" + address +
                 ", creditCard=" + creditCard +
                 ", status=" + status +
@@ -64,6 +67,8 @@ public class Order extends ApiResponse {
                 ", deliveredDate='" + deliveredDate + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", notifications=" + notifications +
+                ", items=" + Arrays.toString(items) +
                 '}';
     }
 

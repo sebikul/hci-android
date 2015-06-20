@@ -27,6 +27,7 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.itba.hci.define.activities.base.NavBasicActivity" />
         </activity>
+
         <activity
             android:name=".activities.HelpActivity"
             android:label="@string/title_help"
@@ -35,6 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
@@ -44,13 +46,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
+
         <activity android:name=".activities.base.NavBasicActivity" >
         </activity>
+
         <activity android:name=".activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.PurchaseFragment"
+            android:parentActivityName=".activities.MainActivity"
+            android:label="@string/title_activity_purchase">
+        </activity>
+
         <receiver
             android:name=".broadcasts.SessionReceiver"
             android:enabled="true" >
@@ -59,9 +69,11 @@
                 <action android:name="edu.itba.hci.define.REFRESH_ALARM"/>
             </intent-filter>
         </receiver>
+
         <receiver android:name=".broadcasts.AlarmReceiver" >
             android:enabled="true"
         </receiver>
+
         <receiver
             android:name=".broadcasts.NotificationReceiver"
             android:enabled="true">
@@ -69,7 +81,6 @@
                 android:priority="2">
                 <action android:name="edu.itba.hci.define.NOTIFICATION_BROADCAST" />
             </intent-filter>
-
         </receiver>
     </application>
 

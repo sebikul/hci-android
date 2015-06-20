@@ -52,7 +52,11 @@ public class DefineApplication extends Application {
         try {
             cache = DiskLruCache.open(cacheDir, 1, 1, 1024 * 1024 * 10);
 
+            //fixme wacho
+            //todo
+            cache.delete();
 
+            cache = DiskLruCache.open(cacheDir, 1, 1, 1024 * 1024 * 10);
         } catch (IOException e) {
             e.printStackTrace();
         }

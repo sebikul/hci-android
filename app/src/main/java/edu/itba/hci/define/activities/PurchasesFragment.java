@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -74,11 +76,19 @@ public class PurchasesFragment extends Fragment {
 
                 Order order = (Order) listView.getItemAtPosition(position);
 
-                Log.v(LOG_TAG, "Click!");
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.addToBackStack("order");
 
-                Intent purchaseIntent = new Intent(PurchasesFragment.this.getActivity(), PurchaseActivity.class);
-                purchaseIntent.putExtra("orderid", String.valueOf(order.getId()));
-                startActivity(purchaseIntent);
+                Fragment fragment = new PurchaseFragment();
+
+                Bundle args = new Bundle();
+                args.putInt("orderId", order.getId());
+                fragment.setArguments(args);
+
+                transaction.replace(R.id.content, fragment, "order");
+
+                transaction.commit();
 
             }
         });
@@ -92,10 +102,7 @@ public class PurchasesFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
+
                 updateOrderList(true);
 
             }
@@ -138,7 +145,6 @@ public class PurchasesFragment extends Fragment {
         getActivity().registerReceiver(broadcastReceiver, intentFilter);
 
 
-
         return view;
     }
 
@@ -146,9 +152,12 @@ public class PurchasesFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        Log.v(LOG_TAG, "Cancelando la llamada a la api.");
+        if(loaderTask.getStatus()!= AsyncTask.Status.FINISHED){
+            Log.v(LOG_TAG, "Cancelando la llamada a la api.");
 
-        loaderTask.cancel(true);
+            loaderTask.cancel(true);
+        }
+
         Log.v(LOG_TAG, "Sacando el registro a refresh alarm");
         getActivity().unregisterReceiver(broadcastReceiver);
 
