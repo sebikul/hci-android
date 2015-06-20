@@ -57,10 +57,11 @@
         </activity>
 
         <receiver
-            android:name=".broadcasts.BootReceiver"
+            android:name=".broadcasts.SessionReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="edu.itba.hci.define.REFRESH_ALARM"/>
             </intent-filter>
         </receiver>
         <receiver android:name=".broadcasts.AlarmReceiver" >
@@ -73,6 +74,7 @@
                 android:priority="2">
                 <action android:name="edu.itba.hci.define.NOTIFICATION_BROADCAST" />
             </intent-filter>
+
         </receiver>
     </application>
 

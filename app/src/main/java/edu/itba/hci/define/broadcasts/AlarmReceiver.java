@@ -13,7 +13,7 @@ import edu.itba.hci.define.models.OrderList;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    private final String NOTIFICATION_BROADCAST = "edu.itba.hci.define.NOTIFICATION_BROADCAST";
+    static public final String NOTIFICATION_BROADCAST = "edu.itba.hci.define.NOTIFICATION_BROADCAST";
 
     public AlarmReceiver() {
     }

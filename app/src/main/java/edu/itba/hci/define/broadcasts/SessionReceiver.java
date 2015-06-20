@@ -10,20 +10,30 @@ import android.util.Log;
 import edu.itba.hci.define.DefineApplication;
 
 
-public class BootReceiver extends BroadcastReceiver {
+public class SessionReceiver extends BroadcastReceiver {
 
-    public BootReceiver() {
+    static public final String REFRESH_ALARM = "edu.itba.hci.define.REFRESH_ALARM";
+    private PendingIntent alarmPendingIntent;
+
+
+    public SessionReceiver() {
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.v("BootReceiver", "Iniciando broadcast");
+        Log.v("SessionReceiver", "Llamando broadcast");
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent =
                 new Intent(context, AlarmReceiver.class);
-        if (conditions(context, alarmIntent)) {
-            Log.v("BootReceiver", "Estableciendo alarma");
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent alarmPendingIntent =
+
+        if (intent.getAction().equals(REFRESH_ALARM)) {
+            if(alarmPendingIntent!=null){
+                alarmManager.cancel(alarmPendingIntent);
+            }
+        }
+        if (conditions(context)) {
+            Log.v("SessionReceiver", "Estableciendo alarma");
+            alarmPendingIntent =
                     PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
             DefineApplication app = (DefineApplication) context.getApplicationContext();
@@ -33,10 +43,12 @@ public class BootReceiver extends BroadcastReceiver {
         }
     }
 
-    private boolean conditions(Context context, Intent alarmIntent) {
+    private boolean conditions(Context context) {
+        Log.v("SessionReceiver", "Verificando condiciones");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
         String authToken = app.getPreferences().getString("authentication_token", null);
-        if (authToken == null)
+        boolean notification_on = app.getPreferences().getBoolean("notifacation_on",true);
+        if (authToken == null || !notification_on)
             return false;
         return true;
     }

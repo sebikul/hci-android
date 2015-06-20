@@ -94,6 +94,24 @@ public class ApiManager {
 
     }
 
+    static public AsyncTask getAllProducts(int page, int page_size, ApiProductFilter filter, Callback<ProductList> callback) {
+
+        Map<String, String> params = new HashMap<>(3);
+
+        params.put("page", String.valueOf(page));
+        params.put("page_size", String.valueOf(page_size));
+
+        if (filter != null) {
+            String filterJson = gson.toJson(filter);
+
+            params.put("filters", "[" + filterJson + "]");
+        }
+
+        return makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
+
+    }
+
+
     static public AsyncTask getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
 
         Map<String, String> params = new HashMap<>(2);
