@@ -37,6 +37,7 @@ public class SessionReceiver extends BroadcastReceiver {
                     PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 
             DefineApplication app = (DefineApplication) context.getApplicationContext();
+
             long alarmInterval = app.getPreferences().getLong("alarmInterval", AlarmManager.INTERVAL_FIFTEEN_MINUTES);
             alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval,alarmPendingIntent);
             //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 60 * 1, 1000 * 60 * 1, alarmPendingIntent);
@@ -47,8 +48,8 @@ public class SessionReceiver extends BroadcastReceiver {
         Log.v("SessionReceiver", "Verificando condiciones");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
         String authToken = app.getPreferences().getString("authentication_token", null);
-        boolean notification_on = app.getPreferences().getBoolean("notifacation_on",true);
-        if (authToken == null || !notification_on)
+        boolean notification_enable = app.getPreferences().getBoolean("notifacation_enable",true);
+        if (authToken == null || !notification_enable)
             return false;
         return true;
     }
