@@ -12,6 +12,7 @@ public class Order extends ApiResponse {
     private String deliveredDate;
     private int latitude;
     private int longitude;
+    private boolean notifications;
 
     public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude) {
         this.id = id;
@@ -28,6 +29,14 @@ public class Order extends ApiResponse {
 
     public Order() {
 
+    }
+
+    public boolean hasNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
     }
 
     @Override

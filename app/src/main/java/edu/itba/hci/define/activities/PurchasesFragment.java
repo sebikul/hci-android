@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,9 +64,6 @@ public class PurchasesFragment extends Fragment {
                 Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
                 updateOrderList(true);
 
-
-                //fixme
-                //todo
             }
         });
         // Configure the refreshing colors
@@ -73,6 +72,21 @@ public class PurchasesFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                swipeContainer.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return view;
     }
 
@@ -91,19 +105,18 @@ public class PurchasesFragment extends Fragment {
         loaderTask = ApiManager.getAllOrders(new Callback<OrderList>() {
             @Override
             public void onSuccess(OrderList response) {
-                showProgress(false);
 
                 PurchaseListAdapter adapter = new PurchaseListAdapter(getActivity(), R.layout.purchase_list_item, response.getOrders());
-                listView.setClickable(true);
 
                 listView.setAdapter(adapter);
-
-                swipeContainer.setRefreshing(false);
 
                 if (showToast) {
                     Toast.makeText(PurchasesFragment.this.getActivity(), getResources().getString(R.string.purchases_updated), Toast.LENGTH_SHORT).show();
 
                 }
+
+                showProgress(false);
+                swipeContainer.setRefreshing(false);
             }
 
             @Override
