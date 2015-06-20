@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
             public void onSuccess(ProductList response) {
                 if (response.getTotal() > 19) {
                     Random random = new Random();
-                    int n=random.nextInt()%20;
+                    int n=random.nextInt(20);
                     Product p1=response.getProducts().get(n);
                     Product p2=response.getProducts().get((n+1)%20);
                     Product p3=response.getProducts().get((n+2)%20);
