@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -63,9 +64,6 @@ public class PurchasesFragment extends Fragment {
                 Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
                 updateOrderList(true);
 
-
-                //fixme
-                //todo
             }
         });
         // Configure the refreshing colors
@@ -74,8 +72,23 @@ public class PurchasesFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int topRowVerticalPosition = (listView == null || listView.getChildCount() == 0) ? 0 : listView.getChildAt(0).getTop();
+                swipeContainer.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
+
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         return view;
+
     }
 
     @Override
@@ -90,10 +103,11 @@ public class PurchasesFragment extends Fragment {
 
     void updateOrderList(final boolean showToast) {
 
+
         loaderTask = ApiManager.getAllOrders(new Callback<OrderList>() {
             @Override
             public void onSuccess(OrderList response) {
-                showProgress(false);
+
 
                 PurchaseListAdapter adapter = new PurchaseListAdapter(getActivity(), R.layout.purchase_list_item, response.getOrders());
                 listView.setClickable(true);
@@ -106,6 +120,8 @@ public class PurchasesFragment extends Fragment {
                     Toast.makeText(PurchasesFragment.this.getActivity(), getResources().getString(R.string.purchases_updated), Toast.LENGTH_SHORT).show();
 
                 }
+
+                showProgress(false);
             }
 
             @Override
@@ -119,8 +135,6 @@ public class PurchasesFragment extends Fragment {
             }
         });
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        return view;
     }
 
     @Override
@@ -134,15 +148,6 @@ public class PurchasesFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        Log.v(LOG_TAG,"Cancelando la llamada a la api.");
-
-        loaderTask.cancel(true);
-
-    }
 
     /**
      * Shows the progress UI and hides the login form.
