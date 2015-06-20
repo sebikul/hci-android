@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <view
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="16dp"
         android:paddingTop="16dp">
@@ -17,12 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:paddingTop="@dimen/activity_vertical_margin" />
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center_horizontal" />
 
-        <view
+        <LinearLayout
             android:id="@+id/purchase_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <!-- A CardView that contains a TextView -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -50,82 +52,10 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/purchase_subtotal_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/purchase_title_summary"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:text="Subtotal: "
-                        android:textColor="#ef1e1e1e"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/purchase_subtotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/purchase_title_summary"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_toRightOf="@+id/purchase_subtotal_label"
-                        android:gravity="center_vertical"
-                        android:text="subtotal"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/purchase_interes_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/purchase_subtotal_label"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:text="Interes: "
-                        android:textColor="#ef1e1e1e"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/purchase_interes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/purchase_subtotal"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_toRightOf="@+id/purchase_interes_label"
-                        android:gravity="center_vertical"
-                        android:text="interes"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/purchase_cuota_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/purchase_interes_label"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center_vertical"
-                        android:text="Cuota: "
-                        android:textColor="#ef1e1e1e"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/purchase_cuota"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/purchase_interes"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_toRightOf="@+id/purchase_cuota_label"
-                        android:gravity="center_vertical"
-                        android:text="cuota"
-                        android:textSize="16dp" />
-
-                    <TextView
                         android:id="@+id/purchase_total_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/purchase_cuota"
+                        android:layout_below="@id/purchase_title_summary"
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
@@ -137,10 +67,10 @@
                         android:id="@+id/purchase_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/purchase_cuota"
+                        android:layout_below="@+id/purchase_title_summary"
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
-                        android:layout_toRightOf="@+id/purchase_cuota_label"
+                        android:layout_toRightOf="@+id/purchase_total_label"
                         android:gravity="center_vertical"
                         android:text="total"
                         android:textSize="16dp" />
@@ -303,9 +233,9 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-        </view>
+        </LinearLayout>
 
-    </view>
+    </LinearLayout>
 
 </ScrollView>
 

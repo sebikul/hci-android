@@ -1,24 +1,27 @@
 package edu.itba.hci.define.models;
 
-
-import java.io.Serializable;
-
-public class CreditCard implements Serializable {
+public class CreditCard extends ApiResponse {
 
     private int id;
-    private String name;
+    private String number;
+    private String expirationDate;
+    private String securityCode;
 
-    public CreditCard(int id, String name) {
+    public CreditCard(int id, String number, String expirationDate, String securityCode) {
 
         this.id = id;
-        this.name = name;
+        this.number = number;
+        this.expirationDate = expirationDate;
+        this.securityCode = securityCode;
     }
 
     @Override
     public String toString() {
         return "CreditCard{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", securityCode='" + securityCode + '\'' +
                 '}';
     }
 
@@ -26,7 +29,15 @@ public class CreditCard implements Serializable {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getNumber() {
+        return number;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
     }
 }

@@ -27,12 +27,16 @@ import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
 import edu.itba.hci.define.DefineApplication;
+import edu.itba.hci.define.models.Address;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ApiResponse;
+import edu.itba.hci.define.models.CreditCard;
 import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
 import edu.itba.hci.define.models.Product;
 import edu.itba.hci.define.models.ProductList;
+import edu.itba.hci.define.models.State;
+import edu.itba.hci.define.models.StatesList;
 import edu.itba.hci.define.models.User;
 
 public class ApiManager {
@@ -59,6 +63,9 @@ public class ApiManager {
                 .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
                 .registerTypeAdapter(ProductList.class, new ApiDeserializer<ProductList>("products"))
                 .registerTypeAdapter(Product.class, new ApiDeserializer<Product>("products"))
+                .registerTypeAdapter(StatesList.class, new ApiDeserializer<StatesList>("states"))
+                .registerTypeAdapter(CreditCard.class, new ApiDeserializer<CreditCard>("creditCard"))
+                .registerTypeAdapter(Address.class, new ApiDeserializer<Address>("address"))
                 .create();
 
         preferences = pref;
@@ -75,6 +82,30 @@ public class ApiManager {
         fillAuthenticationData(params);
 
         return makeApiCall("Order", "GetOrderById", params, callback, Order.class);
+
+    }
+
+    static public AsyncTask getAddressById(int id, Callback<Address> callback) {
+
+        Map<String, String> params = new HashMap<>(3);
+
+        params.put("id", Integer.toString(id));
+
+        fillAuthenticationData(params);
+
+        return makeApiCall("Account", "GetAddressById", params, callback, Address.class);
+
+    }
+
+    static public AsyncTask getCreditCardById(int id, Callback<CreditCard> callback) {
+
+        Map<String, String> params = new HashMap<>(3);
+
+        params.put("id", Integer.toString(id));
+
+        fillAuthenticationData(params);
+
+        return makeApiCall("Account", "GetCreditCardById", params, callback, CreditCard.class);
 
     }
 
@@ -140,6 +171,10 @@ public class ApiManager {
 
     // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
 
+    static public AsyncTask getAllStates(Callback<StatesList> callback) {
+
+        return makeApiCall("Common", "GetAllStates", null, callback, StatesList.class);
+    }
 
     static public AsyncTask login(String email, String password, Callback<User> callback) {
         Map<String, String> params = new HashMap<>(2);
@@ -283,6 +318,15 @@ public class ApiManager {
 
                 response = (T) new ProductList(productList, je.getAsJsonObject().get("total").getAsInt());
 
+            } else if (type == StatesList.class) {
+
+                Log.v(LOG_TAG, "Deserializando lista de estados");
+                Type listType = new TypeToken<List<State>>() {
+                }.getType();
+                // In this test code i just shove the JSON here as string.
+                List<State> stateList = new Gson().fromJson(content, listType);
+
+                response = (T) new StatesList(stateList);
             } else {
 
                 if (type == Product.class) {

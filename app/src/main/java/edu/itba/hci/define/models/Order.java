@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Order extends ApiResponse {
 
     private int id;
-    private Address address;
-    private CreditCard creditCard;
+    private AddressItem address;
+    private CreditCardItem creditCard;
     private OrderStatus status;
     private String receivedDate;
     private String processedDate;
@@ -17,7 +17,7 @@ public class Order extends ApiResponse {
     private boolean notifications = false;
     private OrderItem[] items;
 
-    public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude, OrderItem[] items) {
+    public Order(int id, AddressItem address, CreditCardItem creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude, OrderItem[] items) {
         this.id = id;
         this.address = address;
         this.creditCard = creditCard;
@@ -76,11 +76,11 @@ public class Order extends ApiResponse {
         return id;
     }
 
-    public Address getAddress() {
+    public AddressItem getAddress() {
         return address;
     }
 
-    public CreditCard getCreditCard() {
+    public CreditCardItem getCreditCard() {
         return creditCard;
     }
 
@@ -110,5 +110,19 @@ public class Order extends ApiResponse {
 
     public int getLongitude() {
         return longitude;
+    }
+
+    public int getSubtotal() {
+
+        int subtotal = 0;
+
+        for (int i = 0; i < items.length; i++) {
+            OrderItem item = items[i];
+
+            subtotal += item.getPrice();
+
+        }
+
+        return subtotal;
     }
 }

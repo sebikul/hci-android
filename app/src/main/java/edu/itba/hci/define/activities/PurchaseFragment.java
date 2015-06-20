@@ -28,9 +28,6 @@ public class PurchaseFragment extends Fragment {
     private View mProgressView;
     private View orderView;
 
-    private TextView mPurchaseSubtotal;
-    private TextView mInterest;
-    private TextView mCuotal;
     private TextView mTotal;
 
     private TextView mAddress1;
@@ -51,9 +48,6 @@ public class PurchaseFragment extends Fragment {
         mProgressView = view.findViewById(R.id.purchase_progress);
         orderView = view.findViewById(R.id.purchase_view);
 
-        mPurchaseSubtotal = (TextView) view.findViewById(R.id.purchase_subtotal);
-        mInterest = (TextView) view.findViewById(R.id.purchase_interes);
-        mCuotal = (TextView) view.findViewById(R.id.purchase_cuota);
         mTotal = (TextView) view.findViewById(R.id.purchase_total);
 
         mAddress1 = (TextView) view.findViewById(R.id.purchase_address1);
@@ -61,8 +55,7 @@ public class PurchaseFragment extends Fragment {
         mPhone = (TextView) view.findViewById(R.id.purchase_address_phone);
 
         mCreditCard = (TextView) view.findViewById(R.id.purchase_payment_card);
-        mInterest = (TextView) view.findViewById(R.id.purchase_payment_installments);
-
+        mInstallments = (TextView) view.findViewById(R.id.purchase_payment_installments);
 
         Bundle args = getArguments();
         orderId = args.getInt("orderId");
@@ -85,13 +78,19 @@ public class PurchaseFragment extends Fragment {
 
     private void loadOrderDetails() {
 
+        showProgress(true);
+
         ApiManager.getOrderById(orderId, new OrderResponseCallback());
 
     }
 
     private void setViewFromOrder(Order order) {
 
-        //mPurchaseSubtotal.setText();
+        mTotal.setText("$" + order.getSubtotal());
+
+        mPhone.setText("" + order.getAddress().getName());
+
+        mCreditCard.setText(order.getCreditCard().getNumber());
 
     }
 
@@ -100,6 +99,9 @@ public class PurchaseFragment extends Fragment {
         @Override
         public void onSuccess(Order response) {
 
+            showProgress(false);
+
+            setViewFromOrder(response);
 
         }
 
