@@ -45,6 +45,7 @@
     <string name="account_email">Email</string>
     <string name="sex_male">Male</string>
     <string name="sex_female">Female</string>
+    <string name="purchases_updated">Purchases list updated</string>
 
 
 </resources>

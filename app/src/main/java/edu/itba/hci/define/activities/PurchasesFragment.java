@@ -7,11 +7,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.adapters.PurchaseListAdapter;
@@ -30,6 +32,9 @@ public class PurchasesFragment extends Fragment {
 
     private AsyncTask loaderTask;
 
+    private SwipeRefreshLayout swipeContainer;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -38,7 +43,49 @@ public class PurchasesFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.purchases_list);
         mProgressView = view.findViewById(R.id.purchases_progress);
 
+        listView.setClickable(true);
+
         showProgress(true);
+
+        updateOrderList(false);
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
+                updateOrderList(true);
+
+
+                //fixme
+                //todo
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
+        return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.v(LOG_TAG, "Cancelando la llamada a la api.");
+
+        loaderTask.cancel(true);
+
+    }
+
+    void updateOrderList(final boolean showToast) {
 
         loaderTask = ApiManager.getAllOrders(new Callback<OrderList>() {
             @Override
@@ -46,9 +93,15 @@ public class PurchasesFragment extends Fragment {
                 showProgress(false);
 
                 PurchaseListAdapter adapter = new PurchaseListAdapter(getActivity(), R.layout.purchase_list_item, response.getOrders());
-                listView.setClickable(true);
 
                 listView.setAdapter(adapter);
+
+                swipeContainer.setRefreshing(false);
+
+                if (showToast) {
+                    Toast.makeText(PurchasesFragment.this.getActivity(), getResources().getString(R.string.purchases_updated), Toast.LENGTH_SHORT).show();
+
+                }
             }
 
             @Override
@@ -61,19 +114,6 @@ public class PurchasesFragment extends Fragment {
 
             }
         });
-
-
-        return view;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        Log.v(LOG_TAG,"Cancelando la llamada a la api.");
-
-        loaderTask.cancel(true);
-
     }
 
     /**
