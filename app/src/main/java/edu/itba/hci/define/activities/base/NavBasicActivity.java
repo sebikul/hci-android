@@ -64,7 +64,6 @@ public class NavBasicActivity extends AppCompatActivity {
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
-        toggleDrawer = setupDrawerToggle();
         setToggleDrawer(true);
 
         sessionView = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
@@ -118,10 +117,6 @@ public class NavBasicActivity extends AppCompatActivity {
         }
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
-    }
-
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -150,7 +145,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggleDrawer.onOptionsItemSelected(item)) {
+        if(toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -223,14 +218,19 @@ public class NavBasicActivity extends AppCompatActivity {
 
         Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
         if (currentFragment != null && currentFragment.isVisible()) {
-            Log.v(LOG_TAG, "Este fragmento ya esta encajado wacho xD");
+            Log.v(LOG_TAG, "Este fragmento ya esta encajado");
             return;
         }
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(tag);
         transaction.replace(R.id.content, fragment, tag);
+
         transaction.commit();
+
+//        if(trigger != null) {
+//            trigger.setChecked(true);
+//        }
     }
 
     private void replaceContentWithFragment(Fragment fragment, String tag) {
@@ -257,8 +257,8 @@ public class NavBasicActivity extends AppCompatActivity {
 
     public void setToggleDrawer(boolean bool) {
         if (bool) {
-            toggleDrawer.setDrawerIndicatorEnabled(true);
-            toggleDrawer = setupDrawerToggle();
+            toggleDrawer = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);;
+            toggleDrawer.syncState();
             mDrawer.setDrawerListener(toggleDrawer);
         } else {
             toggleDrawer.setDrawerIndicatorEnabled(false);
@@ -270,7 +270,6 @@ public class NavBasicActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
 

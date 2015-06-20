@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -241,8 +242,10 @@ public class PurchasesFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflater.inflate(R.menu.options_menu, menu);
-        getActivity().setTitle(R.string.title_purchases);
-        ((NavBasicActivity) getActivity()).setToggleDrawer(false);
+        NavBasicActivity activity = ((NavBasicActivity) getActivity());
+        activity.setTitle(R.string.title_purchases);
+        activity.setToggleDrawer(false);
+        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_purchases).setChecked(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 }
