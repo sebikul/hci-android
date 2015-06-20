@@ -10,12 +10,15 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.adapters.PurchaseListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
@@ -115,8 +119,7 @@ public class PurchasesFragment extends Fragment {
             }
         });
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        setHasOptionsMenu(true);
 
         broadcastReceiver = new BroadcastReceiver() {
 
@@ -217,6 +220,7 @@ public class PurchasesFragment extends Fragment {
                 }
             });
 
+
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -230,7 +234,18 @@ public class PurchasesFragment extends Fragment {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             listView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+
+
+         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflater.inflate(R.menu.options_menu, menu);
+        NavBasicActivity activity = ((NavBasicActivity) getActivity());
+        activity.setTitle(R.string.title_purchases);
+        activity.setToggleDrawer(false);
+        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_purchases).setChecked(true);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

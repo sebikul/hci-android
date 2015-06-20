@@ -28,8 +28,9 @@ import edu.itba.hci.define.activities.SettingsActivity;
 
 public class NavBasicActivity extends AppCompatActivity {
 
-    static public final int INTENT_NONE = 0;
-    static public final int INTENT_PURCHASES = 1;
+    public static final int INTENT_NONE = 0;
+    public static final int INTENT_PURCHASES = 1;
+    public static final int INTENT_NOTIFICATION = 2;
 
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
@@ -59,12 +60,11 @@ public class NavBasicActivity extends AppCompatActivity {
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggleDrawer = setupDrawerToggle();
-        mDrawer.setDrawerListener(toggleDrawer);
 
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        View header;
+
+        setToggleDrawer(true);
 
         sessionView = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
         sessionView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +86,7 @@ public class NavBasicActivity extends AppCompatActivity {
             }
         });
 
+        View header;
         if (context.isLoggedIn()) {
             Log.v(LOG_TAG, "Agregando header con sesion activa al navdrawer");
             MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
@@ -104,16 +105,16 @@ public class NavBasicActivity extends AppCompatActivity {
         setupDrawerContent(nvDrawer);
 
         if (getIntent().getIntExtra("action", INTENT_NONE) == INTENT_PURCHASES) {
-            replaceContentWithFragment(new AccountFragment(), "account");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.content, new PurchasesFragment(), "purchases");
+            transaction.commit();
+        } else if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.content, new HomeFragment(), "home");
+            transaction.commit();
         }
-
-        if (savedInstanceState == null) {
-            selectDrawerItem(nvDrawer.getMenu().getItem(0));
-        }
-    }
-
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -144,7 +145,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggleDrawer.onOptionsItemSelected(item)) {
+        if(toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -161,17 +162,6 @@ public class NavBasicActivity extends AppCompatActivity {
 
             //Seccion con sesion activa
             case R.id.item_purchases:
-                toggleDrawer.setDrawerIndicatorEnabled(false);
-                toggleDrawer.setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-                toggleDrawer.setToolbarNavigationClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        onBackPressed();
-
-                        Log.v(LOG_TAG, "33333_ -----------------------------");
-                    }
-                });
                 replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
                 break;
             //END Seccion con sesion activa
@@ -209,9 +199,7 @@ public class NavBasicActivity extends AppCompatActivity {
                     startActivity(activity);
                 }
                 break;
-
         }
-
 
         mDrawer.closeDrawers();
     }
@@ -230,7 +218,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
         Fragment currentFragment = getSupportFragmentManager().findFragmentByTag(tag);
         if (currentFragment != null && currentFragment.isVisible()) {
-            Log.v(LOG_TAG, "Este fragmento ya esta encajado wacho");
+            Log.v(LOG_TAG, "Este fragmento ya esta encajado");
             return;
         }
 
@@ -240,41 +228,49 @@ public class NavBasicActivity extends AppCompatActivity {
 
         transaction.commit();
 
-        if (trigger != null) {
-            trigger.setChecked(true);
-            setTitle(trigger.getTitle());
-
-        }
-
+//        if(trigger != null) {
+//            trigger.setChecked(true);
+//        }
     }
 
     private void replaceContentWithFragment(Fragment fragment, String tag) {
-
         replaceContentWithFragment(fragment, tag, null);
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == LOGIN_REQUEST) {
             if (resultCode == RESULT_OK) {
-
                 Log.v(LOG_TAG, "Reemplazando el header con el de la sesion.");
 
                 if (context.isLoggedIn()) {
-
                     nvDrawer.removeHeaderView(guestView);
                     nvDrawer.addHeaderView(sessionView);
 
                     MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
                     purchases.setVisible(true);
                 }
-
-
             }
         }
     }
+
+    public void setToggleDrawer(boolean bool) {
+        if (bool) {
+            toggleDrawer = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);;
+            toggleDrawer.syncState();
+            mDrawer.setDrawerListener(toggleDrawer);
+        } else {
+            toggleDrawer.setDrawerIndicatorEnabled(false);
+            toggleDrawer.setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            toggleDrawer.setToolbarNavigationClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+    }
+
 
 }
