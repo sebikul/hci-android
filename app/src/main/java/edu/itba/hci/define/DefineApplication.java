@@ -39,7 +39,7 @@ public class DefineApplication extends Application {
         super.onCreate();
         singleton = this;
         preferences = getSharedPreferences(PREFERENCES_BUCKET, MODE_PRIVATE);
-        ApiManager.initialize(preferences,this);
+        ApiManager.initialize(preferences, this);
 
         if (preferences.getString("authentication_token", null) != null) {
             session = new User();//fixme dummy user
@@ -141,18 +141,24 @@ public class DefineApplication extends Application {
 
         editor.commit();
 
-
     }
 
     public <T> T readFromCache(String key) {
 
-        ObjectInputStream objectInputStream = null;
         T obj = null;
-
+        ObjectInputStream objectInputStream = null;
         DiskLruCache.Snapshot snapshot = null;
+        InputStream inputStream = null;
+
+
         try {
             snapshot = cache.get(key);
-            InputStream inputStream = snapshot.getInputStream(0);
+
+            if (snapshot == null) {
+                return null;
+            }
+
+            inputStream = snapshot.getInputStream(0);
             objectInputStream = new ObjectInputStream(inputStream);
 
             obj = (T) objectInputStream.readObject();
@@ -160,14 +166,30 @@ public class DefineApplication extends Application {
             Log.v(LOG_TAG, "Leyendo los datos del usuario: ");
             Log.v(LOG_TAG, obj.toString());
 
-            objectInputStream.close();
-            inputStream.close();
 
-            snapshot.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (objectInputStream != null) {
+                    objectInputStream.close();
+
+                }
+
+                if (inputStream != null) {
+                    inputStream.close();
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (snapshot != null) {
+                snapshot.close();
+
+            }
         }
 
 

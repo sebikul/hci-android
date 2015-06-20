@@ -27,4 +27,5 @@ dependencies {
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.jakewharton:disklrucache:2.0.2'
+    compile 'com.android.support:cardview-v7:21.0.+'
 }

@@ -250,13 +250,16 @@ public class ApiManager {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 } else {
 
-                    for (Order remoteOrder : orderList) {
-                        if (cachedOrders.contains(remoteOrder)) {
-                            Order cachedOrder = cachedOrders.get(cachedOrders.indexOf(remoteOrder));
+                    if (cachedOrders != null) {
+                        for (Order remoteOrder : orderList) {
+                            if (cachedOrders.contains(remoteOrder)) {
+                                Order cachedOrder = cachedOrders.get(cachedOrders.indexOf(remoteOrder));
 
-                            remoteOrder.setNotifications(cachedOrder.hasNotifications());
+                                remoteOrder.setNotifications(cachedOrder.hasNotifications());
+                            }
                         }
                     }
 
