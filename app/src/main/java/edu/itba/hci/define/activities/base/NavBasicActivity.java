@@ -163,6 +163,17 @@ public class NavBasicActivity extends AppCompatActivity {
 
             //Seccion con sesion activa
             case R.id.item_purchases:
+                toggleDrawer.setDrawerIndicatorEnabled(false);
+                toggleDrawer.setHomeAsUpIndicator(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+                toggleDrawer.setToolbarNavigationClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        onBackPressed();
+
+                        Log.v(LOG_TAG, "33333_ -----------------------------");
+                    }
+                });
                 replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
                 break;
             //END Seccion con sesion activa
@@ -226,6 +237,7 @@ public class NavBasicActivity extends AppCompatActivity {
         }
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(tag);
         transaction.replace(R.id.content, fragment, tag);
 
         transaction.commit();

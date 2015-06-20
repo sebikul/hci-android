@@ -7,9 +7,9 @@ public class CategoryFragment extends TabbedFragment {
 
     @Override
     protected void setupViewPager() {
-        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_subcategories));
-        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_sales));
-        adapter.addFrag(new PurchaseFragment(), getString(R.string.title_new));
+        adapter.addFrag(new PurchasesFragment(), getString(R.string.title_subcategories));
+        adapter.addFrag(new PurchasesFragment(), getString(R.string.title_sales));
+        adapter.addFrag(new PurchasesFragment(), getString(R.string.title_new));
 
 
     }
