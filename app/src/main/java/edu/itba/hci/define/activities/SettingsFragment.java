@@ -29,7 +29,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             // Set summary to be the user-description for the selected value
             connectionPref.setSummary(R.string.notification_interval_summary);
 
-            Intent intent=new Intent(SessionRe)
+            //Intent intent=new Intent()
 
         }
     }
