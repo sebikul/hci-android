@@ -64,6 +64,9 @@ public class NavBasicActivity extends AppCompatActivity {
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
+        toggleDrawer = setupDrawerToggle();
+        setToggleDrawer(true);
+
         sessionView = LayoutInflater.from(this).inflate(R.layout.nav_header, null);
         sessionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,15 +230,7 @@ public class NavBasicActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack(tag);
         transaction.replace(R.id.content, fragment, tag);
-
         transaction.commit();
-
-        if (trigger != null) {
-            trigger.setChecked(true);
-            setTitle(trigger.getTitle());
-
-        }
-
     }
 
     private void replaceContentWithFragment(Fragment fragment, String tag) {
