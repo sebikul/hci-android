@@ -3,6 +3,10 @@ package edu.itba.hci.define.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,15 +23,13 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.adapters.PurchaseListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
-import edu.itba.hci.define.models.Order;
+import edu.itba.hci.define.broadcasts.AlarmReceiver;
 import edu.itba.hci.define.models.OrderList;
 
 
@@ -37,13 +39,12 @@ public class PurchasesFragment extends Fragment {
 
     private ListView listView;
     private View mProgressView;
-
+    private BroadcastReceiver broadcastReceiver;
     private AsyncTask loaderTask;
 
     private SwipeRefreshLayout swipeContainer;
 
     private DefineApplication context;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +72,8 @@ public class PurchasesFragment extends Fragment {
                 // once the network request has completed successfully.
                 Log.v(LOG_TAG, "Tenes que actualizar las ordenes wacho");
                 updateOrderList(true);
-
+                //fixme
+                //todo
             }
         });
         // Configure the refreshing colors
@@ -79,7 +81,7 @@ public class PurchasesFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
+        
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -92,9 +94,25 @@ public class PurchasesFragment extends Fragment {
                 swipeContainer.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
         });
-
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        
+        broadcastReceiver = new BroadcastReceiver(){
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.v(LOG_TAG, "Actualizando lista de ordenes");
+                swipeContainer.setRefreshing(true);
+                updateOrderList(true);
+                abortBroadcast();
+            }
+        };
+
+        Log.v(LOG_TAG, "Registrando broadcast");
+        IntentFilter intentFilter = new IntentFilter(AlarmReceiver.NOTIFICATION_BROADCAST);
+        intentFilter.setPriority(3);
+        getActivity().registerReceiver(broadcastReceiver, intentFilter);
+
         return view;
     }
 
@@ -105,6 +123,8 @@ public class PurchasesFragment extends Fragment {
         Log.v(LOG_TAG, "Cancelando la llamada a la api.");
 
         loaderTask.cancel(true);
+        Log.v(LOG_TAG, "Sacando el registro a refresh alarm");
+        getActivity().unregisterReceiver(broadcastReceiver);
 
     }
 
