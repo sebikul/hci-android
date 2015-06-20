@@ -8,6 +8,7 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.broadcasts.SessionReceiver;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -29,7 +30,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             // Set summary to be the user-description for the selected value
             connectionPref.setSummary(R.string.notification_interval_summary);
 
-            //Intent intent=new Intent()
+            Log.v(LOG_TAG, "El nuevo tiempo de actualizacion es " + sharedPreferences.getString(key, "nada puto"));
+
+            Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
+            getActivity().sendOrderedBroadcast(intent, null);
 
         }
     }
