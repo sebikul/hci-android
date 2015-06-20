@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
+import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ApiResponse;
 import edu.itba.hci.define.models.Order;
@@ -41,13 +42,14 @@ public class ApiManager {
     static private final String BASE_URL = "http://eiffel.itba.edu.ar/hci/service3/";
     static private Gson gson;
     static private SharedPreferences preferences;
+    static private DefineApplication context;
 
 
     private ApiManager() {
     }
 
 
-    static public void initialize(SharedPreferences pref) {
+    static public void initialize(SharedPreferences pref, DefineApplication con) {
 
         Log.d(LOG_TAG, "Inicializando ApiManager");
 
@@ -60,6 +62,8 @@ public class ApiManager {
                 .create();
 
         preferences = pref;
+
+        context = con;
     }
 
     static public AsyncTask getOrderById(int id, Callback<Order> callback) {
@@ -237,6 +241,33 @@ public class ApiManager {
                 // In this test code i just shove the JSON here as string.
                 List<Order> orderList = new Gson().fromJson(content, listType);
 
+
+                List<Order> cachedOrders = context.readFromCache("orders");
+
+                if (cachedOrders != null) {
+                    try {
+                        context.writeToCache("orders", orderList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                    for (Order remoteOrder : orderList) {
+                        if (cachedOrders.contains(remoteOrder)) {
+                            Order cachedOrder = cachedOrders.get(cachedOrders.indexOf(remoteOrder));
+
+                            remoteOrder.setNotifications(cachedOrder.hasNotifications());
+                        }
+                    }
+
+                    try {
+                        context.writeToCache("orders", orderList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
                 response = (T) new OrderList(orderList);
 
             } else if (type == ProductList.class) {
@@ -361,7 +392,7 @@ public class ApiManager {
         protected void onCancelled(T t) {
             super.onCancelled(t);
 
-            Log.v(LOG_TAG,"Tarea cancelada.");
+            Log.v(LOG_TAG, "Tarea cancelada.");
         }
 
     }

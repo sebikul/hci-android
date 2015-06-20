@@ -19,11 +19,15 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.adapters.PurchaseListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
+import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
 
 
@@ -38,11 +42,15 @@ public class PurchasesFragment extends Fragment {
 
     private SwipeRefreshLayout swipeContainer;
 
+    private DefineApplication context;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.purchases_fragment, container, false);
+
+        context = (DefineApplication) getActivity().getApplicationContext();
 
         listView = (ListView) view.findViewById(R.id.purchases_list);
         mProgressView = view.findViewById(R.id.purchases_progress);

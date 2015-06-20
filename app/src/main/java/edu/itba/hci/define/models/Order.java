@@ -12,7 +12,7 @@ public class Order extends ApiResponse {
     private String deliveredDate;
     private int latitude;
     private int longitude;
-    private boolean notifications;
+    private boolean notifications = false;
 
     public Order(int id, Address address, CreditCard creditCard, OrderStatus status, String receivedDate, String processedDate, String shippedDate, String deliveredDate, int latitude, int longitude) {
         this.id = id;
@@ -28,6 +28,17 @@ public class Order extends ApiResponse {
     }
 
     public Order() {
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        return id == order.id;
 
     }
 

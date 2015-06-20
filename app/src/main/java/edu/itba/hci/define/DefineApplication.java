@@ -39,7 +39,7 @@ public class DefineApplication extends Application {
         super.onCreate();
         singleton = this;
         preferences = getSharedPreferences(PREFERENCES_BUCKET, MODE_PRIVATE);
-        ApiManager.initialize(preferences);
+        ApiManager.initialize(preferences,this);
 
         if (preferences.getString("authentication_token", null) != null) {
             session = new User();//fixme dummy user
@@ -132,7 +132,6 @@ public class DefineApplication extends Application {
         Log.v(LOG_TAG, "Guardando los datos del usuario: ");
         Log.v(LOG_TAG, value.toString());
 
-
         OutputStream outputStream = editor.newOutputStream(0);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(value);
@@ -145,22 +144,32 @@ public class DefineApplication extends Application {
 
     }
 
-    public <T> T readFromCache(String key) throws IOException, ClassNotFoundException {
+    public <T> T readFromCache(String key) {
 
-        DiskLruCache.Snapshot snapshot = cache.get(key);
+        ObjectInputStream objectInputStream = null;
+        T obj = null;
 
-        InputStream inputStream = snapshot.getInputStream(0);
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        DiskLruCache.Snapshot snapshot = null;
+        try {
+            snapshot = cache.get(key);
+            InputStream inputStream = snapshot.getInputStream(0);
+            objectInputStream = new ObjectInputStream(inputStream);
 
-        T obj = (T) objectInputStream.readObject();
+            obj = (T) objectInputStream.readObject();
 
-        Log.v(LOG_TAG, "Leyendo los datos del usuario: ");
-        Log.v(LOG_TAG, obj.toString());
+            Log.v(LOG_TAG, "Leyendo los datos del usuario: ");
+            Log.v(LOG_TAG, obj.toString());
 
-        objectInputStream.close();
-        inputStream.close();
+            objectInputStream.close();
+            inputStream.close();
 
-        snapshot.close();
+            snapshot.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         return obj;
 
