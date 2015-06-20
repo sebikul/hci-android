@@ -46,7 +46,7 @@ public class PurchaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_purchase, container, false);
+        View view = inflater.inflate(R.layout.purchase_fragment, container, false);
 
         mProgressView = view.findViewById(R.id.purchase_progress);
         orderView = view.findViewById(R.id.purchase_view);
