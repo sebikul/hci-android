@@ -3,8 +3,12 @@ package edu.itba.hci.define.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +21,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.util.Random;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
@@ -40,8 +45,11 @@ public class HomeFragment extends Fragment {
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         loadSales(view);
         loadNews(view);
+        setHasOptionsMenu(true);
         return view;
     }
+
+
 
     @Override
     public void onPause() {
@@ -101,5 +109,13 @@ public class HomeFragment extends Fragment {
                 R.id.new_img_1, R.id.new_img_2, R.id.new_img_3,
                 R.id.new_name_1, R.id.new_name_2, R.id.new_name_3,
                 R.id.new_price_1, R.id.new_price_2, R.id.new_price_3);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu, menu);
+        getActivity().setTitle(R.string.app_name);
+        ((NavBasicActivity) getActivity()).setToggleDrawer(true);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

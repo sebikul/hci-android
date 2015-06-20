@@ -39,8 +39,6 @@
             android:id="@+id/purchase_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/purchase_id"
-            android:layout_alignStart="@+id/purchase_id"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="purchase_date"
@@ -54,7 +52,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:contentDescription="TODO"
         android:src="@mipmap/ic_launcher"
         android:textOff="NOTS OFF"
         android:textOn="NOTS ON" />
