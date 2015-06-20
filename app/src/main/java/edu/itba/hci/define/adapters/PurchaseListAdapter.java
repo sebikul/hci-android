@@ -22,7 +22,7 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
     private List<Order> orderList;
 
-    private TextDrawable.IBuilder drawableBuilder;
+    private TextDrawable.IShapeBuilder drawableBuilder;
     private ColorGenerator mColorGenerator = ColorGenerator.MATERIAL;
 
     public PurchaseListAdapter(Context context, int resource, List<Order> orderList) {
@@ -31,8 +31,10 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
         drawableBuilder = TextDrawable.builder()
                 .beginConfig()
                 .textColor(Color.WHITE)
-                .endConfig()
-                .round();
+                //.fontSize(30) /* size in px */
+                .bold()
+                .toUpperCase()
+                .endConfig();
 
         this.orderList = orderList;
     }
@@ -72,7 +74,7 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
 
         }
 
-        TextDrawable drawable = drawableBuilder.build(String.valueOf(status.charAt(0)), color);
+        TextDrawable drawable = drawableBuilder.buildRound(String.valueOf(status.charAt(0)), color);
         image.setImageDrawable(drawable);
 
         purchaseIdText.setText("#" + order.getId());

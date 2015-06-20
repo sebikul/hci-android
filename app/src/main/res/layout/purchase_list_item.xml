@@ -1,41 +1,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:clickable="true"
     android:orientation="horizontal"
-    android:padding="6dip"
-    android:clickable="true">
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/purchase_icon"
-        android:layout_width="48dp"
-        android:layout_height="32dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
         android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/purchase_id"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/purchase_date"
-        android:layout_alignParentTop="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/purchase_icon"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:text="purchase_id" />
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/purchase_icon"
+        android:layout_toEndOf="@+id/purchase_icon">
 
-    <TextView
-        android:id="@+id/purchase_date"
-        android:layout_width="wrap_content"
-        android:layout_alignBottom="@+id/purchase_icon"
-        android:layout_toRightOf="@id/purchase_icon"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:textSize="12sp"
-        android:layout_height="wrap_content"
-        android:text="purchase_date" />
+        <TextView
+            android:id="@+id/purchase_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="purchase_id"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/purchase_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/purchase_id"
+            android:layout_alignStart="@+id/purchase_id"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="purchase_date"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <ToggleButton
         android:id="@+id/toggle"

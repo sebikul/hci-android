@@ -10,7 +10,6 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!-- Login progress -->
         <ProgressBar
             android:id="@+id/purchases_progress"
             style="?android:attr/progressBarStyleLarge"
