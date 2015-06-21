@@ -39,8 +39,8 @@ public class SessionReceiver extends BroadcastReceiver {
             DefineApplication app = (DefineApplication) context.getApplicationContext();
 
             long alarmInterval = app.getPreferences().getLong("alarmInterval", AlarmManager.INTERVAL_FIFTEEN_MINUTES);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval,alarmPendingIntent);
-            //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 30 * 1, 1000 * 30 * 1, alarmPendingIntent);
+            //alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval,alarmPendingIntent);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 30 * 1, 1000 * 30 * 1, alarmPendingIntent);
         }
     }
 
@@ -48,9 +48,13 @@ public class SessionReceiver extends BroadcastReceiver {
         Log.v("SessionReceiver", "Verificando condiciones");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
         String authToken = app.getPreferences().getString("authentication_token", null);
-        boolean notification_enable = app.getPreferences().getBoolean("notifacation_enable",true);
-        if (authToken == null || !notification_enable)
+        boolean notification_enable = app.getPreferences().getBoolean("notifacations_enable",false);
+        if (authToken == null || !notification_enable) {
+            Log.v("SessionReceiver", "Condiciones invalidas "+authToken
+            +" "+notification_enable);
             return false;
+        }
+        Log.v("SessionReceiver", "Condiciones validas");
         return true;
     }
 }
