@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/imagen"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/parallax_image_height"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/pilhom3" />
+
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:id="@+id/custom_indicator"
+                style="@style/AndroidImageSlider_Magnifier_Oval_Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imagen"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="-32dp" />
+
+            <View
+                android:id="@+id/anchor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/parallax_image_height"
+                android:layout_marginBottom="16dp"
+                android:minHeight="@dimen/parallax_image_height" />
+
+            <RelativeLayout
+                android:id="@+id/purchase_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/anchor"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp">
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/product_title_summary"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/product_title_summary"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/product_name_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/product_title_summary"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/product_name_label"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/product_title_summary"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_toRightOf="@+id/product_name_label"
+                            android:text="name"
+                            android:gravity="center_vertical"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:id="@+id/product_brand_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/product_name_label"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/product_brand_label"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/product_brand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/product_name"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_toRightOf="@+id/product_brand_label"
+                            android:gravity="center_vertical"
+                            android:text="brand"
+                            android:textSize="16dp" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_colors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/card_view_summary"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_marginTop="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/product_title_colors"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/product_title_colors"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/product_colors"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/product_title_colors"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:text="colors"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="16dp" />
+
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_sizes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/card_view_colors"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_marginTop="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/product_title_sizes"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/product_title_sizes"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+
+                        <TextView
+                            android:id="@+id/product_sizes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/product_title_sizes"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:text="colors"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="16dp" />
+
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/card_view_sizes"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_marginTop="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/product_title_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/product_title_summary"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/product_details_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/product_title_details"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/product_details_label"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/product_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/product_title_details"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_toRightOf="@+id/product_details_label"
+                            android:text="details"
+                            android:gravity="center_vertical"
+                            android:textSize="16dp" />
+
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+
+
+    <!-- The ActionBar -->
+    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryDark"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextAppearance="@style/ToolbarTitle" />
+
+
+</RelativeLayout>

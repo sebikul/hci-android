@@ -14,13 +14,13 @@ import edu.itba.hci.define.R;
 /**
  * Created by Diego on 21/06/2015.
  */
-public class saleFragmentNew extends Fragment {
+public class SaleFragment extends Fragment {
 
     private int age, gender;
     private ListView listView;
     private AsyncTask request;
 
-    public saleFragmentNew(int age, int gender) {
+    public SaleFragment(int age, int gender) {
         this.age=age;
         this.gender=gender;
     }

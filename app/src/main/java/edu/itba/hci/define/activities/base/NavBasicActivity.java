@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
@@ -91,6 +92,10 @@ public class NavBasicActivity extends AppCompatActivity {
             MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
             purchases.setVisible(true);
 
+
+            ((TextView) sessionView.findViewById(R.id.header_email)).setText(context.getSession().getEmail());
+            ((TextView) sessionView.findViewById(R.id.header_name)).setText(context.getSession().getFirstName() + " " + context.getSession().getLastName());
+
             header = sessionView;
         } else {
             Log.v(LOG_TAG, "Agregando header con sesion de invitado al navdrawer");
@@ -144,7 +149,7 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(toggleDrawer.onOptionsItemSelected(item)) {
+        if (toggleDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -245,6 +250,12 @@ public class NavBasicActivity extends AppCompatActivity {
 
                 if (context.isLoggedIn()) {
                     nvDrawer.removeHeaderView(guestView);
+
+
+                    ((TextView) sessionView.findViewById(R.id.header_email)).setText(context.getSession().getEmail());
+                    ((TextView) sessionView.findViewById(R.id.header_name)).setText(context.getSession().getFirstName() + " " + context.getSession().getLastName());
+
+
                     nvDrawer.addHeaderView(sessionView);
 
                     MenuItem purchases = nvDrawer.getMenu().findItem(R.id.item_purchases);
@@ -256,7 +267,8 @@ public class NavBasicActivity extends AppCompatActivity {
 
     public void setToggleDrawer(boolean bool) {
         if (bool) {
-            toggleDrawer = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);;
+            toggleDrawer = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
+
             toggleDrawer.syncState();
             mDrawer.setDrawerListener(toggleDrawer);
         } else {

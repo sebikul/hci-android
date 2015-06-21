@@ -66,12 +66,12 @@ public class ApiManager {
                 .registerTypeAdapter(User.class, new ApiDeserializer<Order>("account"))
                 .registerTypeAdapter(OrderList.class, new ApiDeserializer<OrderList>("orders"))
                 .registerTypeAdapter(ProductList.class, new ApiDeserializer<ProductList>("products"))
-                .registerTypeAdapter(Product.class, new ApiDeserializer<Product>("products"))
+                .registerTypeAdapter(Product.class, new ApiDeserializer<Product>("product"))
                 .registerTypeAdapter(StatesList.class, new ApiDeserializer<StatesList>("states"))
                 .registerTypeAdapter(CreditCard.class, new ApiDeserializer<CreditCard>("creditCard"))
                 .registerTypeAdapter(Address.class, new ApiDeserializer<Address>("address"))
                 .registerTypeAdapter(SubcategoryList.class, new ApiDeserializer<SubcategoryList>("subcategories"))
-                .registerTypeAdapter(CategoryList.class,new ApiDeserializer<SubcategoryList>("categories"))
+                .registerTypeAdapter(CategoryList.class, new ApiDeserializer<SubcategoryList>("categories"))
                 .create();
 
         preferences = pref;
@@ -206,8 +206,6 @@ public class ApiManager {
 
     }
 
-    // TODO: getAllProducts (que reciba filtros, el id no es necesario), getProductById
-
     static public AsyncTask getAllStates(Callback<StatesList> callback) {
 
         return makeApiCall("Common", "GetAllStates", null, callback, StatesList.class);
@@ -228,6 +226,16 @@ public class ApiManager {
         params.put("password", password);
 
         return makeApiCall("Account", "SignIn", params, callback, User.class);
+    }
+
+    static public AsyncTask getProductById(int id, Callback<Product> callback) {
+
+        Map<String, String> params = new HashMap<>(1);
+
+        params.put("id", String.valueOf(id));
+
+        return makeApiCall("Catalog", "GetProductById", params, callback, Product.class);
+
     }
 
     static public <T extends ApiResponse> AsyncTask genericCall(String service, String method, Callback<T> callback, Class<T> type) {
@@ -373,7 +381,7 @@ public class ApiManager {
                 List<Subcategory> subcategories = new Gson().fromJson(content, listType);
 
                 response = (T) new SubcategoryList(subcategories);
-            }else if (type == CategoryList.class) {
+            } else if (type == CategoryList.class) {
 
                 Log.v(LOG_TAG, "Deserializando lista de categorias");
                 Type listType = new TypeToken<List<Category>>() {
@@ -383,10 +391,6 @@ public class ApiManager {
 
                 response = (T) new CategoryList(categories);
             } else {
-
-                if (type == Product.class) {
-                    content = content.getAsJsonArray().get(0);
-                }
 
                 response = new Gson().fromJson(content, type);
 

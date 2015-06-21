@@ -12,6 +12,7 @@ public class Product extends ApiResponse {
     private Category subcategory;
     private Attribute[] attributes;
 
+
     public Product(int id, String name, int price, String[] imageUrl, Category category, Category subcategory, Attribute[] attributes) {
         this.id = id;
         this.name = name;
@@ -20,6 +21,10 @@ public class Product extends ApiResponse {
         this.category = category;
         this.subcategory = subcategory;
         this.attributes = attributes;
+    }
+
+    public Attribute[] getAttributes() {
+        return attributes;
     }
 
     @Override
