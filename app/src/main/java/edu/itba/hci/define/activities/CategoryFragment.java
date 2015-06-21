@@ -32,7 +32,7 @@ public class CategoryFragment extends TabbedFragment {
 
         Log.v("CategotyFragment", "ColocandoTabs " + getOurCategory(age, gender));
         //adapter.addFrag(new SubcategoryFragment(age, gender), getString(R.string.title_subcategories));
-        adapter.addFrag(new SaleFragment(age, gender), getString(R.string.title_sales));
+        adapter.addFrag(new saleFragment(age, gender), getString(R.string.title_sales));
         //adapter.addFrag(new newFragment(age, gender), getString(R.string.title_new));
 
     }
