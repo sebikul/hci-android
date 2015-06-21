@@ -19,9 +19,6 @@ public class User extends ApiResponse implements Serializable{
     private String lastLoginDate;
     private String lastPasswordChangeDate;
 
-    public User() {
-    }
-
     public User(int id, String username, String firstName, String lastName, char gender, String identityCard, String email, String birthDate, String createdDate, String lastLoginDate, String lastPasswordChangeDate) {
         this.id = id;
         this.username = username;

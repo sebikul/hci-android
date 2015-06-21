@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -117,9 +118,10 @@ public class LoginFragment extends Fragment {
 
                     context.setSession(response);
 
-                    LoginActivity loginActivity=(LoginActivity)LoginFragment.this.getActivity();
+                    LoginActivity loginActivity = (LoginActivity) LoginFragment.this.getActivity();
 
                     loginActivity.setResult(Activity.RESULT_OK);
+
 
                     loginActivity.finish();
 
