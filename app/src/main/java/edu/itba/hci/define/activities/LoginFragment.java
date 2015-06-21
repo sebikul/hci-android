@@ -21,6 +21,7 @@ import edu.itba.hci.define.R;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
+import edu.itba.hci.define.broadcasts.SessionReceiver;
 import edu.itba.hci.define.models.User;
 
 
@@ -118,10 +119,12 @@ public class LoginFragment extends Fragment {
 
                     context.setSession(response);
 
+                    Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
+                    getActivity().sendOrderedBroadcast(intent, null);
+
                     LoginActivity loginActivity = (LoginActivity) LoginFragment.this.getActivity();
 
                     loginActivity.setResult(Activity.RESULT_OK);
-
 
                     loginActivity.finish();
 

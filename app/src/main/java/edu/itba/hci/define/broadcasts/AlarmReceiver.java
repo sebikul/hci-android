@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.List;
+
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
+import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -23,14 +26,32 @@ public class AlarmReceiver extends BroadcastReceiver {
         Log.v("AlarmReceiver", "Manejando la alarma");
 
         DefineApplication app = (DefineApplication) context.getApplicationContext();
+        final List<Order> cachedOrders = app.readFromCache("orders");
         ApiManager.getAllOrders(new Callback<OrderList>() {
 
             @Override
             public void onSuccess(OrderList response) {
                 // TODO: Verificar que haya actualizaciones en las ordenes
+                if(cachedOrders==null){
+                    Log.v("AlarmReceiver", "No hay ordenes cargadas en cache");
+                    return;
+                }
 
-                Intent notificationIntent = new Intent(NOTIFICATION_BROADCAST);
-                context.sendOrderedBroadcast(notificationIntent, null);
+
+                for(Order apiOrder:response.getOrders()){
+                    for(Order cOrder:cachedOrders) {
+                        if(cOrder.equals(apiOrder) && apiOrder.hasNotifications() &&
+                                (cOrder.getStatus()!=apiOrder.getStatus() ||
+                                 cOrder.getLatitude()!=apiOrder.getLatitude() ||
+                                 cOrder.getLongitude()!=apiOrder.getLongitude())){
+                            Log.v("AlarmReceiver", "Se modifico una compra");
+                            Intent notificationIntent = new Intent(NOTIFICATION_BROADCAST);
+                            context.sendOrderedBroadcast(notificationIntent, null);
+                            return;
+                        }
+                    }
+                }
+                Log.v("AlarmReceiver", "No se modifico ninguna compra");
             }
 
             @Override
