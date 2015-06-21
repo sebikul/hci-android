@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import java.util.Random;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
+import edu.itba.hci.define.adapters.ProductListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
@@ -33,17 +35,18 @@ public class HomeFragment extends Fragment {
     ImageLoader imageLoader;
     private AsyncTask saleRequest;
     private AsyncTask newRequest;
+    private ListView saleListView, newListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.v("HomeFragment", "Creando vista del fragamento de la vista principal");
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         view.setVerticalScrollBarEnabled(true);
+        setHasOptionsMenu(true);
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         loadSales(view);
         loadNews(view);
-        setHasOptionsMenu(true);
         return view;
     }
 
@@ -57,12 +60,38 @@ public class HomeFragment extends Fragment {
         newRequest.cancel(true);
     }
 
+
+    private AsyncTask loadGenericList(final ListView listView, int id, String filter) {
+        Log.v("HomeFragment", "Cargando imagenes de " + filter);
+        return ApiManager.getAllProducts(1,3, new ApiProductFilter(id, filter), new Callback<ProductList>() {
+
+            @Override
+            public void onSuccess(ProductList response) {
+                ProductListAdapter adapter = new ProductListAdapter(getActivity(), R.layout.product_item, response.getProducts());
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onError(ApiError error) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_img) , Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onErrorConnection() {
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_conection), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
     private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3) {
         Log.v("HomeFragment", "Cargando imagenes de " + filter);
         return ApiManager.getAllProducts(1,20, new ApiProductFilter(id, filter), new Callback<ProductList>() {
 
             @Override
             public void onSuccess(ProductList response) {
+
                 if (response.getTotal() > 19) {
                     Random random = new Random();
                     int n=random.nextInt(20);
@@ -96,13 +125,21 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadSales(final View view) {
+        /*saleListView = (ListView) view.findViewById(R.id.sale_list);
+        saleListView.setClickable(true);
+        saleRequest=loadGenericList(saleListView, 5, "Oferta");*/
+
         saleRequest = loadGeneric(view, 5, "Oferta",
                 R.id.sale_img_1, R.id.sale_img_2, R.id.sale_img_3, 
                 R.id.sale_name_1, R.id.sale_name_2, R.id.sale_name_3,
                 R.id.sale_price_1, R.id.sale_price_2, R.id.sale_price_3);
     }
 
+
     private void loadNews(final View view) {
+     /*   newListView = (ListView) view.findViewById(R.id.new_list);
+        newListView.setClickable(true);
+        newRequest=loadGenericList(newListView, 6, "Nuevo");*/
         newRequest = loadGeneric(view, 6, "Nuevo",
                 R.id.new_img_1, R.id.new_img_2, R.id.new_img_3,
                 R.id.new_name_1, R.id.new_name_2, R.id.new_name_3,
@@ -111,6 +148,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.v("Home", "Vas a ver que esta entrando aca wacho");
         inflater.inflate(R.menu.options_menu, menu);
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.app_name);

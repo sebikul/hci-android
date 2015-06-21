@@ -30,7 +30,6 @@ public class NavBasicActivity extends AppCompatActivity {
 
     public static final int INTENT_NONE = 0;
     public static final int INTENT_PURCHASES = 1;
-    public static final int INTENT_NOTIFICATION = 2;
 
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
@@ -167,23 +166,23 @@ public class NavBasicActivity extends AppCompatActivity {
             //END Seccion con sesion activa
 
             case R.id.item_category_1:
-                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
+                replaceContentWithFragment(new CategoryFragment(CategoryFragment.GIRL, CategoryFragment.ADULT), null, menuItem);
                 break;
 
             case R.id.item_category_2:
-                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
+                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOY, CategoryFragment.ADULT), null, menuItem);
                 break;
 
             case R.id.item_category_3:
-                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
+                replaceContentWithFragment(new CategoryFragment(CategoryFragment.GIRL, CategoryFragment.KID), null, menuItem);
                 break;
 
             case R.id.item_category_4:
-                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
+                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOY, CategoryFragment.KID), null, menuItem);
                 break;
 
             case R.id.item_category_5:
-                replaceContentWithFragment(new CategoryFragment(), null, menuItem);
+                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOTH, CategoryFragment.BABY), null, menuItem);
                 break;
 
             case R.id.item_settings:

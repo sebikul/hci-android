@@ -25,7 +25,7 @@ public class ProductView extends LinearLayout {
 
     public ProductView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.product_view, this);
+        LayoutInflater.from(context).inflate(R.layout.product_item, this);
 
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
