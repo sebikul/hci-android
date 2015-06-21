@@ -2,9 +2,13 @@ package edu.itba.hci.define.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
@@ -22,21 +26,34 @@ public class CategoryFragment extends TabbedFragment {
 
     private int age, gender;
 
-    public CategoryFragment() {
+    @Override
+    protected void setupViewPager() {
+
         Bundle args = getArguments();
 
         age = args.getInt("age");
         gender = args.getInt("gender");
-    }
 
-    @Override
-    protected void setupViewPager() {
         setHasOptionsMenu(true);
 
         Log.v("CategotyFragment", "ColocandoTabs " + getOurCategory(age, gender));
-        //adapter.addFrag(new SubcategoryFragment(age, gender), getString(R.string.title_subcategories));
-        adapter.addFrag(new SaleFragment(age, gender), getString(R.string.title_sales));
-        //adapter.addFrag(new newFragment(age, gender), getString(R.string.title_new));
+
+        Fragment fragment;
+
+        //fixme
+        fragment = new SubcategoriesFragment();
+        fragment.setArguments(args);
+        adapter.addFrag(fragment, getString(R.string.title_subcategories));
+
+        //fixme
+        fragment = new SaleFragment();
+        fragment.setArguments(args);
+        adapter.addFrag(fragment, getString(R.string.title_sales));
+
+        //fixme
+        fragment = new SaleFragment();
+        fragment.setArguments(args);
+        adapter.addFrag(fragment, getString(R.string.title_new));
 
     }
 
