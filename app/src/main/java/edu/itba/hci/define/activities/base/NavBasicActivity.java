@@ -26,7 +26,6 @@ import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.activities.LoginActivity;
 import edu.itba.hci.define.activities.PurchasesFragment;
 import edu.itba.hci.define.activities.SettingsActivity;
-import edu.itba.hci.define.models.Category;
 
 public class NavBasicActivity extends AppCompatActivity {
 
@@ -71,6 +70,7 @@ public class NavBasicActivity extends AppCompatActivity {
         sessionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 replaceContentWithFragment(new AccountFragment(), "account");
                 mDrawer.closeDrawers();
                 Log.v(LOG_TAG, "Abriendo informacion de la cuenta del usuario.");

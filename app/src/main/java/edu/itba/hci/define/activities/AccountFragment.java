@@ -3,19 +3,23 @@ package edu.itba.hci.define.activities;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.models.User;
 
+
+// TODO: Tiene que ir en una actividad aparte
 public class AccountFragment extends Fragment {
 
     static private final String LOG_TAG = "AccountFragment";
@@ -65,7 +69,7 @@ public class AccountFragment extends Fragment {
 
 
 
-
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -78,6 +82,15 @@ public class AccountFragment extends Fragment {
         identView.setText(user.getIdentityCard());
         emailView.setText(user.getEmail());
 
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu, menu);
+        NavBasicActivity activity = ((NavBasicActivity) getActivity());
+        activity.setTitle(R.string.my_account);
+        activity.setToggleDrawer(true);
+        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_home).setChecked(true).setChecked(false);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }
