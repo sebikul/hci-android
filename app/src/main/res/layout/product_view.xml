@@ -1,0 +1,71 @@
+   <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cv"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <FrameLayout
+                android:id="@+id/photo_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/photo_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="false"
+                    android:keepScreenOn="false"
+                    android:src="@drawable/pilhom3" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignBottom="@+id/photo_img"
+                    android:layout_alignTop="@+id/photo_product"
+                    android:background="@drawable/gradient"
+                    android:longClickable="false" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title_brand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/photo_product"
+                android:layout_alignLeft="@+id/photo_product"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Brand"
+                android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/title_product"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/title_brand"
+                android:layout_alignLeft="@+id/photo_product"
+                android:layout_alignRight="@+id/photo_product"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Product name"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp" />
+            <TextView
+                android:id="@+id/title_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/photo_product"
+                android:layout_alignRight="@+id/photo_product"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:text="Price"
+                android:textColor="#FFFFFF" />
+
+        </RelativeLayout>
+</android.support.v7.widget.CardView>
