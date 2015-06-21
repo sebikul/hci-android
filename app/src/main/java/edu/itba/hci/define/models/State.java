@@ -3,10 +3,10 @@ package edu.itba.hci.define.models;
 
 public class State {
 
-    private int stateId;
+    private char stateId;
     private String name;
 
-    public State(int stateId, String name) {
+    public State(char stateId, String name) {
 
         this.stateId = stateId;
         this.name = name;
@@ -20,7 +20,7 @@ public class State {
                 '}';
     }
 
-    public int getStateId() {
+    public char getStateId() {
         return stateId;
     }
 

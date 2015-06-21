@@ -16,9 +16,9 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_gravity="center_horizontal" />
+            android:paddingTop="@dimen/activity_vertical_margin" />
 
         <LinearLayout
             android:id="@+id/purchase_view"
@@ -75,8 +75,43 @@
                         android:text="total"
                         android:textSize="16dp" />
 
+
+                    <TextView
+                        android:id="@+id/purchase_status_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/purchase_total_label"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:text="Status: "
+                        android:textColor="#ef1e1e1e"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/purchase_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/purchase_total"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_toRightOf="@+id/purchase_status_label"
+                        android:gravity="center_vertical"
+                        android:text="status"
+                        android:textSize="16dp" />
+
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
+
+            <ProgressBar
+                android:id="@+id/purchase_progress_address"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:visibility="gone" />
 
             <!-- A CardView that contains a TextView -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -154,6 +189,15 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
+            <ProgressBar
+                android:id="@+id/purchase_progress_payment"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:visibility="gone" />
 
             <!-- A CardView that contains a TextView -->
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -207,27 +251,27 @@
 
 
                     <TextView
-                        android:id="@+id/purchase_payment_installments_label"
+                        android:id="@+id/purchase_payment_expiration_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/purchase_payment_card_label"
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Installments: "
+                        android:text="Expiration: "
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 
                     <TextView
-                        android:id="@+id/purchase_payment_installments"
+                        android:id="@+id/purchase_payment_expiration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/purchase_payment_card_label"
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
-                        android:layout_toRightOf="@+id/purchase_payment_installments_label"
+                        android:layout_toRightOf="@+id/purchase_payment_expiration_label"
                         android:gravity="center_vertical"
-                        android:text="installments"
+                        android:text="expiration"
                         android:textSize="16dp" />
 
                 </RelativeLayout>
