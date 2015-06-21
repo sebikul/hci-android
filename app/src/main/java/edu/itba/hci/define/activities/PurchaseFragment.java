@@ -14,17 +14,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.adapters.OrderItemArrayAdapter;
+import edu.itba.hci.define.adapters.ProductListAdapter;
+import edu.itba.hci.define.adapters.PurchaseListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.Address;
 import edu.itba.hci.define.models.CreditCard;
 import edu.itba.hci.define.models.Order;
+import edu.itba.hci.define.models.ProductItem;
 import edu.itba.hci.define.models.State;
 import edu.itba.hci.define.models.StatesList;
 
@@ -55,6 +62,7 @@ public class PurchaseFragment extends Fragment {
     private AsyncTask addressLoader = null;
     private AsyncTask paymentLoader = null;
 
+    private ListView productList;
 
     private int orderId;
 
@@ -83,6 +91,8 @@ public class PurchaseFragment extends Fragment {
 
         mCreditCard = (TextView) view.findViewById(R.id.purchase_payment_card);
         mExpiration = (TextView) view.findViewById(R.id.purchase_payment_expiration);
+
+        productList = (ListView) view.findViewById(R.id.product_list);
 
         Bundle args = getArguments();
         orderId = args.getInt("orderId");
@@ -173,6 +183,10 @@ public class PurchaseFragment extends Fragment {
             addressLoader = ApiManager.getAddressById(response.getAddress().getId(), new AddressCallback());
 
             paymentLoader = ApiManager.getCreditCardById(response.getCreditCard().getId(), new CreditCardCallback());
+
+            OrderItemArrayAdapter adapter = new OrderItemArrayAdapter(getActivity(), R.layout.product_item, response.getItems());
+
+            productList.setAdapter(adapter);
 
         }
 

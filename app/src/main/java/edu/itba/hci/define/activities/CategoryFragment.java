@@ -1,5 +1,6 @@
 package edu.itba.hci.define.activities;
 
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.util.Log;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.activities.base.TabbedFragment;
+import edu.itba.hci.define.models.Category;
 
 public class CategoryFragment extends TabbedFragment {
 
@@ -20,11 +22,12 @@ public class CategoryFragment extends TabbedFragment {
 
     private int age, gender;
 
-    public CategoryFragment(int age, int gender) {
-        this.age=age;
-        this.gender=gender;
-    }
+    public CategoryFragment() {
+        Bundle args = getArguments();
 
+        age = args.getInt("age");
+        gender = args.getInt("gender");
+    }
 
     @Override
     protected void setupViewPager() {
@@ -52,20 +55,20 @@ public class CategoryFragment extends TabbedFragment {
     }
 
     private void setNavigationDrawerOptionChecked(NavBasicActivity activity, int age, int gender) {
-        switch (age+gender){
-            case GIRL+ADULT:
+        switch (age + gender) {
+            case GIRL + ADULT:
                 ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_category_1).setChecked(true);
                 return;
-            case BOY+ADULT:
+            case BOY + ADULT:
                 ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_category_2).setChecked(true);
                 return;
-            case GIRL+KID:
+            case GIRL + KID:
                 ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_category_3).setChecked(true);
                 return;
-            case BOY+KID:
+            case BOY + KID:
                 ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_category_4).setChecked(true);
                 return;
-            case BABY+BOTH:
+            case BABY + BOTH:
                 ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_category_5).setChecked(true);
                 return;
             default:
@@ -74,18 +77,17 @@ public class CategoryFragment extends TabbedFragment {
     }
 
 
-
     private String getOurCategory(int age, int gender) {
-        switch (age+gender){
-            case GIRL+ADULT:
+        switch (age + gender) {
+            case GIRL + ADULT:
                 return getResources().getString(R.string.category_woman);
-            case BOY+ADULT:
+            case BOY + ADULT:
                 return getResources().getString(R.string.category_men);
-            case GIRL+KID:
+            case GIRL + KID:
                 return getResources().getString(R.string.category_girls);
-            case BOY+KID:
+            case BOY + KID:
                 return getResources().getString(R.string.category_boys);
-            case BABY+BOTH:
+            case BABY + BOTH:
                 return getResources().getString(R.string.category_babies);
             default:
                 throw new IllegalStateException("Category name not found");

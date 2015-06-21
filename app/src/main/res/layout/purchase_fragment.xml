@@ -277,6 +277,37 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
+
+            <ProgressBar
+                android:id="@+id/purchase_progress_products"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:visibility="gone" />
+
+            <!-- A CardView that contains a TextView -->
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                card_view:cardCornerRadius="4dp">
+
+                <ListView
+                    android:id="@+id/product_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:choiceMode="singleChoice"
+                    android:clickable="true" />
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </LinearLayout>

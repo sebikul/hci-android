@@ -84,6 +84,10 @@ public class Order extends ApiResponse {
         return creditCard;
     }
 
+    public OrderItem[] getItems() {
+        return items;
+    }
+
     public OrderStatus getStatus() {
         return status;
     }

@@ -26,6 +26,7 @@ import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.activities.LoginActivity;
 import edu.itba.hci.define.activities.PurchasesFragment;
 import edu.itba.hci.define.activities.SettingsActivity;
+import edu.itba.hci.define.models.Category;
 
 public class NavBasicActivity extends AppCompatActivity {
 
@@ -171,23 +172,23 @@ public class NavBasicActivity extends AppCompatActivity {
             //END Seccion con sesion activa
 
             case R.id.item_category_1:
-                replaceContentWithFragment(new CategoryFragment(CategoryFragment.GIRL, CategoryFragment.ADULT), null, menuItem);
+                replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.GIRL, CategoryFragment.ADULT);
                 break;
 
             case R.id.item_category_2:
-                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOY, CategoryFragment.ADULT), null, menuItem);
+                replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.BOY, CategoryFragment.ADULT);
                 break;
 
             case R.id.item_category_3:
-                replaceContentWithFragment(new CategoryFragment(CategoryFragment.GIRL, CategoryFragment.KID), null, menuItem);
+                replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.GIRL, CategoryFragment.KID);
                 break;
 
             case R.id.item_category_4:
-                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOY, CategoryFragment.KID), null, menuItem);
+                replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.BOY, CategoryFragment.KID);
                 break;
 
             case R.id.item_category_5:
-                replaceContentWithFragment(new CategoryFragment(CategoryFragment.BOTH, CategoryFragment.BABY), null, menuItem);
+                replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.BOTH, CategoryFragment.BABY);
                 break;
 
             case R.id.item_settings:
@@ -239,6 +240,26 @@ public class NavBasicActivity extends AppCompatActivity {
 
     private void replaceContentWithFragment(Fragment fragment, String tag) {
         replaceContentWithFragment(fragment, tag, null);
+    }
+
+    private void replaceContentWithArgs(Class<CategoryFragment> fragmentClass, String tag, MenuItem trigger, int age, int gender) {
+
+        try {
+            CategoryFragment fragment = fragmentClass.newInstance();
+
+            Bundle args = new Bundle();
+            args.putInt("age", age);
+            args.putInt("gender", gender);
+            fragment.setArguments(args);
+
+            replaceContentWithFragment(fragment, tag, trigger);
+
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

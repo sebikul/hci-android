@@ -165,6 +165,73 @@ public class ApiManager {
 
     }
 
+    static public AsyncTask getProductsByName(String name, int page, int page_size, ApiProductFilter[] filters, Callback<ProductList> callback) {
+
+        Map<String, String> params = new HashMap<>(4);
+
+        params.put("name", name);
+        params.put("page", String.valueOf(page));
+        params.put("page_size", String.valueOf(page_size));
+
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
+            params.put("filters", filterJson);
+        }
+
+        return makeApiCall("Catalog", "GetProductsByName", params, callback, ProductList.class);
+
+    }
+
+    static public AsyncTask getProductsByName(String name, int page, ApiProductFilter[] filters, Callback<ProductList> callback) {
+        return getProductsByName(name, page, 8, filters, callback);
+    }
+
+
+    static public AsyncTask getProductsByCategoryId(int id, int page, ApiProductFilter[] filters, Callback<ProductList> callback) {
+        return getProductsByCategoryId(id, page, 8, filters, callback);
+    }
+
+
+    static public AsyncTask getProductsByCategoryId(int id, int page, int page_size, ApiProductFilter[] filters, Callback<ProductList> callback) {
+
+        Map<String, String> params = new HashMap<>(4);
+
+        params.put("id", String.valueOf(id));
+        params.put("page", String.valueOf(page));
+        params.put("page_size", String.valueOf(page_size));
+
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
+            params.put("filters", filterJson);
+        }
+
+        return makeApiCall("Catalog", "GetProductsByCategoryId", params, callback, ProductList.class);
+
+    }
+
+
+    static public AsyncTask getProductsBySubcategoryId(int id, int page, ApiProductFilter[] filters, Callback<ProductList> callback) {
+        return getProductsBySubcategoryId(id, page, 8, filters, callback);
+    }
+
+
+    static public AsyncTask getProductsBySubcategoryId(int id, int page, int page_size, ApiProductFilter[] filters, Callback<ProductList> callback) {
+
+        Map<String, String> params = new HashMap<>(4);
+
+        params.put("id", String.valueOf(id));
+        params.put("page", String.valueOf(page));
+        params.put("page_size", String.valueOf(page_size));
+
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
+            params.put("filters", filterJson);
+        }
+
+        return makeApiCall("Catalog", "GetProductsBySubategoryId", params, callback, ProductList.class);
+
+    }
+
     static public AsyncTask getAllSubcategories(int id, Callback<SubcategoryList> callback) {
 
         return getAllSubcategories(id, null, callback);
