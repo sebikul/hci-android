@@ -41,24 +41,22 @@ public class DefineApplication extends Application {
         preferences = getSharedPreferences(PREFERENCES_BUCKET, MODE_PRIVATE);
         ApiManager.initialize(preferences, this);
 
-        if (preferences.getString("authentication_token", null) != null) {
-            session = new User();//fixme dummy user
-            Log.v(LOG_TAG, "Session encontrada");
-
-        }
 
         File cacheDir = getCacheDir();
 
         try {
-            cache = DiskLruCache.open(cacheDir, 1, 1, 1024 * 1024 * 10);
 
-            //fixme wacho
-            //todo
-            cache.delete();
 
             cache = DiskLruCache.open(cacheDir, 1, 1, 1024 * 1024 * 10);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (preferences.getString("authentication_token", null) != null) {
+            Log.v(LOG_TAG, "Session encontrada");
+
+            session = readFromCache("user");
+
         }
 
         updateUserData();
@@ -100,7 +98,6 @@ public class DefineApplication extends Application {
                 try {
 
                     Log.v(LOG_TAG, "Actualizando datos locales del usuario");
-                    Log.v(LOG_TAG, session.toString());
 
                     response.setAuthToken(preferences.getString("authentication_token", null));
 

@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     @Override
     public void onPause() {
         super.onPause();
@@ -63,7 +62,7 @@ public class HomeFragment extends Fragment {
 
     private AsyncTask loadGenericList(final ListView listView, int id, String filter) {
         Log.v("HomeFragment", "Cargando imagenes de " + filter);
-        return ApiManager.getAllProducts(1,3, new ApiProductFilter(id, filter), new Callback<ProductList>() {
+        return ApiManager.getAllProducts(1, 3, new ApiProductFilter[]{new ApiProductFilter(id, filter)}, new Callback<ProductList>() {
 
             @Override
             public void onSuccess(ProductList response) {
@@ -73,7 +72,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onError(ApiError error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_img) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_img), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -84,29 +83,30 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3) {
         Log.v("HomeFragment", "Cargando imagenes de " + filter);
-        return ApiManager.getAllProducts(1,20, new ApiProductFilter(id, filter), new Callback<ProductList>() {
+
+
+        return ApiManager.getAllProducts(1, 20, new ApiProductFilter[]{new ApiProductFilter(id, filter)}, new Callback<ProductList>() {
 
             @Override
             public void onSuccess(ProductList response) {
 
                 if (response.getTotal() > 19) {
                     Random random = new Random();
-                    int n=random.nextInt(20);
-                    Product p1=response.getProducts().get(n);
-                    Product p2=response.getProducts().get((n+1)%20);
-                    Product p3=response.getProducts().get((n+2)%20);
+                    int n = random.nextInt(20);
+                    Product p1 = response.getProducts().get(n);
+                    Product p2 = response.getProducts().get((n + 1) % 20);
+                    Product p3 = response.getProducts().get((n + 2) % 20);
                     imageLoader.displayImage(p1.getImageUrl()[0], (ImageView) view.findViewById(img1));
                     ((TextView) view.findViewById(name1)).setText(p1.getName());
-                    ((TextView) view.findViewById(price1)).setText("$ "+String.valueOf(p1.getPrice()));
+                    ((TextView) view.findViewById(price1)).setText("$ " + String.valueOf(p1.getPrice()));
                     imageLoader.displayImage(p2.getImageUrl()[0], (ImageView) view.findViewById(img2));
                     ((TextView) view.findViewById(name2)).setText(p2.getName());
-                    ((TextView) view.findViewById(price2)).setText("$ "+p2.getPrice());
+                    ((TextView) view.findViewById(price2)).setText("$ " + p2.getPrice());
                     imageLoader.displayImage(p3.getImageUrl()[0], (ImageView) view.findViewById(img3));
                     ((TextView) view.findViewById(name3)).setText(p3.getName());
-                    ((TextView) view.findViewById(price3)).setText("$ "+p3.getPrice());
+                    ((TextView) view.findViewById(price3)).setText("$ " + p3.getPrice());
 
                 }
             }
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onError(ApiError error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_img) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_img), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
         saleRequest=loadGenericList(saleListView, 5, "Oferta");*/
 
         saleRequest = loadGeneric(view, 5, "Oferta",
-                R.id.sale_img_1, R.id.sale_img_2, R.id.sale_img_3, 
+                R.id.sale_img_1, R.id.sale_img_2, R.id.sale_img_3,
                 R.id.sale_name_1, R.id.sale_name_2, R.id.sale_name_3,
                 R.id.sale_price_1, R.id.sale_price_2, R.id.sale_price_3);
     }
