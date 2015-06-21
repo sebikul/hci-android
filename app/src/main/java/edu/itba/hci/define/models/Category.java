@@ -1,17 +1,17 @@
 package edu.itba.hci.define.models;
 
 
+import java.util.Arrays;
+
 public class Category {
     private int id;
     private String name;
+    private Attribute[] attributes;
 
-    public Category(int id, String name) {
+    public Category(int id, String name, Attribute[] attributes) {
         this.id = id;
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
+        this.attributes = attributes;
     }
 
     @Override
@@ -19,8 +19,19 @@ public class Category {
         return "Category{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", attributes=" + Arrays.toString(attributes) +
                 '}';
     }
+
+    public Attribute[] getAttributes() {
+
+        return attributes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
 
     public String getName() {
         return name;

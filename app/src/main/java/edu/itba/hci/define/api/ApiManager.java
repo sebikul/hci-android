@@ -30,6 +30,8 @@ import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.models.Address;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ApiResponse;
+import edu.itba.hci.define.models.Category;
+import edu.itba.hci.define.models.CategoryList;
 import edu.itba.hci.define.models.CreditCard;
 import edu.itba.hci.define.models.Order;
 import edu.itba.hci.define.models.OrderList;
@@ -69,6 +71,7 @@ public class ApiManager {
                 .registerTypeAdapter(CreditCard.class, new ApiDeserializer<CreditCard>("creditCard"))
                 .registerTypeAdapter(Address.class, new ApiDeserializer<Address>("address"))
                 .registerTypeAdapter(SubcategoryList.class, new ApiDeserializer<SubcategoryList>("subcategories"))
+                .registerTypeAdapter(CategoryList.class,new ApiDeserializer<SubcategoryList>("categories"))
                 .create();
 
         preferences = pref;
@@ -132,17 +135,17 @@ public class ApiManager {
 
     }
 
-    static public AsyncTask getAllProducts(int page, int page_size, ApiProductFilter filter, Callback<ProductList> callback) {
+    static public AsyncTask getAllProducts(int page, int page_size, ApiProductFilter[] filters, Callback<ProductList> callback) {
 
         Map<String, String> params = new HashMap<>(3);
 
         params.put("page", String.valueOf(page));
         params.put("page_size", String.valueOf(page_size));
 
-        if (filter != null) {
-            String filterJson = gson.toJson(filter);
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
 
-            params.put("filters", "[" + filterJson + "]");
+            params.put("filters", filterJson);
         }
 
         return makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
@@ -150,19 +153,9 @@ public class ApiManager {
     }
 
 
-    static public AsyncTask getAllProducts(int page, ApiProductFilter filter, Callback<ProductList> callback) {
+    static public AsyncTask getAllProducts(int page, ApiProductFilter[] filters, Callback<ProductList> callback) {
 
-        Map<String, String> params = new HashMap<>(2);
-
-        params.put("page", String.valueOf(page));
-
-        if (filter != null) {
-            String filterJson = gson.toJson(filter);
-
-            params.put("filters", "[" + filterJson + "]");
-        }
-
-        return makeApiCall("Catalog", "GetAllProducts", params, callback, ProductList.class);
+        return getAllProducts(page, 8, filters, callback);
 
     }
 
@@ -191,6 +184,25 @@ public class ApiManager {
         }
 
         return makeApiCall("Catalog", "GetAllSubcategories", params, callback, SubcategoryList.class);
+
+    }
+
+    static public AsyncTask getAllCategories(Callback<CategoryList> callback) {
+
+        return getAllCategories(null, callback);
+    }
+
+    static public AsyncTask getAllCategories(ApiProductFilter[] filters, Callback<CategoryList> callback) {
+
+        Map<String, String> params = new HashMap<>(1);
+
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
+
+            params.put("filters", filterJson);
+        }
+
+        return makeApiCall("Catalog", "GetAllCategories", params, callback, CategoryList.class);
 
     }
 
@@ -361,6 +373,15 @@ public class ApiManager {
                 List<Subcategory> subcategories = new Gson().fromJson(content, listType);
 
                 response = (T) new SubcategoryList(subcategories);
+            }else if (type == CategoryList.class) {
+
+                Log.v(LOG_TAG, "Deserializando lista de categorias");
+                Type listType = new TypeToken<List<Category>>() {
+                }.getType();
+                // In this test code i just shove the JSON here as string.
+                List<Category> categories = new Gson().fromJson(content, listType);
+
+                response = (T) new CategoryList(categories);
             } else {
 
                 if (type == Product.class) {
