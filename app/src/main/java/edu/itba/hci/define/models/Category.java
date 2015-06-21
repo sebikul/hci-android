@@ -1,8 +1,6 @@
 package edu.itba.hci.define.models;
 
-/**
- * Created by Diego on 19/06/2015.
- */
+
 public class Category {
     private int id;
     private String name;
@@ -14,6 +12,14 @@ public class Category {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public String getName() {

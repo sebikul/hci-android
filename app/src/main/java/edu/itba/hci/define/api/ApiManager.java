@@ -37,6 +37,8 @@ import edu.itba.hci.define.models.Product;
 import edu.itba.hci.define.models.ProductList;
 import edu.itba.hci.define.models.State;
 import edu.itba.hci.define.models.StatesList;
+import edu.itba.hci.define.models.Subcategory;
+import edu.itba.hci.define.models.SubcategoryList;
 import edu.itba.hci.define.models.User;
 
 public class ApiManager {
@@ -66,6 +68,7 @@ public class ApiManager {
                 .registerTypeAdapter(StatesList.class, new ApiDeserializer<StatesList>("states"))
                 .registerTypeAdapter(CreditCard.class, new ApiDeserializer<CreditCard>("creditCard"))
                 .registerTypeAdapter(Address.class, new ApiDeserializer<Address>("address"))
+                .registerTypeAdapter(SubcategoryList.class, new ApiDeserializer<SubcategoryList>("subcategories"))
                 .create();
 
         preferences = pref;
@@ -166,6 +169,28 @@ public class ApiManager {
     static public AsyncTask getAllProducts(int page, Callback<ProductList> callback) {
 
         return getAllProducts(page, null, callback);
+
+    }
+
+    static public AsyncTask getAllSubcategories(int id, Callback<SubcategoryList> callback) {
+
+        return getAllSubcategories(id, null, callback);
+
+    }
+
+    static public AsyncTask getAllSubcategories(int id, ApiProductFilter[] filters, Callback<SubcategoryList> callback) {
+
+        Map<String, String> params = new HashMap<>(2);
+
+        params.put("id", String.valueOf(id));
+
+        if (filters != null) {
+            String filterJson = gson.toJson(filters);
+
+            params.put("filters", filterJson);
+        }
+
+        return makeApiCall("Catalog", "GetAllSubcategories", params, callback, SubcategoryList.class);
 
     }
 
@@ -327,6 +352,15 @@ public class ApiManager {
                 List<State> stateList = new Gson().fromJson(content, listType);
 
                 response = (T) new StatesList(stateList);
+            } else if (type == SubcategoryList.class) {
+
+                Log.v(LOG_TAG, "Deserializando lista de subcategorias");
+                Type listType = new TypeToken<List<Subcategory>>() {
+                }.getType();
+                // In this test code i just shove the JSON here as string.
+                List<Subcategory> subcategories = new Gson().fromJson(content, listType);
+
+                response = (T) new SubcategoryList(subcategories);
             } else {
 
                 if (type == Product.class) {
