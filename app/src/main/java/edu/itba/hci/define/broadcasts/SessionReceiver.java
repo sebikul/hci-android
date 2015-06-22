@@ -38,7 +38,7 @@ public class SessionReceiver extends BroadcastReceiver {
 
             DefineApplication app = (DefineApplication) context.getApplicationContext();
 
-            long alarmInterval = app.getPreferences().getLong("alarmInterval", AlarmManager.INTERVAL_FIFTEEN_MINUTES);
+            long alarmInterval = Long.parseLong(app.getPreferences().getString("alarmInterval", "900000"));
 
             Log.v("SessionReceiver", "El alarm interval vale " + String.valueOf(alarmInterval));
 
@@ -53,8 +53,7 @@ public class SessionReceiver extends BroadcastReceiver {
         DefineApplication app = (DefineApplication) context.getApplicationContext();
 
         String authToken = app.getPreferences().getString("authentication_token", null);
-
-        boolean notification_enable = app.getPreferences().getBoolean("notifications_enable", true);
+        boolean notification_enable = app.getPreferences().getBoolean("notifications_enable", true );
 
 
         if (authToken == null || !notification_enable) {

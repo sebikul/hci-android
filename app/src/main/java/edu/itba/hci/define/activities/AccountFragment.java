@@ -19,6 +19,7 @@ import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.ToolbarActivity;
 import edu.itba.hci.define.api.ApiManager;
+import edu.itba.hci.define.broadcasts.SessionReceiver;
 import edu.itba.hci.define.models.User;
 
 
@@ -93,8 +94,9 @@ public class AccountFragment extends Fragment {
             Log.v("AccountFragment", "Cerrando Sesion");
 
             ApiManager.logout();
-
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
+            getActivity().sendOrderedBroadcast(intent, null);
+            intent = new Intent(getActivity(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 

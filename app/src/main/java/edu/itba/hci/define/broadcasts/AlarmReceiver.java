@@ -24,8 +24,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         Log.v("AlarmReceiver", "Manejando la alarma");
-
         DefineApplication app = (DefineApplication) context.getApplicationContext();
+        if(app.getPreferences().getString("auth_name", null)==null)
+            return;
         final List<Order> cachedOrders = app.readFromCache("orders");
         ApiManager.getAllOrders(new Callback<OrderList>() {
 

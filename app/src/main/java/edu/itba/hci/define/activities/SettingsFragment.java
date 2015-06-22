@@ -41,15 +41,15 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             connectionPref.setSummary(R.string.notification_interval_summary);
 
             Log.v(LOG_TAG, "El nuevo tiempo de actualizacion es " + sharedPreferences.getString(key, "nada puto"));
-
-
         }
 
         Log.v(LOG_TAG, "Las actualizaciones estan " + sharedPreferences.getBoolean("notifications_enable", false));
 
         Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
         getActivity().sendOrderedBroadcast(intent, null);
-
+        DefineApplication app = (DefineApplication) getActivity().getApplicationContext();
+        app.getPreferences().edit().putBoolean("notifications_enable", sharedPreferences.getBoolean("notifications_enable", false)).commit();
+        app.getPreferences().edit().putString("alarmInterval", sharedPreferences.getString("alarmInterval","900000")).commit();
 
     }
 

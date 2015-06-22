@@ -207,6 +207,12 @@ public class DefineApplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        File cacheDir = getCacheDir();
+        try {
+            cache = DiskLruCache.open(cacheDir, 1, 1, 1024 * 1024 * 10);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void notifyLogOut(){

@@ -105,7 +105,7 @@ public class SearchFragment extends Fragment {
 
         activity.setTitle(title);
         activity.setToggleDrawer(false);
-        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_purchases).setChecked(true);
+        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_search).setChecked(true);
         super.onCreateOptionsMenu(menu, inflater);
 
     }
