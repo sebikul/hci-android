@@ -47,7 +47,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         imageLoader.displayImage(p.getImageUrl()[0], image);
         name.setText(p.getName());
         brand.setText(p.getBrand());
-        price.setText("$ "+p.getPrice());
+        price.setText("$ " + p.getPrice());
 
 
         return singleView;

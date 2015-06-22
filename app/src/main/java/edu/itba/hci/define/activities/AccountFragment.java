@@ -67,13 +67,15 @@ public class AccountFragment extends Fragment {
             updateUserData(user);
         }
 
-
+        ((NavBasicActivity) getActivity()).unselectAll();
 
         setHasOptionsMenu(true);
+
         return view;
     }
 
     private void updateUserData(User user) {
+
 
         nameView.setText(user.getFirstName());
         lastNameView.setText(user.getLastName());
@@ -88,7 +90,7 @@ public class AccountFragment extends Fragment {
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.my_account);
         activity.setToggleDrawer(true);
-        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_home).setChecked(true).setChecked(false);
+        //((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_home).setChecked(true).setChecked(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

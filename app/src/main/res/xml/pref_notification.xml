@@ -8,7 +8,7 @@
         android:title="@string/settings_notifications_enable" />
 
     <ListPreference
-        android:defaultValue="1800000"
+        android:defaultValue="900000"
         android:dependency="notifications_enable"
         android:entries="@array/updateInterval"
         android:entryValues="@array/updateIntervalValues"

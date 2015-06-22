@@ -32,7 +32,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
             Log.v(LOG_TAG, "El nuevo tiempo de actualizacion es " + sharedPreferences.getString(key, "nada puto"));
 
+
         }
+
+        Log.v(LOG_TAG, "Las actualizaciones estan " + sharedPreferences.getBoolean("notifications_enable", false));
 
         Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
         getActivity().sendOrderedBroadcast(intent, null);

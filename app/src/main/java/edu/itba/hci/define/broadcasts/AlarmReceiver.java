@@ -37,7 +37,6 @@ public class AlarmReceiver extends BroadcastReceiver {
                     return;
                 }
 
-
                 for(Order apiOrder:response.getOrders()){
                     for(Order cOrder:cachedOrders) {
                         if(cOrder.equals(apiOrder) && apiOrder.hasNotifications() &&

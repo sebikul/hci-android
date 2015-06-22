@@ -210,10 +210,21 @@ public class NavBasicActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mDrawer.isDrawerOpen(nvDrawer))
+        if (mDrawer.isDrawerOpen(nvDrawer)) {
             mDrawer.closeDrawer(nvDrawer);
-        else
+        } else {
             super.onBackPressed();
+        }
+    }
+
+    public void unselectAll() {
+
+        Log.v(LOG_TAG, "Limpiando seleccion del navdrawer");
+
+        for (int i = 0; i < nvDrawer.getMenu().size(); i++) {
+
+            nvDrawer.getMenu().getItem(i).setChecked(false);
+        }
     }
 
     protected void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {

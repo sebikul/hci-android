@@ -109,7 +109,6 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
             public void onSuccess(Product response) {
 
 
-                // TODO: El setTitle no esta funcionando
                 String name=response.getName();
                 ProductActivity.this.getSupportActionBar().setTitle((name.length() > 15 ? name.substring(0, 15) + "..." : name));
 

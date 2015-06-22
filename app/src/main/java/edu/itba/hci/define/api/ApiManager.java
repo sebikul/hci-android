@@ -396,9 +396,9 @@ public class ApiManager {
                         for (Order cachedOrder : cachedOrders) {
 
                             if (cachedOrder.getId() == remoteOrder.getId()) {
-
-                                Log.v(LOG_TAG, "Cached Order: " + cachedOrder.toString());
-                                Log.v(LOG_TAG, "Remote Order: " + remoteOrder.toString());
+//
+//                                Log.v(LOG_TAG, "Cached Order: " + cachedOrder.toString());
+//                                Log.v(LOG_TAG, "Remote Order: " + remoteOrder.toString());
 
 
                                 remoteOrder.setNotifications(cachedOrder.hasNotifications());

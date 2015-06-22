@@ -27,7 +27,7 @@ public class SessionReceiver extends BroadcastReceiver {
                 new Intent(context, AlarmReceiver.class);
 
         if (intent.getAction().equals(REFRESH_ALARM)) {
-            if(alarmPendingIntent!=null){
+            if (alarmPendingIntent != null) {
                 alarmManager.cancel(alarmPendingIntent);
             }
         }
@@ -39,19 +39,26 @@ public class SessionReceiver extends BroadcastReceiver {
             DefineApplication app = (DefineApplication) context.getApplicationContext();
 
             long alarmInterval = app.getPreferences().getLong("alarmInterval", AlarmManager.INTERVAL_FIFTEEN_MINUTES);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval,alarmPendingIntent);
+
+            Log.v("SessionReceiver", "El alarm interval vale " + String.valueOf(alarmInterval));
+
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval, alarmPendingIntent);
             //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 30 * 1, 1000 * 30 * 1, alarmPendingIntent);
         }
     }
 
     private boolean conditions(Context context) {
         Log.v("SessionReceiver", "Verificando condiciones");
+
         DefineApplication app = (DefineApplication) context.getApplicationContext();
+
         String authToken = app.getPreferences().getString("authentication_token", null);
-        boolean notification_enable = app.getPreferences().getBoolean("notifications_enable",false);
+
+        boolean notification_enable = app.getPreferences().getBoolean("notifications_enable", true);
+
+
         if (authToken == null || !notification_enable) {
-            Log.v("SessionReceiver", "Condiciones invalidas "+authToken
-            +" "+notification_enable);
+            Log.v("SessionReceiver", String.format("Condiciones invalidas %s %s", authToken, notification_enable));
             return false;
         }
         Log.v("SessionReceiver", "Condiciones validas");
