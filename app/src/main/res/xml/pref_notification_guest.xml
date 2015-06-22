@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="notifications_enable"
+        android:title="@string/settings_notifications_enable"
+        android:clickable="false"
+        android:enabled="false"/>
+
+    <ListPreference
+        android:defaultValue="900000"
+        android:dependency="notifications_enable"
+        android:entries="@array/updateInterval"
+        android:entryValues="@array/updateIntervalValues"
+        android:key="alarmInterval"
+        android:summary="@string/notification_interval_summary"
+        android:title="@string/notification_interval_title" />
+
+
+</PreferenceScreen>
