@@ -44,7 +44,7 @@
     <string name="settings_notifications_enable">Activar notificaciones</string>
     <string name="search_title">Buscar</string>
     <string name="purchases_updated">Lista de compras actualizada</string>
-    <string name="purchase_title">Orden #%d</string>
+    <string name="purchase_title">Compra #%d</string>
     <string name="prompt_password">Contraseña</string>
     <string name="prompt_email">Correo</string>
     <string name="product_title_sizes">Talles</string>

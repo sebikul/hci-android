@@ -227,7 +227,7 @@ public class ApiManager {
             params.put("filters", filterJson);
         }
 
-        return makeApiCall("Catalog", "GetProductsBySubategoryId", params, callback, ProductList.class);
+        return makeApiCall("Catalog", "GetProductsBySubcategoryId", params, callback, ProductList.class);
 
     }
 

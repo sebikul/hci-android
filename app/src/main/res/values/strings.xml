@@ -51,7 +51,7 @@
     <string name="search_title">search</string>
     <string name="hint_search_bar">Search for a product…</string>
     <string name="title_activity_purchase"> Product Name </string>
-    <string name="purchase_title">Order #%d</string>
+    <string name="purchase_title">Purchase #%d</string>
     <string name="product_title_summary">Information</string>
     <string name="product_name_label">Name:</string>
     <string name="product_brand_label">Brand:</string>
