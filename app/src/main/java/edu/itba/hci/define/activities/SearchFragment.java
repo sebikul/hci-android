@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
+import edu.itba.hci.define.activities.base.SearchableActivity;
 import edu.itba.hci.define.adapters.ProductListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
@@ -26,11 +27,8 @@ import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ProductList;
 
-/**
- * Created by Diego on 22/06/2015.
- */
 public class SearchFragment extends Fragment {
-    private String query;
+    private String query = null;
     private ListView listView;
     private AsyncTask request;
 
@@ -43,40 +41,52 @@ public class SearchFragment extends Fragment {
         setHasOptionsMenu(true);
         Bundle args = getArguments();
 
-        query = args.getString("query");
+        if (args != null && args.containsKey("query")) {
+            query = args.getString("query");
 
-        request= ApiManager.getProductsByName(query, 1, 500, new ApiProductFilter[]{},  new Callback<ProductList>() {
-            @Override
-            public void onSuccess(final ProductList response) {
-                ProductListAdapter adapter = new ProductListAdapter(getActivity(), R.layout.product_item, response.getProducts());
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getActivity(), ProductActivity.class);
-                        intent.putExtra("productId", response.getProducts().get(position).getId());
-                        startActivity(intent);
-                    }
-                });
-            }
+            request = ApiManager.getProductsByName(query, 1, 500, new ApiProductFilter[]{}, new Callback<ProductList>() {
+                @Override
+                public void onSuccess(final ProductList response) {
+                    ProductListAdapter adapter = new ProductListAdapter(getActivity(), R.layout.product_item, response.getProducts());
+                    listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(getActivity(), ProductActivity.class);
+                            intent.putExtra("productId", response.getProducts().get(position).getId());
+                            startActivity(intent);
+                        }
+                    });
+                }
 
-            @Override
-            public void onError(ApiError error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_img), Toast.LENGTH_SHORT).show();
-            }
+                @Override
+                public void onError(ApiError error) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_img), Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onErrorConnection() {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_conection), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onErrorConnection() {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_conection), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Log.v("SearchFragment", "Busqueda sin parametros, expandiendo cuadro de busqueda");
+            ((SearchableActivity) getActivity()).expandSearchView();
+
+        }
+
         return view;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        request.cancel(true);
+
+        if (request != null) {
+            request.cancel(true);
+
+        }
     }
 
     @Override
@@ -84,7 +94,16 @@ public class SearchFragment extends Fragment {
         Log.v("SearchFragment", "Cargando menu del search");
 
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
-        activity.setTitle(getResources().getString(R.string.title_search) + " \""  + query +"\"");
+
+        String title;
+
+        if (query == null) {
+            title = getResources().getString(R.string.title_search);
+        } else {
+            title = getResources().getString(R.string.title_search) + ": \"" + query + "\"";
+        }
+
+        activity.setTitle(title);
         activity.setToggleDrawer(false);
         ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_purchases).setChecked(true);
         super.onCreateOptionsMenu(menu, inflater);

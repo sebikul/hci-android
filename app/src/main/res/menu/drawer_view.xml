@@ -11,8 +11,13 @@
             android:id="@+id/item_purchases"
             android:icon="@drawable/ic_action_shopping_basket"
             android:title="@string/title_purchases"
-            android:visible="false" />
+            android:visible="false"/>
         <!-- END Seccion con sesion activa-->
+
+        <item
+            android:id="@+id/item_search"
+            android:icon="@drawable/ic_search_black"
+            android:title="@string/title_search" />
 
         <item
             android:actionLayout="@layout/abc_action_bar_title_item"

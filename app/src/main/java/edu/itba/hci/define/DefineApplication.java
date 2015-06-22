@@ -196,4 +196,12 @@ public class DefineApplication extends Application {
 
     }
 
+    public void clearCache(){
+        try {
+            cache.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

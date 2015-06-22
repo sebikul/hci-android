@@ -26,6 +26,7 @@ import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.activities.LoginActivity;
 import edu.itba.hci.define.activities.PurchaseActivity;
 import edu.itba.hci.define.activities.PurchasesFragment;
+import edu.itba.hci.define.activities.SearchFragment;
 import edu.itba.hci.define.activities.SettingsActivity;
 
 public class NavBasicActivity extends AppCompatActivity {
@@ -176,6 +177,10 @@ public class NavBasicActivity extends AppCompatActivity {
                 //replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
                 break;
             //END Seccion con sesion activa
+
+            case R.id.item_search:
+                replaceContentWithFragment(new SearchFragment(),"search",menuItem);
+                break;
 
             case R.id.item_category_1:
                 replaceContentWithArgs(CategoryFragment.class, null, menuItem, CategoryFragment.GIRL, CategoryFragment.ADULT);

@@ -294,6 +294,19 @@ public class ApiManager {
         return makeApiCall("Account", "SignIn", params, callback, User.class);
     }
 
+    static public AsyncTask logout(Callback callback) {
+
+        Map<String, String> params = new HashMap<>(2);
+
+        fillAuthenticationData(params);
+
+        preferences.edit().clear().commit();
+        context.clearCache();
+
+        return makeApiCall("Account", "SignOut", params, callback, null);
+    }
+
+
     static public AsyncTask getProductById(int id, Callback<Product> callback) {
 
         Map<String, String> params = new HashMap<>(1);

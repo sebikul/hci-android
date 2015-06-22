@@ -8,20 +8,29 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.SearchFragment;
 
 public class SearchableActivity extends NavBasicActivity implements SearchView.OnQueryTextListener {
+
+    private SearchView searchView;
+    private Menu menu;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options_menu, menu);
 
+        this.menu = menu;
+
         // Associate searchable configuration with the SearchView
         final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_item_search));
+        searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_item_search));
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
+
+        searchView.setIconifiedByDefault(true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -30,7 +39,7 @@ public class SearchableActivity extends NavBasicActivity implements SearchView.O
     public boolean onQueryTextSubmit(String query) {
 
         Log.v("SearchableActivity", "Realizando llamado a la busqueda");
-        if(query==""){
+        if (query == "") {
             return false;
         }
         Fragment fragment = new SearchFragment();
@@ -44,5 +53,17 @@ public class SearchableActivity extends NavBasicActivity implements SearchView.O
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    public void expandSearchView() {
+
+        MenuItem menuItem = menu.findItem(R.id.menu_item_search);
+
+        MenuItemCompat.expandActionView(menuItem);
+
+        menuItem.expandActionView();
+
+        searchView.setIconified(false);
+
     }
 }
