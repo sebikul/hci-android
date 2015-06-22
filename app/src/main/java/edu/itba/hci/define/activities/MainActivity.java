@@ -2,9 +2,9 @@ package edu.itba.hci.define.activities;
 
 import android.os.Bundle;
 
-import edu.itba.hci.define.activities.base.NavBasicActivity;
+import edu.itba.hci.define.activities.base.SearchableActivity;
 
-public class MainActivity extends NavBasicActivity {
+public class MainActivity extends SearchableActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,14 +2,15 @@ package edu.itba.hci.define.activities.base;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.SearchActivity;
+import edu.itba.hci.define.activities.SearchFragment;
 
 public class SearchableActivity extends NavBasicActivity implements SearchView.OnQueryTextListener {
     @Override
@@ -27,10 +28,16 @@ public class SearchableActivity extends NavBasicActivity implements SearchView.O
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+
         Log.v("SearchableActivity", "Realizando llamado a la busqueda");
-        Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("query",query);
-        startActivity(intent);
+        if(query==""){
+            return false;
+        }
+        Fragment fragment = new SearchFragment();
+        Bundle b = new Bundle();
+        b.putString("query", query);
+        fragment.setArguments(b);
+        replaceContentWithFragment(fragment, null);
         return true;
     }
 

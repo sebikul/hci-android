@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -175,7 +174,6 @@ public class PurchasesFragment extends Fragment {
 
                 if (showToast) {
                     Toast.makeText(PurchasesFragment.this.getActivity(), getResources().getString(R.string.purchases_updated), Toast.LENGTH_SHORT).show();
-
                 }
 
                 showProgress(false);
@@ -250,7 +248,6 @@ public class PurchasesFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.options_menu, menu);
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.title_purchases);
         activity.setToggleDrawer(false);

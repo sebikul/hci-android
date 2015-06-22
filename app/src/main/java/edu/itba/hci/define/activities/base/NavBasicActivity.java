@@ -216,7 +216,7 @@ public class NavBasicActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    private void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {
+    protected void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -237,7 +237,7 @@ public class NavBasicActivity extends AppCompatActivity {
 //        }
     }
 
-    private void replaceContentWithFragment(Fragment fragment, String tag) {
+    protected void replaceContentWithFragment(Fragment fragment, String tag) {
         replaceContentWithFragment(fragment, tag, null);
     }
 
