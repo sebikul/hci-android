@@ -11,6 +11,7 @@ public class Product extends ApiResponse {
     private Category category;
     private Category subcategory;
     private Attribute[] attributes;
+    private String brand;
 
 
     public Product(int id, String name, int price, String[] imageUrl, Category category, Category subcategory, Attribute[] attributes) {
@@ -62,5 +63,15 @@ public class Product extends ApiResponse {
 
     public Category getSubcategory() {
         return subcategory;
+    }
+
+    public String getBrand(){
+        if(brand!=null)
+            return brand;
+        for(Attribute a : attributes){
+            if(a.getName().equals("Marca"))
+                return brand=a.getValues()[0];
+        }
+        return "--";
     }
 }
