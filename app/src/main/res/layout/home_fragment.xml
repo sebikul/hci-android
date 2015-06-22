@@ -35,94 +35,289 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_sales"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-
-            android:layout_marginRight="4dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_sale_1"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:clickable="false"
             android:layout_weight="1"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/sale_img_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                />
-            <TextView
-                android:id="@+id/sale_name_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autoText="false"
-                android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/sale_price_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
+            android:descendantFocusability="blocksDescendants">
 
-        <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-            <ImageView
-                android:id="@+id/sale_img_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:scaleType="fitCenter"
-                 />
-            <TextView
-                android:id="@+id/sale_name_2"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/sale_price_2"
+                android:padding="4dp">
+
+                <FrameLayout
+                    android:id="@+id/photo_product_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/sale_img_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:isScrollContainer="false"
+                        android:keepScreenOn="false"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/photo_product_1"
+                        android:background="@drawable/gradient"
+                        android:longClickable="false" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/sale_name_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/product_info_1"
+                    android:layout_alignLeft="@+id/photo_product_1"
+                    android:layout_alignRight="@+id/photo_product_1"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:paddingBottom="6dp"
+                    android:shadowColor="#ff000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.5"
+                    android:text="Product name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/product_info_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_1">
+
+                    <TextView
+                        android:id="@+id/sale_brand_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/photo_product_1"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Brand"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/sale_price_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/photo_product_1"
+                        android:layout_alignRight="@+id/photo_product_1"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_sale_2"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:clickable="false"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
-        <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+                android:padding="4dp">
+
+                <FrameLayout
+                    android:id="@+id/photo_product_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/sale_img_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:isScrollContainer="false"
+                        android:keepScreenOn="false"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/photo_product_2"
+                        android:background="@drawable/gradient"
+                        android:longClickable="false" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/sale_name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/product_info_2"
+                    android:layout_alignLeft="@+id/photo_product_2"
+                    android:layout_alignRight="@+id/photo_product_2"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:paddingBottom="6dp"
+                    android:shadowColor="#ff000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.5"
+                    android:text="Product name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/product_info_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_2">
+
+                    <TextView
+                        android:id="@+id/sale_brand_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/photo_product_2"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Brand"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/sale_price_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/photo_product_2"
+                        android:layout_alignRight="@+id/photo_product_2"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_sale_3"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:clickable="false"
         android:layout_weight="1"
-        android:orientation="vertical">
-            <ImageView
-                android:id="@+id/sale_img_3"
+        android:descendantFocusability="blocksDescendants">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="4dp">
+
+            <FrameLayout
+                android:id="@+id/photo_product_3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                 />
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/sale_img_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:isScrollContainer="false"
+                    android:keepScreenOn="false"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/photo_product_3"
+                    android:background="@drawable/gradient"
+                    android:longClickable="false" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/sale_name_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/product_info_3"
+                android:layout_alignLeft="@+id/photo_product_3"
+                android:layout_alignRight="@+id/photo_product_3"
+                android:layout_margin="1dp"
                 android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/sale_price_3"
+                android:paddingBottom="6dp"
+                android:shadowColor="#ff000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="1.5"
+                android:text="Product name"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/product_info_3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/photo_product_3">
+
+                <TextView
+                    android:id="@+id/sale_brand_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/photo_product_3"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Brand"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/sale_price_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_3"
+                    android:layout_alignRight="@+id/photo_product_3"
+                    android:layout_margin="1dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="Price"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/title_news"
@@ -153,91 +348,285 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_news"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_new_1"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:clickable="false"
             android:layout_weight="1"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/new_img_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                 />
-            <TextView
-                android:id="@+id/new_name_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/new_price_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/new_img_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                 />
-            <TextView
-                android:id="@+id/new_name_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/new_price_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/new_img_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                 />
-            <TextView
-                android:id="@+id/new_name_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Nombre producto" />
-            <TextView
-                android:id="@+id/new_price_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Precio" />
-        </LinearLayout>
+            android:descendantFocusability="blocksDescendants">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+                <FrameLayout
+                    android:id="@+id/photo_product_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/new_img_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:isScrollContainer="false"
+                        android:keepScreenOn="false"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/photo_product_4"
+                        android:background="@drawable/gradient"
+                        android:longClickable="false" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/new_name_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/product_info_4"
+                    android:layout_alignLeft="@+id/photo_product_4"
+                    android:layout_alignRight="@+id/photo_product_4"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:paddingBottom="6dp"
+                    android:shadowColor="#ff000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.5"
+                    android:text="Product name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/product_info_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_4">
+
+                    <TextView
+                        android:id="@+id/new_brand_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/photo_product_4"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Brand"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/new_price_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/photo_product_4"
+                        android:layout_alignRight="@+id/photo_product_4"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_new_2"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:clickable="false"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+                <FrameLayout
+                    android:id="@+id/photo_product_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/new_img_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:isScrollContainer="false"
+                        android:keepScreenOn="false"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/photo_product_5"
+                        android:background="@drawable/gradient"
+                        android:longClickable="false" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/new_name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/product_info_5"
+                    android:layout_alignLeft="@+id/photo_product_5"
+                    android:layout_alignRight="@+id/photo_product_5"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:paddingBottom="6dp"
+                    android:shadowColor="#ff000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.5"
+                    android:text="Product name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/product_info_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_5">
+
+                    <TextView
+                        android:id="@+id/new_brand_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/photo_product_5"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Brand"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/new_price_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/photo_product_5"
+                        android:layout_alignRight="@+id/photo_product_5"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_new_3"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:clickable="false"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="4dp">
+
+                <FrameLayout
+                    android:id="@+id/photo_product_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/new_img_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:isScrollContainer="false"
+                        android:keepScreenOn="false"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/photo_product_6"
+                        android:background="@drawable/gradient"
+                        android:longClickable="false" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/new_name_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/product_info_6"
+                    android:layout_alignLeft="@+id/photo_product_6"
+                    android:layout_alignRight="@+id/photo_product_6"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:paddingBottom="6dp"
+                    android:shadowColor="#ff000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1.5"
+                    android:text="Product name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/product_info_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/photo_product_6">
+
+                    <TextView
+                        android:id="@+id/new_brand_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/photo_product_6"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Brand"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/new_price_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/photo_product_6"
+                        android:layout_alignRight="@+id/photo_product_6"
+                        android:layout_margin="1dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="Price"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
 
 

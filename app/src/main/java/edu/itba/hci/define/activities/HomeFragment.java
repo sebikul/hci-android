@@ -22,7 +22,6 @@ import java.util.Random;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
-import edu.itba.hci.define.adapters.ProductListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
@@ -59,31 +58,7 @@ public class HomeFragment extends Fragment {
         newRequest.cancel(true);
     }
 
-
-    private AsyncTask loadGenericList(final ListView listView, int id, String filter) {
-        Log.v("HomeFragment", "Cargando imagenes de " + filter);
-        return ApiManager.getAllProducts(1, 3, new ApiProductFilter[]{new ApiProductFilter(id, filter)}, new Callback<ProductList>() {
-
-            @Override
-            public void onSuccess(ProductList response) {
-                ProductListAdapter adapter = new ProductListAdapter(getActivity(), R.layout.product_item, response.getProducts());
-                listView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onError(ApiError error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_img), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onErrorConnection() {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3) {
+    private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3, final int brand1, final int brand2, final int brand3) {
         Log.v("HomeFragment", "Cargando imagenes de " + filter);
 
 
@@ -101,12 +76,15 @@ public class HomeFragment extends Fragment {
                     imageLoader.displayImage(p1.getImageUrl()[0], (ImageView) view.findViewById(img1));
                     ((TextView) view.findViewById(name1)).setText(p1.getName());
                     ((TextView) view.findViewById(price1)).setText("$ " + String.valueOf(p1.getPrice()));
+                    ((TextView) view.findViewById(brand1)).setText(p1.getBrand());
                     imageLoader.displayImage(p2.getImageUrl()[0], (ImageView) view.findViewById(img2));
                     ((TextView) view.findViewById(name2)).setText(p2.getName());
                     ((TextView) view.findViewById(price2)).setText("$ " + p2.getPrice());
+                    ((TextView) view.findViewById(brand2)).setText(p2.getBrand());
                     imageLoader.displayImage(p3.getImageUrl()[0], (ImageView) view.findViewById(img3));
                     ((TextView) view.findViewById(name3)).setText(p3.getName());
                     ((TextView) view.findViewById(price3)).setText("$ " + p3.getPrice());
+                    ((TextView) view.findViewById(brand3)).setText(p3.getBrand());
 
                 }
             }
@@ -132,7 +110,8 @@ public class HomeFragment extends Fragment {
         saleRequest = loadGeneric(view, 5, "Oferta",
                 R.id.sale_img_1, R.id.sale_img_2, R.id.sale_img_3,
                 R.id.sale_name_1, R.id.sale_name_2, R.id.sale_name_3,
-                R.id.sale_price_1, R.id.sale_price_2, R.id.sale_price_3);
+                R.id.sale_price_1, R.id.sale_price_2, R.id.sale_price_3,
+                R.id.sale_brand_1, R.id.sale_brand_2, R.id.sale_brand_3);
     }
 
 
@@ -143,7 +122,8 @@ public class HomeFragment extends Fragment {
         newRequest = loadGeneric(view, 6, "Nuevo",
                 R.id.new_img_1, R.id.new_img_2, R.id.new_img_3,
                 R.id.new_name_1, R.id.new_name_2, R.id.new_name_3,
-                R.id.new_price_1, R.id.new_price_2, R.id.new_price_3);
+                R.id.new_price_1, R.id.new_price_2, R.id.new_price_3,
+                R.id.new_brand_1, R.id.new_brand_2, R.id.new_brand_3);
     }
 
     @Override
