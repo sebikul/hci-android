@@ -130,8 +130,7 @@ public class DefineApplication extends Application {
 
         DiskLruCache.Editor editor = cache.edit(key);
 
-        Log.v(LOG_TAG, "Guardando los datos del usuario: ");
-        Log.v(LOG_TAG, value.toString());
+        Log.v(LOG_TAG, "Guardando los datos del usuario: "+value.toString());
 
         OutputStream outputStream = editor.newOutputStream(0);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -164,9 +163,7 @@ public class DefineApplication extends Application {
 
             obj = (T) objectInputStream.readObject();
 
-            Log.v(LOG_TAG, "Leyendo los datos del usuario: ");
-            Log.v(LOG_TAG, obj.toString());
-
+            Log.v(LOG_TAG, "Leyendo los datos del usuario: "+obj.toString());
 
         } catch (IOException e) {
             e.printStackTrace();

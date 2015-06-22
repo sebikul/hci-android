@@ -59,7 +59,6 @@ public class ApiManager {
 
     static public void initialize(SharedPreferences pref, DefineApplication con) {
 
-        Log.d(LOG_TAG, "Inicializando ApiManager");
 
         gson = new GsonBuilder()
                 .registerTypeAdapter(Order.class, new ApiDeserializer<Order>("order"))
@@ -382,7 +381,6 @@ public class ApiManager {
 
             if (type == OrderList.class) {
 
-                Log.v(LOG_TAG, "Deserializando lista de ordenes");
                 Type listType = new TypeToken<List<Order>>() {
                 }.getType();
                 // In this test code i just shove the JSON here as string.
@@ -392,31 +390,31 @@ public class ApiManager {
                 List<Order> cachedOrders = context.readFromCache("orders");
 
                 if (cachedOrders != null) {
-                    try {
-                        context.writeToCache("orders", orderList);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
-                } else {
+                    for (Order remoteOrder : orderList) {
 
-                    if (cachedOrders != null) {
-                        for (Order remoteOrder : orderList) {
-                            if (cachedOrders.contains(remoteOrder)) {
-                                Order cachedOrder = cachedOrders.get(cachedOrders.indexOf(remoteOrder));
+                        for (Order cachedOrder : cachedOrders) {
+
+                            if (cachedOrder.getId() == remoteOrder.getId()) {
+
+                                Log.v(LOG_TAG, "Cached Order: " + cachedOrder.toString());
+                                Log.v(LOG_TAG, "Remote Order: " + remoteOrder.toString());
+
 
                                 remoteOrder.setNotifications(cachedOrder.hasNotifications());
                             }
                         }
-                    }
 
-                    try {
-                        context.writeToCache("orders", orderList);
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
 
                 }
+
+                try {
+                    context.writeToCache("orders", orderList);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 response = (T) new OrderList(orderList);
 
@@ -546,7 +544,7 @@ public class ApiManager {
                 return;
             }
 
-            Log.v(LOG_TAG, result.toString());
+            Log.v(LOG_TAG, "Api response: " + result.toString());
 
             if (result.hasError()) {
 
