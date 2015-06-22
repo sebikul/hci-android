@@ -12,7 +12,8 @@
         android:layout_marginBottom="8dp"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
 
     <ListView
         android:id="@+id/category_product_list"
@@ -22,5 +23,5 @@
         android:layout_marginRight="16dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"
-        android:visibility="gone"/>
+/>
 </LinearLayout>

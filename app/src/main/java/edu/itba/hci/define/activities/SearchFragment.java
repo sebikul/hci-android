@@ -49,9 +49,9 @@ public class SearchFragment extends Fragment {
 
         mProgressView = view.findViewById(R.id.category_progress);
 
-        showProgress(true);
 
         if (args != null && args.containsKey("query")) {
+            showProgress(true);
             query = args.getString("query");
 
             request = ApiManager.getProductsByName(query, 1, 500, new ApiProductFilter[]{}, new Callback<ProductList>() {
@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
         } else {
             Log.v("SearchFragment", "Busqueda sin parametros, expandiendo cuadro de busqueda");
 //            ((SearchableActivity) getActivity()).expandSearchView();
-
+            showProgress(false);
         }
 
         return view;
