@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.AccountFragment;
+import edu.itba.hci.define.activities.AccountActivity;
 import edu.itba.hci.define.activities.CategoryFragment;
 import edu.itba.hci.define.activities.HelpActivity;
 import edu.itba.hci.define.activities.HomeFragment;
@@ -71,10 +71,13 @@ public class NavBasicActivity extends AppCompatActivity {
         sessionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                replaceContentWithFragment(new AccountFragment(), "account");
-                mDrawer.closeDrawers();
                 Log.v(LOG_TAG, "Abriendo informacion de la cuenta del usuario.");
+                Intent intent = new Intent(NavBasicActivity.this, AccountActivity.class);
+                startActivity(intent);
+
+                /*replaceContentWithFragment(new AccountFragment(), "account");
+                mDrawer.closeDrawers();*/
+
             }
         });
 

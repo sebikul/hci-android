@@ -3,7 +3,6 @@ package edu.itba.hci.define.activities;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.base.NavBasicActivity;
+import edu.itba.hci.define.activities.base.ToolbarActivity;
 import edu.itba.hci.define.models.User;
 
 
@@ -67,8 +66,6 @@ public class AccountFragment extends Fragment {
             updateUserData(user);
         }
 
-        ((NavBasicActivity) getActivity()).unselectAll();
-
         setHasOptionsMenu(true);
 
         return view;
@@ -87,10 +84,8 @@ public class AccountFragment extends Fragment {
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        NavBasicActivity activity = ((NavBasicActivity) getActivity());
+        ToolbarActivity activity = ((ToolbarActivity) getActivity());
         activity.setTitle(R.string.my_account);
-        activity.setToggleDrawer(true);
-        //((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_home).setChecked(true).setChecked(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
