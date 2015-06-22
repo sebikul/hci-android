@@ -53,12 +53,14 @@ public class NewFragment extends Fragment {
         age = args.getInt("age");
         gender = args.getInt("gender");
         ApiProductFilter[] filters;
-        if (CategoryFragment.convertToString(gender) != null) {
+        if(CategoryFragment.convertToString(gender)!=null){
             filters = new ApiProductFilter[3];
-            filters[2] = new ApiProductFilter(1, CategoryFragment.convertToString(gender));
+            filters[2]= new ApiProductFilter(1, CategoryFragment.convertToString(gender));
         }
-        filters = new ApiProductFilter[2];
-        filters[0] = new ApiProductFilter(5, "Oferta");
+        else {
+            filters = new ApiProductFilter[2];
+        }
+        filters[0]=new ApiProductFilter(6, "Nuevo");
         filters[1] = new ApiProductFilter(2, CategoryFragment.convertToString(age));
 
         request = ApiManager.getAllProducts(1, 500, filters, new Callback<ProductList>() {

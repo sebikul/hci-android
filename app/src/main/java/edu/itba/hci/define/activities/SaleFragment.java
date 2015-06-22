@@ -50,10 +50,12 @@ public class SaleFragment extends Fragment {
         gender = args.getInt("gender");
         ApiProductFilter[] filters;
         if(CategoryFragment.convertToString(gender)!=null){
-             filters = new ApiProductFilter[3];
+            filters = new ApiProductFilter[3];
             filters[2]= new ApiProductFilter(1, CategoryFragment.convertToString(gender));
         }
-        filters = new ApiProductFilter[2];
+        else {
+            filters = new ApiProductFilter[2];
+        }
         filters[0]=new ApiProductFilter(5, "Oferta");
         filters[1]=new ApiProductFilter(2, CategoryFragment.convertToString(age));
 
