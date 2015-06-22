@@ -4,6 +4,7 @@ package edu.itba.hci.define.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -93,6 +95,7 @@ public class PurchaseFragment extends Fragment {
         mExpiration = (TextView) view.findViewById(R.id.purchase_payment_expiration);
 
         productList = (ListView) view.findViewById(R.id.product_list);
+
 
         Bundle args = getArguments();
         orderId = args.getInt("orderId");
@@ -184,7 +187,7 @@ public class PurchaseFragment extends Fragment {
     private class OrderResponseCallback implements Callback<Order> {
 
         @Override
-        public void onSuccess(Order response) {
+        public void onSuccess(final Order response) {
 
             showGlobalProgress(false);
 
@@ -200,6 +203,15 @@ public class PurchaseFragment extends Fragment {
             OrderItemArrayAdapter adapter = new OrderItemArrayAdapter(getActivity(), R.layout.product_item, response.getItems());
 
             productList.setAdapter(adapter);
+
+            productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), ProductActivity.class);
+                    intent.putExtra("productId", response.getItems()[position].getProduct().getId());
+                    startActivity(intent);
+                }
+            });
 
         }
 
