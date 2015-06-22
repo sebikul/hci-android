@@ -242,7 +242,7 @@ public class NavBasicActivity extends AppCompatActivity {
         }
     }
 
-    protected void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {
+    public void replaceContentWithFragment(Fragment fragment, String tag, MenuItem trigger) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 

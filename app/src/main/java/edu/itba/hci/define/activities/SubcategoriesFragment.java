@@ -36,7 +36,7 @@ public class SubcategoriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.subcategories_fragment, container, false);
         listView = (ListView) view.findViewById(R.id.category_list);
         listView.setClickable(true);
-        Bundle args = getArguments();
+        final Bundle args = getArguments();
 
         age = args.getInt("age");
         gender = args.getInt("gender");
@@ -64,7 +64,7 @@ public class SubcategoriesFragment extends Fragment {
                                 list.add(subcategory);
                             }
                             if((++iteration[0])==categoryResponse.getCategories().size()){
-                                CategoryAdapter adapter = new CategoryAdapter(getActivity(), 0, list);
+                                CategoryAdapter adapter = new CategoryAdapter(SubcategoriesFragment.this.getActivity(), 0, list, args, SubcategoriesFragment.this.getActivity());
                                 listView.setAdapter(adapter);
                             }
                         }
@@ -72,8 +72,6 @@ public class SubcategoriesFragment extends Fragment {
                         @Override public void onErrorConnection() {}
                     });
                 }
-                CategoryAdapter adapter = new CategoryAdapter(getActivity(), 0, list);
-                listView.setAdapter(adapter);
             }
 
             @Override

@@ -1,7 +1,9 @@
 package edu.itba.hci.define.adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +17,9 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import java.util.List;
 
 import edu.itba.hci.define.R;
-import edu.itba.hci.define.activities.CategoryActivity;
-import edu.itba.hci.define.activities.SubcategoryActivity;
+import edu.itba.hci.define.activities.CategoryProductFragment;
+import edu.itba.hci.define.activities.SubcategoryProductFragment;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.models.CategoryInterface;
 
 /**
@@ -25,14 +28,22 @@ import edu.itba.hci.define.models.CategoryInterface;
 public class CategoryAdapter extends ArrayAdapter<CategoryInterface> {
 
     private final ImageLoader imageLoader;
+    private final Bundle bundle;
     private List<CategoryInterface> categoryList;
+    private Context context;
+    private Activity activity;
 
-    public CategoryAdapter(Context context, int resource, List<CategoryInterface> objects) {
+    public CategoryAdapter(Context context, int resource, List<CategoryInterface> objects, Bundle bundle, Activity activity) {
         super(context, resource, objects);
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
         this.categoryList = objects;
+        this.bundle=bundle;
+        this.context=context;
+        this.activity=activity;
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -45,10 +56,15 @@ public class CategoryAdapter extends ArrayAdapter<CategoryInterface> {
                 @Override
                 public void onClick(View v) {
                     Log.v("CategoryAdapter", "Clickie en una categoria");
+                    Fragment fragment = new CategoryProductFragment();
+                    Bundle intent=new Bundle();
+                    intent.putInt("categoryId", category.getId());
+                    intent.putString("categoryName", category.getName());
+                    intent.putInt("gender", bundle.getInt("gender"));
+                    intent.putInt("age", bundle.getInt("age"));
+                    fragment.setArguments(intent);
+                    ((NavBasicActivity)activity).replaceContentWithFragment(fragment, null, null);
 
-                    Intent intent = new Intent(v.getContext(), CategoryActivity.class);
-                    intent.putExtra("categoryId", category.getId());
-                    //TODO: No se como sacar el gender y el age
                 }
             });
         }else{
@@ -57,8 +73,14 @@ public class CategoryAdapter extends ArrayAdapter<CategoryInterface> {
                 @Override
                 public void onClick(View v) {
                     Log.v("CategoryAdapter", "Clickie en una subcategoria");
-                    Intent intent = new Intent(v.getContext(), SubcategoryActivity.class);
-                    intent.putExtra("categoryId", category.getId());
+                    Fragment fragment = new SubcategoryProductFragment();
+                    Bundle intent=new Bundle();
+                    intent.putInt("categoryId", category.getId());
+                    intent.putString("categoryName", category.getName());
+                    intent.putInt("gender", bundle.getInt("gender"));
+                    intent.putInt("age", bundle.getInt("age"));
+                    fragment.setArguments(intent);
+                    ((NavBasicActivity)activity).replaceContentWithFragment(fragment, null, null);
                 }
             });
         }
