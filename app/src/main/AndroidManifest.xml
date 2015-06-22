@@ -52,6 +52,13 @@
         <activity android:name=".activities.base.NavBasicActivity" />
 
         <activity
+            android:name=".activities.AccountActivity"
+            android:label="@string/my_account">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+        <activity
             android:name=".activities.PurchaseActivity"
             android:label="@string/title_activity_purchases">
             <meta-data
