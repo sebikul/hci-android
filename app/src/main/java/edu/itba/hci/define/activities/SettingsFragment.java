@@ -25,8 +25,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-
-        //fixme se tiene que lanzar el intent cuando deshabilitan las notificaciones. No sol ocuando se cambia el intervalo
         if (key.equals("alarmInterval")) {
             Preference connectionPref = findPreference(key);
             // Set summary to be the user-description for the selected value
@@ -34,10 +32,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
             Log.v(LOG_TAG, "El nuevo tiempo de actualizacion es " + sharedPreferences.getString(key, "nada puto"));
 
-            Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
-            getActivity().sendOrderedBroadcast(intent, null);
-
         }
+
+        Intent intent = new Intent(SessionReceiver.REFRESH_ALARM);
+        getActivity().sendOrderedBroadcast(intent, null);
+
+
     }
 
     @Override

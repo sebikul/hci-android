@@ -48,7 +48,7 @@ public class SessionReceiver extends BroadcastReceiver {
         Log.v("SessionReceiver", "Verificando condiciones");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
         String authToken = app.getPreferences().getString("authentication_token", null);
-        boolean notification_enable = app.getPreferences().getBoolean("notifacations_enable",false);
+        boolean notification_enable = app.getPreferences().getBoolean("notifications_enable",false);
         if (authToken == null || !notification_enable) {
             Log.v("SessionReceiver", "Condiciones invalidas "+authToken
             +" "+notification_enable);
