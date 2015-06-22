@@ -57,7 +57,6 @@ public class CategoryFragment extends TabbedFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.v("CategotyFragment", "Cargando categoria " + getOurCategory(age, gender));
-        inflater.inflate(R.menu.options_menu, menu);
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(getOurCategory(age, gender));
 

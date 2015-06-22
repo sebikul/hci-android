@@ -40,7 +40,6 @@ public class NavBasicActivity extends AppCompatActivity {
     protected DefineApplication context;
 
     static private final String LOG_TAG = "NavBasicActivity";
-
     static private int LOGIN_REQUEST = 1;
 
     private View guestView;

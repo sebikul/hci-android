@@ -1,16 +1,12 @@
 package edu.itba.hci.define.activities.base;
 
 import android.app.SearchManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.Toast;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.SearchActivity;
@@ -31,6 +27,7 @@ public class SearchableActivity extends NavBasicActivity implements SearchView.O
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        Log.v("SearchableActivity", "Realizando llamado a la busqueda");
         Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("query",query);
         startActivity(intent);

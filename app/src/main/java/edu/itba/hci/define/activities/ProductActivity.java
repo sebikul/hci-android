@@ -47,6 +47,7 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
     private TextView mDetails;
 
     private SliderLayout sliderLayout;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,6 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
         mColors = (TextView) findViewById(R.id.product_colors);
         mSizes = (TextView) findViewById(R.id.product_sizes);
         mDetails = (TextView) findViewById(R.id.product_details);
-
         getProduct();
     }
 
@@ -110,10 +110,11 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
 
 
                 // TODO: El setTitle no esta funcionando
-                String name=response.getName();
-                ProductActivity.this.setTitle((name.length() > 15 ? name.substring(0, 15) + "..." : name));
+                title=response.getName();
 
-                mName.setText(name);
+                ProductActivity.this.setTitle((title.length() > 15 ? title.substring(0, 15) + "..." : title));
+
+                mName.setText(response.getName());
                 //mBrand.setText(response.getBrand());
                 for (Attribute attribute : response.getAttributes()) {
 

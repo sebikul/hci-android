@@ -85,7 +85,6 @@ public class AccountFragment extends Fragment {
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.options_menu, menu);
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.my_account);
         activity.setToggleDrawer(true);

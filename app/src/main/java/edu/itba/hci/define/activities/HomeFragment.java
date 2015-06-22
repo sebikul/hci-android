@@ -149,7 +149,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.v("Home", "Vas a ver que esta entrando aca wacho");
-        inflater.inflate(R.menu.options_menu, menu);
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.app_name);
         activity.setToggleDrawer(true);
