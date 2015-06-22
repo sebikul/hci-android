@@ -18,7 +18,10 @@ import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ProductList;
 
-public class SaleFragment extends Fragment {
+/**
+ * Created by Diego on 21/06/2015.
+ */
+public class NewFragment extends Fragment {
 
     private int age, gender;
     private ListView listView;
@@ -36,7 +39,7 @@ public class SaleFragment extends Fragment {
         age = args.getInt("age");
         gender = args.getInt("gender");
         ApiProductFilter[] filters = new ApiProductFilter[3];
-        filters[0]=new ApiProductFilter(5, "Oferta");
+        filters[0]=new ApiProductFilter(6, "Nuevo");
         filters[1]=new ApiProductFilter(2, CategoryFragment.convertToString(age));
         if(CategoryFragment.convertToString(gender)!=null){
             filters[2]= new ApiProductFilter(1, CategoryFragment.convertToString(gender));
@@ -67,4 +70,5 @@ public class SaleFragment extends Fragment {
         super.onPause();
         request.cancel(true);
     }
+
 }

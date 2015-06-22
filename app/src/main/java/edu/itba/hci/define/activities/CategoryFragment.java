@@ -4,16 +4,12 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.activities.base.TabbedFragment;
-import edu.itba.hci.define.models.Category;
 
 public class CategoryFragment extends TabbedFragment {
 
@@ -51,7 +47,7 @@ public class CategoryFragment extends TabbedFragment {
         adapter.addFrag(fragment, getString(R.string.title_sales));
 
         //fixme
-        fragment = new SaleFragment();
+        fragment = new NewFragment();
         fragment.setArguments(args);
         adapter.addFrag(fragment, getString(R.string.title_new));
 
@@ -93,8 +89,27 @@ public class CategoryFragment extends TabbedFragment {
         }
     }
 
+    static public String convertToString(int str){
+        switch (str){
+            case GIRL:
+                return "Femenino";
+            case BOY:
+                return "Masculino";
+            case ADULT:
+                return "Adulto";
+            case KID:
+                return "Infantil";
+            case BABY:
+                return "Bebe";
+            case BOTH:
+                return null;
+            default:
+                throw new IllegalStateException("Category name not found");
+        }
+    }
 
-    private String getOurCategory(int age, int gender) {
+
+    public String getOurCategory(int age, int gender) {
         switch (age + gender) {
             case GIRL + ADULT:
                 return getResources().getString(R.string.category_woman);

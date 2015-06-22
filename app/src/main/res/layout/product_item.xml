@@ -24,8 +24,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="false"
                 android:isScrollContainer="false"
-                android:keepScreenOn="false"
-                android:src="@drawable/pilhom3" />
+                android:keepScreenOn="false"/>
 
             <View
                 android:layout_width="match_parent"

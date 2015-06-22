@@ -242,7 +242,7 @@ public class NavBasicActivity extends AppCompatActivity {
         replaceContentWithFragment(fragment, tag, null);
     }
 
-    private void replaceContentWithArgs(Class<CategoryFragment> fragmentClass, String tag, MenuItem trigger, int age, int gender) {
+    private void replaceContentWithArgs(Class<CategoryFragment> fragmentClass, String tag, MenuItem trigger, int gender, int age) {
 
         try {
             CategoryFragment fragment = fragmentClass.newInstance();
