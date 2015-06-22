@@ -63,4 +63,6 @@
     <string name="orderstatus_transported">Transported</string>
     <string name="orderstatus_delivered">Delivered</string>
     <string name="orderstatus_confirmed">Confirmed</string>
+    <string name="logout">Log out</string>
+    <string name="loggingout">Logging out</string>
 </resources>

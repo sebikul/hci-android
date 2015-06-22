@@ -1,5 +1,6 @@
 package edu.itba.hci.define.activities;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,13 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.itba.hci.define.DefineApplication;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.ToolbarActivity;
+import edu.itba.hci.define.api.ApiError;
+import edu.itba.hci.define.api.ApiManager;
+import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.User;
 
 
@@ -83,7 +89,38 @@ public class AccountFragment extends Fragment {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.action_logout){
+            ApiManager.logout(new Callback() {
+                @Override
+                public void onSuccess(Object response) {
+                    Log.v("AccountFragment", "Cerrando Sesion");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onError(ApiError error) {
+
+                }
+
+                @Override
+                public void onErrorConnection() {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_conection), Toast.LENGTH_SHORT).show();
+                }
+            });
+            Toast.makeText(getActivity(), getResources().getString(R.string.loggingout), Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+
         ToolbarActivity activity = ((ToolbarActivity) getActivity());
         activity.setTitle(R.string.my_account);
         super.onCreateOptionsMenu(menu, inflater);
