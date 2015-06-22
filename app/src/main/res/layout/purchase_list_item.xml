@@ -57,16 +57,20 @@
 
     <ToggleButton
         android:id="@+id/notif_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:src="@mipmap/ic_launcher"
-        android:textOff="NOTS OFF"
-        android:textOn="NOTS ON"
+        android:background="@drawable/toggle_selector"
+        android:textOff=""
+        android:textOn=""
         android:focusable="false"
         android:clickable="true"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:alpha="0.6"
+        android:gravity="center|center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp" />
 
 </RelativeLayout>
