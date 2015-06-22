@@ -15,10 +15,8 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.ToolbarActivity;
@@ -26,7 +24,6 @@ import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
 import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.Attribute;
-import edu.itba.hci.define.models.CategoryList;
 import edu.itba.hci.define.models.Product;
 
 
@@ -47,6 +44,7 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
 
     private TextView mColors;
     private TextView mSizes;
+    private TextView mDetails;
 
     private SliderLayout sliderLayout;
 
@@ -94,7 +92,7 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
         mBrand = (TextView) findViewById(R.id.product_brand);
         mColors = (TextView) findViewById(R.id.product_colors);
         mSizes = (TextView) findViewById(R.id.product_sizes);
-
+        mDetails = (TextView) findViewById(R.id.product_details);
 
         getProduct();
     }
@@ -110,33 +108,45 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
             @Override
             public void onSuccess(Product response) {
 
-                //setTitle(response.getName());
 
-                mName.setText(response.getName());
+                // TODO: El setTitle no esta funcionando
+                String name=response.getName();
+                ProductActivity.this.setTitle((name.length() > 15 ? name.substring(0, 15) + "..." : name));
 
+                mName.setText(name);
+                //mBrand.setText(response.getBrand());
                 for (Attribute attribute : response.getAttributes()) {
+
                     if (attribute.getName().equals("Marca")) {
                         mBrand.setText(attribute.getValues()[0]);
                     }
 
                     if (attribute.getName().equals("Color")) {
-
                         String[] colors = attribute.getValues();
-
+                        Arrays.sort(colors);
                         String color = "";
 
                         for (int i = 0; i < colors.length; i++) {
                             color += colors[i] + ", ";
                         }
 
-                        mColors.setText(color.substring(0, color.length() - 1));
+                        mColors.setText(color.substring(0, color.length() - 2));
                     }
 
-                    //fixme fucking talles
-                    if (attribute.getName().equals("Talle-Calzado")) {
+                    if(attribute.getName().contains("Material")){
+                        mDetails.setText(attribute.getValues()[0]);
+                    }
+
+                    if (attribute.getName().contains("Talle")) {
 
                         String[] talles = attribute.getValues();
 
+                        Arrays.sort(talles, new Comparator<String>() {
+                            @Override
+                            public int compare(String lhs, String rhs) {
+                                return val(lhs) - val(rhs);
+                            }
+                        });
                         String talle = "";
 
                         for (int i = 0; i < talles.length; i++) {
@@ -145,6 +155,7 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
 
                         mSizes.setText(talle.substring(0, talle.length() - 2));
                     }
+
                 }
 
 
@@ -166,6 +177,27 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
 
             }
         });
+    }
+
+    private int val(String str) {
+        switch (str){
+            case "XXL":
+                return -1;
+            case "XL":
+                return -2;
+            case "L":
+                return -3;
+            case "M":
+                return -4;
+            case "S":
+                return -5;
+            case "XS":
+                return -6;
+            case "XXS":
+                return -7;
+            default:
+                return Integer.parseInt(str);
+        }
     }
 
     @Override
