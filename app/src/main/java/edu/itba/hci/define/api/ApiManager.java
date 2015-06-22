@@ -393,9 +393,8 @@ public class ApiManager {
 
                 Type listType = new TypeToken<List<Order>>() {
                 }.getType();
-                // In this test code i just shove the JSON here as string.
-                List<Order> orderList = new Gson().fromJson(content, listType);
 
+                List<Order> orderList = new Gson().fromJson(content, listType);
 
                 List<Order> cachedOrders = context.readFromCache("orders");
 
@@ -406,7 +405,7 @@ public class ApiManager {
                         for (Order cachedOrder : cachedOrders) {
 
                             if (cachedOrder.getId() == remoteOrder.getId()) {
-//
+
 //                                Log.v(LOG_TAG, "Cached Order: " + cachedOrder.toString());
 //                                Log.v(LOG_TAG, "Remote Order: " + remoteOrder.toString());
 
@@ -433,7 +432,7 @@ public class ApiManager {
                 Log.v(LOG_TAG, "Deserializando lista de productos");
                 Type listType = new TypeToken<List<Product>>() {
                 }.getType();
-                // In this test code i just shove the JSON here as string.
+
                 List<Product> productList = new Gson().fromJson(content, listType);
 
                 response = (T) new ProductList(productList, je.getAsJsonObject().get("total").getAsInt());
@@ -443,7 +442,7 @@ public class ApiManager {
                 Log.v(LOG_TAG, "Deserializando lista de estados");
                 Type listType = new TypeToken<List<State>>() {
                 }.getType();
-                // In this test code i just shove the JSON here as string.
+
                 List<State> stateList = new Gson().fromJson(content, listType);
 
                 response = (T) new StatesList(stateList);
@@ -452,7 +451,7 @@ public class ApiManager {
                 Log.v(LOG_TAG, "Deserializando lista de subcategorias");
                 Type listType = new TypeToken<List<Subcategory>>() {
                 }.getType();
-                // In this test code i just shove the JSON here as string.
+
                 List<Subcategory> subcategories = new Gson().fromJson(content, listType);
 
                 response = (T) new SubcategoryList(subcategories);
@@ -461,7 +460,7 @@ public class ApiManager {
                 Log.v(LOG_TAG, "Deserializando lista de categorias");
                 Type listType = new TypeToken<List<Category>>() {
                 }.getType();
-                // In this test code i just shove the JSON here as string.
+
                 List<Category> categories = new Gson().fromJson(content, listType);
 
                 response = (T) new CategoryList(categories);
