@@ -76,4 +76,9 @@
     <string name="purchase_exp">Expiration:</string>
     <string name="error_conection">Connection error</string>
     <string name="product_title_details">Details</string>
+    <string name="interval_15_min">Every 15 minute</string>
+    <string name="interval_30_min">Every 30 minutes</string>
+    <string name="interval_1_hour">Every 1 hour</string>
+    <string name="interval_12_hour">Every 12 hours</string>
+    <string name="interval_24_hour">Every 24 hours</string>
 </resources>

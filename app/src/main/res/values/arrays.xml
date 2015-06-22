@@ -3,11 +3,11 @@
 <resources>
 
     <string-array name="updateInterval">
-        <item name="900000">Every 15 minute</item>
-        <item name="1800000">Every 30 minutes</item>
-        <item name="3600000">Every 1 hour</item>
-        <item name="43200000">Every 12 hours</item>
-        <item name="86400000">Every 24 hours</item>
+        <item name="900000">@string/interval_15_min</item>
+        <item name="1800000">@string/interval_30_min</item>
+        <item name="3600000">@string/interval_1_hour</item>
+        <item name="43200000">@string/interval_12_hour</item>
+        <item name="86400000">@string/interval_24_hour</item>
     </string-array>
 
     <string-array name="updateIntervalValues">
@@ -17,5 +17,4 @@
         <item name="43200000">43200000</item>
         <item name="86400000">86400000</item>
     </string-array>
-
 </resources>

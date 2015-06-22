@@ -86,6 +86,11 @@
     <string name="purchase_address">Dirección</string>
     <string name="error_connection">Error de conexión</string>
     <string name="product_title_details">Detalles</string>
+    <string name="interval_12_hour">Cada 12 horas</string>
+    <string name="interval_15_min">Cada 15 minutos</string>
+    <string name="interval_1_hour">Cada 1 hora</string>
+    <string name="interval_24_hour">Cada 24 horas</string>
+    <string name="interval_30_min">Cada 30 minutos</string>
 
 
 </resources>
