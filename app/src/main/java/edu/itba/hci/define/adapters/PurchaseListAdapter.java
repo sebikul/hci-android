@@ -118,5 +118,15 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
         return rowView;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return orderList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        return position;
+    }
 
 }
