@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.NavBasicActivity;
-import edu.itba.hci.define.activities.base.SearchableActivity;
 import edu.itba.hci.define.adapters.ProductListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
@@ -72,7 +71,7 @@ public class SearchFragment extends Fragment {
 
         } else {
             Log.v("SearchFragment", "Busqueda sin parametros, expandiendo cuadro de busqueda");
-            ((SearchableActivity) getActivity()).expandSearchView();
+//            ((SearchableActivity) getActivity()).expandSearchView();
 
         }
 

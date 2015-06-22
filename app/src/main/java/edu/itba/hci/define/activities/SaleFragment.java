@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +38,14 @@ public class SaleFragment extends Fragment {
 
         age = args.getInt("age");
         gender = args.getInt("gender");
-        ApiProductFilter[] filters = new ApiProductFilter[3];
-        filters[0]=new ApiProductFilter(5, "Oferta");
-        filters[1]=new ApiProductFilter(2, CategoryFragment.convertToString(age));
+        ApiProductFilter[] filters;
         if(CategoryFragment.convertToString(gender)!=null){
+             filters = new ApiProductFilter[3];
             filters[2]= new ApiProductFilter(1, CategoryFragment.convertToString(gender));
         }
+        filters = new ApiProductFilter[2];
+        filters[0]=new ApiProductFilter(5, "Oferta");
+        filters[1]=new ApiProductFilter(2, CategoryFragment.convertToString(age));
 
         request= ApiManager.getAllProducts(1, 500, filters, new Callback<ProductList>() {
             @Override
@@ -75,6 +78,7 @@ public class SaleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        Log.v("SaleFragment", "cancelando las llamadas");
         request.cancel(true);
     }
 }

@@ -3,7 +3,7 @@ package edu.itba.hci.define.activities.base;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +31,13 @@ public abstract class TabbedFragment extends Fragment {
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
-
+        viewPager.setCurrentItem(1);
         return view;
     }
 
     protected abstract void setupViewPager();
 
-    protected class ViewPagerAdapter extends FragmentPagerAdapter {
+    protected class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 

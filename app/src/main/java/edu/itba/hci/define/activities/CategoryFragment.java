@@ -36,17 +36,14 @@ public class CategoryFragment extends TabbedFragment {
 
         Fragment fragment;
 
-        //fixme
         fragment = new SubcategoriesFragment();
         fragment.setArguments(args);
         adapter.addFrag(fragment, getString(R.string.title_subcategories));
 
-        //fixme
         fragment = new SaleFragment();
         fragment.setArguments(args);
         adapter.addFrag(fragment, getString(R.string.title_sales));
 
-        //fixme
         fragment = new NewFragment();
         fragment.setArguments(args);
         adapter.addFrag(fragment, getString(R.string.title_new));
