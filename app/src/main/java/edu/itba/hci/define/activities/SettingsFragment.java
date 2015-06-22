@@ -21,7 +21,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         Log.v(LOG_TAG, "Fragmento de preferencias creado");
 
-        addPreferencesFromResource(R.xml.pref_notification);
+        DefineApplication app = (DefineApplication) getActivity().getApplicationContext();
+
+        if (app.getPreferences().getString("authentication_token", null) == null) {
+
+            addPreferencesFromResource(R.xml.pref_notification_guest);
+
+        } else {
+            addPreferencesFromResource(R.xml.pref_notification);
+        }
+
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
