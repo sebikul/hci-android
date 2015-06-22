@@ -47,9 +47,9 @@
     <string name="notification_interval_title">Update interval</string>
     <string name="notification_interval_summary">%s</string>
     <string name="error_img"> An error has occurred while downloading products </string>
-    <string name="error_conection"> Conection error </string>
+    <string name="error_connection"> Connection error </string>
     <string name="search_title">search</string>
-    <string name="hint_search_bar">Search for a product...</string>
+    <string name="hint_search_bar">Search for a product…</string>
     <string name="title_activity_purchase"> Product Name </string>
     <string name="purchase_title">Order #%d</string>
     <string name="product_title_summary">Information</string>
@@ -65,4 +65,13 @@
     <string name="orderstatus_confirmed">Confirmed</string>
     <string name="logout">Log out</string>
     <string name="loggingout">Logging out</string>
+    <string name="login_header">Login</string>
+    <string name="purchase_summary">Summary</string>
+    <string name="purchase_total">Total:</string>
+    <string name="purchase_status">Status:</string>
+    <string name="purchase_address">Address</string>
+    <string name="purchase_phone">Phone:</string>
+    <string name="purchase_paymethod">Payment Method</string>
+    <string name="purchase_cc">Credit Card:</string>
+    <string name="purchase_exp">Expiration:</string>
 </resources>

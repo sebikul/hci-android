@@ -46,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="Resumen"
+                        android:text="@string/purchase_summary"
                         android:textColor="#ef1e1e1e"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -59,7 +59,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Total: "
+                        android:text="@string/purchase_total"
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 
@@ -84,7 +84,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Status: "
+                        android:text="@string/purchase_status"
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="Address"
+                        android:text="@string/purchase_address"
                         android:textColor="#ef1e1e1e"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -169,7 +169,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Phone: "
+                        android:text="@string/purchase_phone"
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 
@@ -220,7 +220,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="Payment Method"
+                        android:text="@string/purchase_paymethod"
                         android:textColor="#ef1e1e1e"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -233,7 +233,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Credit Card: "
+                        android:text="@string/purchase_cc"
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 
@@ -258,7 +258,7 @@
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
-                        android:text="Expiration: "
+                        android:text="@string/purchase_exp"
                         android:textColor="#ef1e1e1e"
                         android:textSize="16dp" />
 

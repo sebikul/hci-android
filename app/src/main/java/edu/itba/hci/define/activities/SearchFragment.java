@@ -78,7 +78,7 @@ public class SearchFragment extends Fragment {
 
                 @Override
                 public void onErrorConnection() {
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_conection), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
                 }
             });
 
