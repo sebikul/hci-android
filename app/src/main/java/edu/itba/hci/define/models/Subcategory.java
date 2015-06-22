@@ -2,7 +2,7 @@ package edu.itba.hci.define.models;
 
 import java.util.Arrays;
 
-public class Subcategory {
+public class Subcategory extends Category {
 
     private int id;
     private String name;
@@ -10,6 +10,7 @@ public class Subcategory {
     private Attribute[] attributes;
 
     public Subcategory(int id, String name, Category category, Attribute[] attributes) {
+        super(id,name,attributes);
         this.id = id;
         this.name = name;
         this.category = category;
