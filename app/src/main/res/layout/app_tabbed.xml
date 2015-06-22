@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:pstsPaddingMiddle="true"
         app:pstsShouldExpand="true" />
 
@@ -17,7 +18,6 @@
     <android.support.v4.view.ViewPager xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tabs_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
