@@ -1,5 +1,6 @@
 package edu.itba.hci.define.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -47,9 +49,17 @@ public class NewFragment extends Fragment {
 
         request= ApiManager.getAllProducts(1, 500, filters, new Callback<ProductList>() {
             @Override
-            public void onSuccess(ProductList response) {
+            public void onSuccess(final ProductList response) {
                 ProductListAdapter adapter = new ProductListAdapter(getActivity(), R.layout.product_item, response.getProducts());
                 listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
+                        intent.putExtra("productId", response.getProducts().get(position).getId());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
