@@ -50,6 +50,8 @@
         </activity>
 
         <activity android:name=".activities.base.NavBasicActivity" />
+        <activity android:name=".activities.CategoryActivity" />
+        <activity android:name=".activities.SubcategoryActivity" />
 
         <activity
             android:name=".activities.AccountActivity"

@@ -3,11 +3,10 @@ package edu.itba.hci.define.models;
 
 import java.util.Arrays;
 
-public class Category {
+public class Category implements CategoryInterface{
     private int id;
     private String name;
     private Attribute[] attributes;
-    private boolean isCategory;
 
     public Category(int id, String name, Attribute[] attributes) {
         this.id = id;
@@ -33,16 +32,14 @@ public class Category {
         return id;
     }
 
+    @Override
+    public boolean isCategory() {
+        return true;
+    }
+
 
     public String getName() {
         return name;
     }
 
-    public boolean isCategory() {
-        return isCategory;
-    }
-
-    public void setIsCategory(boolean isCategory) {
-        this.isCategory = isCategory;
-    }
 }

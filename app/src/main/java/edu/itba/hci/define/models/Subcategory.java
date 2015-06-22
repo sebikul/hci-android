@@ -2,7 +2,7 @@ package edu.itba.hci.define.models;
 
 import java.util.Arrays;
 
-public class Subcategory extends Category {
+public class Subcategory implements CategoryInterface{
 
     private int id;
     private String name;
@@ -10,7 +10,6 @@ public class Subcategory extends Category {
     private Attribute[] attributes;
 
     public Subcategory(int id, String name, Category category, Attribute[] attributes) {
-        super(id,name,attributes);
         this.id = id;
         this.name = name;
         this.category = category;
@@ -30,6 +29,11 @@ public class Subcategory extends Category {
     public int getId() {
 
         return id;
+    }
+
+    @Override
+    public boolean isCategory() {
+        return false;
     }
 
     public String getName() {
