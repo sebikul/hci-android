@@ -31,21 +31,23 @@ public class OrderItemArrayAdapter extends ArrayAdapter<OrderItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View singleView = inflater.inflate(R.layout.productitem_item, parent, false);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.productitem_item, parent, false);
+        }
 
-        ImageView image = (ImageView) singleView.findViewById(R.id.photo_img);
-        TextView name = (TextView) singleView.findViewById(R.id.title_product);
-        TextView brand = (TextView) singleView.findViewById(R.id.title_brand);
-        TextView price = (TextView) singleView.findViewById(R.id.title_price);
+        ImageView image = (ImageView) convertView.findViewById(R.id.photo_img);
+        TextView name = (TextView) convertView.findViewById(R.id.title_product);
+        TextView brand = (TextView) convertView.findViewById(R.id.title_brand);
+        TextView price = (TextView) convertView.findViewById(R.id.product_info);
 
         OrderItem p = items[position];
         imageLoader.displayImage(p.getProduct().getImageUrl(), image);
         name.setText(p.getProduct().getName());
         //brand.setText(p.getBrand());
-        price.setText("$ "+p.getPrice());
+        price.setText("$ " + p.getPrice());
 
 
-        return singleView;
+        return convertView;
     }
 }
