@@ -145,7 +145,20 @@ public class PurchaseFragment extends Fragment {
 
         mPhone.setText("" + order.getAddress().getName());
 
-        mStatus.setText(order.getStatus().toString());
+        String status = null;
+
+        switch (order.getStatus()) {
+            case TRANSPORTED:
+                status = getResources().getString(R.string.orderstatus_transported);
+
+            case DELIVERED:
+                status = getResources().getString(R.string.orderstatus_delivered);
+
+            case CONFIRMED:
+                status = getResources().getString(R.string.orderstatus_confirmed);
+        }
+
+        mStatus.setText(status);
 
     }
 

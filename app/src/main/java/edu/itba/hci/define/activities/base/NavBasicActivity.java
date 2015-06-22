@@ -24,6 +24,7 @@ import edu.itba.hci.define.activities.CategoryFragment;
 import edu.itba.hci.define.activities.HelpActivity;
 import edu.itba.hci.define.activities.HomeFragment;
 import edu.itba.hci.define.activities.LoginActivity;
+import edu.itba.hci.define.activities.PurchaseActivity;
 import edu.itba.hci.define.activities.PurchasesFragment;
 import edu.itba.hci.define.activities.SettingsActivity;
 
@@ -166,7 +167,13 @@ public class NavBasicActivity extends AppCompatActivity {
 
             //Seccion con sesion activa
             case R.id.item_purchases:
-                replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
+
+                if (!this.getClass().equals(PurchaseActivity.class)) {
+                    activity = new Intent(this, PurchaseActivity.class);
+                    startActivity(activity);
+                }
+
+                //replaceContentWithFragment(new PurchasesFragment(), "purchases", menuItem);
                 break;
             //END Seccion con sesion activa
 

@@ -9,7 +9,7 @@
     <string name="title_section2">Newest</string>
     <string name="title_section3">Sales</string>
     <string name="title_activity_account">Account</string>
-    <string name="title_activity_purchases">Purchases</string>
+    <string name="title_activity_purchases">My Purchases</string>
 
     <!-- Our -->
 
@@ -60,4 +60,7 @@
     <string name="product_details_label">Materials:</string>
     <string name="my_account">My Account</string>
     <string name="title_search">Search:</string>
+    <string name="orderstatus_transported">Transported</string>
+    <string name="orderstatus_delivered">Delivered</string>
+    <string name="orderstatus_confirmed">Confirmed</string>
 </resources>
