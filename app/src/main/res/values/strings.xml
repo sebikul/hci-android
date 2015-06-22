@@ -74,4 +74,6 @@
     <string name="purchase_paymethod">Payment Method</string>
     <string name="purchase_cc">Credit Card:</string>
     <string name="purchase_exp">Expiration:</string>
+    <string name="error_conection">Connection error</string>
+    <string name="product_title_details">Details</string>
 </resources>

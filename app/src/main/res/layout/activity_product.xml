@@ -235,7 +235,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="@string/product_title_summary"
+                            android:text="@string/product_title_details"
                             android:textColor="#ef1e1e1e"
                             android:textSize="18dp"
                             android:textStyle="bold" />

@@ -2,22 +2,20 @@
 <resources>
     <string name="app_name">Define</string>
 
-    <string name="hello_world">Hola Mundo!</string>
-    <string name="action_settings">Configuraciones</string>
-    <string name="title_activity_settings">Configuraciones</string>
+    <string name="action_settings">Configuración</string>
+    <string name="title_activity_settings">Configuración</string>
     <string name="title_activity_category">Categorias</string>
 
     <string name="title_section1">Subcategorias</string>
-    <string name="title_section2">Novedads</string>
+    <string name="title_section2">Novedades</string>
     <string name="title_section3">Ofertas</string>
     <string name="title_activity_account">Cuenta</string>
-    <string name="title_activity_purchases">Compras</string>
-    <string name="hello_blank_fragment">Hola</string>
+    <string name="title_activity_purchases">Mis Compras</string>
 
     <!-- Our -->
 
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Abrir navegación</string>
+    <string name="drawer_close">Cerrar navegación</string>
 
     <string name="title_category">Categorias</string>
     <string name="category_woman">Mujeres</string>
@@ -26,17 +24,68 @@
     <string name="category_boys">Niños</string>
     <string name="category_babies">Bebés</string>
 
-    <string name="title_settings">Configuraciones</string>
+    <string name="title_settings">Configuración</string>
     <string name="title_help">Ayuda</string>
     <string name="title_purchases">Mis Compras</string>
     <string name="title_home">Inicio</string>
-    <string name="title_misc">Miscelanea</string>
+    <string name="title_misc">Miscelaneo</string>
 
     <string name="title_sales">Ofertas</string>
     <string name="title_new">Novedades</string>
-    <string name="title_subcategories">Subcategories</string>
+    <string name="title_subcategories">Subcategorias</string>
     <string name="title_login">Ingresar</string>
     <string name="notification_text">Las compras han cambiado</string>
+    <string name="action_login">Iniciar sesión</string>
+    <string name="title_search">Buscar</string>
+    <string name="title_activity_purchase">Producto</string>
+    <string name="title_activity_login">Ingresar</string>
+    <string name="sex_male">Masculino</string>
+    <string name="sex_female">Femenino</string>
+    <string name="settings_notifications_enable">Activar notificaciones</string>
+    <string name="search_title">Buscar</string>
+    <string name="purchases_updated">Lista de compras actualizada</string>
+    <string name="purchase_title">Orden #%d</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="prompt_email">Correo</string>
+    <string name="product_title_sizes">Talles</string>
+    <string name="product_title_summary">Información</string>
+    <string name="product_title_colors">Colores</string>
+    <string name="product_name_label">Nombre:</string>
+    <string name="product_brand_label">Marca:</string>
+    <string name="product_details_label">Materiales:</string>
+    <string name="orderstatus_transported">Transportado</string>
+    <string name="orderstatus_delivered">Entregado</string>
+    <string name="orderstatus_confirmed">Confirmado</string>
+    <string name="notification_interval_title">Actualizar intervalo</string>
+    <string name="notification_interval_summary">%s</string>
+    <string name="my_account">Mi Cuenta</string>
+    <string name="more">MÁS</string>
+    <string name="logout">Cerrar sesion</string>
+    <string name="loggingout">Cerrando sesion</string>
+    <string name="hint_search_bar">Buscar un producto...</string>
+    <string name="error_invalid_password">Contraseña muy corta</string>
+    <string name="error_invalid_email">Correo invalido</string>
+    <string name="error_incorrect_password">Contraseña incorrecta</string>
+    <string name="error_incorrect_email">Corre incorrecto</string>
+    <string name="error_img">Hubo un error al descargar la lista de productos</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="error_conection">Error de conexión</string>
+    <string name="account_sex">Sexo</string>
+    <string name="account_name">Nombre:</string>
+    <string name="account_lastname">Apellido:</string>
+    <string name="account_ident">Identidad</string>
+    <string name="account_email">Correo</string>
+    <string name="login_header">Iniciar sesión</string>
+    <string name="purchase_total">Total:</string>
+    <string name="purchase_summary">Resumen</string>
+    <string name="purchase_status">Estado:</string>
+    <string name="purchase_phone">Teléfono:</string>
+    <string name="purchase_paymethod">Metodo de Pago</string>
+    <string name="purchase_exp">Expiración:</string>
+    <string name="purchase_cc">Tarjeta de Crédito:</string>
+    <string name="purchase_address">Dirección</string>
+    <string name="error_connection">Error de conexión</string>
+    <string name="product_title_details">Detalles</string>
 
 
 </resources>
