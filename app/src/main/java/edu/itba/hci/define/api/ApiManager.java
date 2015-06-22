@@ -294,16 +294,13 @@ public class ApiManager {
         return makeApiCall("Account", "SignIn", params, callback, User.class);
     }
 
-    static public AsyncTask logout(Callback callback) {
-
-        Map<String, String> params = new HashMap<>(2);
-
-        fillAuthenticationData(params);
+    static public void logout() {
 
         preferences.edit().clear().commit();
         context.clearCache();
 
-        return makeApiCall("Account", "SignOut", params, callback, null);
+        context.notifyLogOut();
+
     }
 
 

@@ -91,46 +91,51 @@ public class DefineApplication extends Application {
     }
 
     public void updateUserData() {
-        ApiManager.getAccount(new Callback<User>() {
-            @Override
-            public void onSuccess(User response) {
 
-                try {
+        if (preferences.getString("authentication_token", null) != null) {
 
-                    Log.v(LOG_TAG, "Actualizando datos locales del usuario");
+            ApiManager.getAccount(new Callback<User>() {
+                @Override
+                public void onSuccess(User response) {
 
-                    response.setAuthToken(preferences.getString("authentication_token", null));
+                    try {
 
-                    if (response.getAuthToken() == null) {
-                        Log.v(LOG_TAG, "FUCK YOU");
+                        Log.v(LOG_TAG, "Actualizando datos locales del usuario");
 
+                        response.setAuthToken(preferences.getString("authentication_token", null));
+
+                        if (response.getAuthToken() == null) {
+                            Log.v(LOG_TAG, "FUCK YOU");
+
+                        }
+
+                        setSession(response);
+                        writeToCache("user", response);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
-                    setSession(response);
-                    writeToCache("user", response);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onError(ApiError error) {
+                @Override
+                public void onError(ApiError error) {
 
-            }
+                }
 
-            @Override
-            public void onErrorConnection() {
+                @Override
+                public void onErrorConnection() {
 
-            }
-        });
+                }
+            });
+
+        }
     }
 
     public <T> void writeToCache(String key, T value) throws IOException {
 
         DiskLruCache.Editor editor = cache.edit(key);
 
-        Log.v(LOG_TAG, "Guardando los datos del usuario: "+value.toString());
+        Log.v(LOG_TAG, "Guardando los datos del usuario: " + value.toString());
 
         OutputStream outputStream = editor.newOutputStream(0);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
@@ -163,7 +168,7 @@ public class DefineApplication extends Application {
 
             obj = (T) objectInputStream.readObject();
 
-            Log.v(LOG_TAG, "Leyendo los datos del usuario: "+obj.toString());
+            Log.v(LOG_TAG, "Leyendo los datos del usuario: " + obj.toString());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -196,12 +201,16 @@ public class DefineApplication extends Application {
 
     }
 
-    public void clearCache(){
+    public void clearCache() {
         try {
             cache.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void notifyLogOut(){
+        session=null;
     }
 
 }

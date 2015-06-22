@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import edu.itba.hci.define.R;
 import edu.itba.hci.define.activities.base.ToolbarActivity;
 
-/**
- * Created by Diego on 22/06/2015.
- */
+
 public class AccountActivity extends ToolbarActivity {
 
 
