@@ -60,13 +60,13 @@
     <string name="notification_interval_summary">%s</string>
     <string name="my_account">Mi Cuenta</string>
     <string name="more">MÁS</string>
-    <string name="logout">Cerrar sesion</string>
-    <string name="loggingout">Cerrando sesion</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="loggingout">Cerrando sesión</string>
     <string name="hint_search_bar">Buscar un producto...</string>
     <string name="error_invalid_password">Contraseña muy corta</string>
-    <string name="error_invalid_email">Correo invalido</string>
+    <string name="error_invalid_email">Correo inválido</string>
     <string name="error_incorrect_password">Contraseña incorrecta</string>
-    <string name="error_incorrect_email">Corre incorrecto</string>
+    <string name="error_incorrect_email">Correo incorrecto</string>
     <string name="error_img">Hubo un error al descargar la lista de productos</string>
     <string name="error_field_required">Este campo es requerido</string>
     <string name="error_conection">Error de conexión</string>

@@ -1,13 +1,9 @@
 package edu.itba.hci.define.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,6 +47,9 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
     private TextView mDetails;
 
     private SliderLayout sliderLayout;
+    private TextView mPrice;
+    private TextView mSale;
+    private TextView mNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +58,6 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
 
 
         productId = getIntent().getIntExtra("productId", -1);
-
-        if (productId == -1) {
-            //fixme
-            //todo
-            productId = 1;
-        }
 
         Log.v(LOG_TAG, "ID de producto: " + productId);
 
@@ -97,6 +90,9 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
         mColors = (TextView) findViewById(R.id.product_colors);
         mSizes = (TextView) findViewById(R.id.product_sizes);
         mDetails = (TextView) findViewById(R.id.product_details);
+        mPrice = (TextView) findViewById(R.id.product_price);
+        mSale = (TextView) findViewById(R.id.product_sale);
+        mNew = (TextView) findViewById(R.id.product_new);
 
         getProduct();
     }
@@ -117,8 +113,17 @@ public class ProductActivity extends ToolbarActivity implements ObservableScroll
                 ProductActivity.this.getSupportActionBar().setTitle((name.length() > 15 ? name.substring(0, 15) + "..." : name));
 
                 mName.setText(name);
+                mPrice.setText("$ "+response.getPrice());
                 //mBrand.setText(response.getBrand());
                 for (Attribute attribute : response.getAttributes()) {
+
+                    if(attribute.getName().equals("Oferta")){
+                        mSale.setVisibility(View.VISIBLE);
+                    }
+
+                    if(attribute.getName().equals("Nuevo")){
+                        mNew.setVisibility(View.VISIBLE);
+                    }
 
                     if (attribute.getName().equals("Marca")) {
                         mBrand.setText(attribute.getValues()[0]);

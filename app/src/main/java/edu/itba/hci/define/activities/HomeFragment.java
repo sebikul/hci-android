@@ -1,5 +1,6 @@
 package edu.itba.hci.define.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
         newRequest.cancel(true);
     }
 
-    private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3, final int brand1, final int brand2, final int brand3) {
+    private AsyncTask loadGeneric(final View view, int id, String filter, final int img1, final int img2, final int img3, final int name1, final int name2, final int name3, final int price1, final int price2, final int price3, final int brand1, final int brand2, final int brand3, final int cv1, final int cv2, final int cv3) {
         Log.v("HomeFragment", "Cargando imagenes de " + filter);
 
 
@@ -70,21 +71,40 @@ public class HomeFragment extends Fragment {
                 if (response.getTotal() > 19) {
                     Random random = new Random();
                     int n = random.nextInt(20);
-                    Product p1 = response.getProducts().get(n);
-                    Product p2 = response.getProducts().get((n + 1) % 20);
-                    Product p3 = response.getProducts().get((n + 2) % 20);
+                    final Product p1 = response.getProducts().get(n);
+                    final Product p2 = response.getProducts().get((n + 1) % 20);
+                    final Product p3 = response.getProducts().get((n + 2) % 20);
                     imageLoader.displayImage(p1.getImageUrl()[0], (ImageView) view.findViewById(img1));
                     ((TextView) view.findViewById(name1)).setText(p1.getName());
                     ((TextView) view.findViewById(price1)).setText("$ " + String.valueOf(p1.getPrice()));
                     ((TextView) view.findViewById(brand1)).setText(p1.getBrand());
+                    view.findViewById(cv1).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            goToProduct(p1.getId());
+                        }
+                    });
                     imageLoader.displayImage(p2.getImageUrl()[0], (ImageView) view.findViewById(img2));
                     ((TextView) view.findViewById(name2)).setText(p2.getName());
                     ((TextView) view.findViewById(price2)).setText("$ " + p2.getPrice());
                     ((TextView) view.findViewById(brand2)).setText(p2.getBrand());
+                    view.findViewById(cv2).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            goToProduct(p2.getId());
+                        }
+                    });
                     imageLoader.displayImage(p3.getImageUrl()[0], (ImageView) view.findViewById(img3));
                     ((TextView) view.findViewById(name3)).setText(p3.getName());
                     ((TextView) view.findViewById(price3)).setText("$ " + p3.getPrice());
                     ((TextView) view.findViewById(brand3)).setText(p3.getBrand());
+                    view.findViewById(cv3).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            goToProduct(p3.getId());
+                        }
+                    });
+
 
                 }
             }
@@ -102,6 +122,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void goToProduct(int id) {
+        Intent intent = new Intent(getActivity(), ProductActivity.class);
+        intent.putExtra("productId", id);
+        startActivity(intent);
+    }
+
     private void loadSales(final View view) {
         /*saleListView = (ListView) view.findViewById(R.id.sale_list);
         saleListView.setClickable(true);
@@ -111,7 +137,8 @@ public class HomeFragment extends Fragment {
                 R.id.sale_img_1, R.id.sale_img_2, R.id.sale_img_3,
                 R.id.sale_name_1, R.id.sale_name_2, R.id.sale_name_3,
                 R.id.sale_price_1, R.id.sale_price_2, R.id.sale_price_3,
-                R.id.sale_brand_1, R.id.sale_brand_2, R.id.sale_brand_3);
+                R.id.sale_brand_1, R.id.sale_brand_2, R.id.sale_brand_3,
+                R.id.cv_sale_1, R.id.cv_sale_2, R.id.cv_sale_3);
     }
 
 
@@ -123,7 +150,8 @@ public class HomeFragment extends Fragment {
                 R.id.new_img_1, R.id.new_img_2, R.id.new_img_3,
                 R.id.new_name_1, R.id.new_name_2, R.id.new_name_3,
                 R.id.new_price_1, R.id.new_price_2, R.id.new_price_3,
-                R.id.new_brand_1, R.id.new_brand_2, R.id.new_brand_3);
+                R.id.new_brand_1, R.id.new_brand_2, R.id.new_brand_3,
+                R.id.cv_new_1, R.id.cv_new_2, R.id.cv_new_3);
     }
 
     @Override
