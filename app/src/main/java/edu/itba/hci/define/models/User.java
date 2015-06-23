@@ -10,6 +10,10 @@ public class User extends ApiResponse implements Serializable{
     private String firstName;
     private String lastName;
     private char gender;
+
+    public User() {
+    }
+
     private String identityCard;
     private String email;
     private transient String authToken;
