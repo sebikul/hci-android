@@ -25,8 +25,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         Log.v("AlarmReceiver", "Manejando la alarma");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
-        if(app.getPreferences().getString("auth_name", null)==null) {
-            Log.v("AlarmReceiver", "Auth_name null");
+        if(app.getPreferences().getString("authentication_token", null)==null) {
+            Log.v("AlarmReceiver", "Auth_token null");
             return;
         }
         final List<Order> cachedOrders = app.readFromCache("orders");
