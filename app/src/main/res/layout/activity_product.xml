@@ -50,15 +50,70 @@
                 android:orientation="vertical"
                 android:layout_marginTop="16dp">
 
+
                 <!-- A CardView that contains a TextView -->
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view_summary"
+                    android:id="@+id/card_view_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     card_view:cardCornerRadius="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/product_novedad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:gravity="center_vertical|left"
+                            android:text="@string/product_novedad"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="16dp"
+                            android:layout_weight="0.3" />
+
+                        <TextView
+                            android:id="@+id/product_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="price"
+                            android:textColor="#ef1e1e1e"
+                            android:textSize="18dp"
+                            android:layout_weight="0.3"
+                            android:textStyle="bold"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/product_oferta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/product_sale"
+                            android:gravity="center_vertical|right"
+                            android:textSize="16dp"
+                            android:layout_weight="0.3" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <!-- A CardView that contains a TextView -->
+                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/card_view_summary"
+                    android:layout_below="@+id/card_view_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardCornerRadius="4dp"
+                    android:layout_marginTop="16dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"

@@ -47,7 +47,7 @@
             android:shadowColor="#ff000000"
             android:shadowDx="1"
             android:shadowDy="1"
-            android:shadowRadius="1.5"
+            android:shadowRadius="1"
             android:text="Product name"
             android:textColor="#FFFFFF"
             android:textSize="20sp"

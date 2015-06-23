@@ -81,4 +81,6 @@
     <string name="interval_1_hour">Every 1 hour</string>
     <string name="interval_12_hour">Every 12 hours</string>
     <string name="interval_24_hour">Every 24 hours</string>
+    <string name="product_novedad">New</string>
+    <string name="product_sale">On Sale</string>
 </resources>
