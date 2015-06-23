@@ -25,14 +25,15 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         Log.v("AlarmReceiver", "Manejando la alarma");
         DefineApplication app = (DefineApplication) context.getApplicationContext();
-        if(app.getPreferences().getString("auth_name", null)==null)
+        if(app.getPreferences().getString("authentication_token", null)==null) {
+            Log.v("AlarmReceiver", "Auth_token null");
             return;
+        }
         final List<Order> cachedOrders = app.readFromCache("orders");
         ApiManager.getAllOrders(new Callback<OrderList>() {
 
             @Override
             public void onSuccess(OrderList response) {
-                // TODO: Verificar que haya actualizaciones en las ordenes
                 if(cachedOrders==null){
                     Log.v("AlarmReceiver", "No hay ordenes cargadas en cache");
                     return;
