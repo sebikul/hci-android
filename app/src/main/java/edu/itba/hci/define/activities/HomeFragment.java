@@ -46,6 +46,18 @@ public class HomeFragment extends Fragment {
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         loadSales(view);
+        view.findViewById(R.id.sale_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavBasicActivity)getActivity()).replaceContentWithFragment(new SalesFragment(), null, null);
+            }
+        });
+        view.findViewById(R.id.new_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavBasicActivity)getActivity()).replaceContentWithFragment(new NewsFragment(), null, null);
+            }
+        });
         loadNews(view);
         return view;
     }
@@ -104,8 +116,6 @@ public class HomeFragment extends Fragment {
                             goToProduct(p3.getId());
                         }
                     });
-
-
                 }
             }
 
@@ -156,7 +166,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.v("Home", "Vas a ver que esta entrando aca wacho");
         NavBasicActivity activity = ((NavBasicActivity) getActivity());
         activity.setTitle(R.string.app_name);
         activity.setToggleDrawer(true);

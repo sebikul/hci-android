@@ -8,9 +8,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,6 +21,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import edu.itba.hci.define.R;
+import edu.itba.hci.define.activities.base.NavBasicActivity;
 import edu.itba.hci.define.adapters.ProductListAdapter;
 import edu.itba.hci.define.api.ApiError;
 import edu.itba.hci.define.api.ApiManager;
@@ -25,9 +29,10 @@ import edu.itba.hci.define.api.Callback;
 import edu.itba.hci.define.models.ApiProductFilter;
 import edu.itba.hci.define.models.ProductList;
 
-public class SaleFragment extends Fragment {
-
-    private int age, gender;
+/**
+ * Created by Diego on 22/06/2015.
+ */
+public class NewsFragment extends Fragment {
     private ListView listView;
     private AsyncTask request;
 
@@ -39,25 +44,13 @@ public class SaleFragment extends Fragment {
         View view = inflater.inflate(R.layout.category_fragment, container, false);
         listView = (ListView) view.findViewById(R.id.category_product_list);
         listView.setClickable(true);
-
+        setHasOptionsMenu(true);
         mProgressView = view.findViewById(R.id.category_progress);
 
         showProgress(true);
 
-        Bundle args = getArguments();
-
-        age = args.getInt("age");
-        gender = args.getInt("gender");
-        ApiProductFilter[] filters;
-        if(CategoryFragment.convertToString(gender)!=null){
-            filters = new ApiProductFilter[3];
-            filters[2]= new ApiProductFilter(1, CategoryFragment.convertToString(gender));
-        }
-        else {
-            filters = new ApiProductFilter[2];
-        }
-        filters[0]=new ApiProductFilter(5, "Oferta");
-        filters[1]=new ApiProductFilter(2, CategoryFragment.convertToString(age));
+        ApiProductFilter[] filters = new ApiProductFilter[1];
+        filters[0]=new ApiProductFilter(6, "Nuevo");
 
         request= ApiManager.getAllProducts(1, 500, filters, new Callback<ProductList>() {
             @Override
@@ -92,7 +85,7 @@ public class SaleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.v("SaleFragment", "cancelando las llamadas");
+        Log.v("SalesFragment", "cancelando las llamadas");
         request.cancel(true);
     }
 
@@ -130,8 +123,15 @@ public class SaleFragment extends Fragment {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             listView.setVisibility(show ? View.GONE : View.VISIBLE);
-
-
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        NavBasicActivity activity = ((NavBasicActivity) getActivity());
+        activity.setTitle(R.string.title_new);
+        activity.setToggleDrawer(false);
+        ((NavigationView) activity.findViewById(R.id.nvView)).getMenu().findItem(R.id.item_home).setChecked(true);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
