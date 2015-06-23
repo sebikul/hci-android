@@ -42,8 +42,8 @@ public class SessionReceiver extends BroadcastReceiver {
 
             Log.v("SessionReceiver", "El alarm interval vale " + String.valueOf(alarmInterval));
 
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval, alarmPendingIntent);
-            //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 30 * 1, 1000 * 30 * 1, alarmPendingIntent);
+            //alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmInterval, alarmInterval, alarmPendingIntent);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 1000 * 30 * 1, 1000 * 30 * 1, alarmPendingIntent);
         }
     }
 
