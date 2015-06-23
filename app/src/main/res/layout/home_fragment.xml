@@ -23,6 +23,7 @@
             android:text="@string/title_sales"
             android:textSize="18sp" />
         <Button
+            android:id="@+id/sale_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -337,6 +338,7 @@
 
             android:textSize="18sp" />
         <Button
+            android:id="@+id/new_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
