@@ -88,7 +88,7 @@ public class PurchaseListAdapter extends ArrayAdapter<Order> {
         image.setImageDrawable(drawable);
 
         purchaseIdText.setText("#" + order.getId());
-        purchaseDateText.setText(order.getReceivedDate());
+        purchaseDateText.setText(order.getReceivedDate().split(" ")[0]);
 
         //Log.v("PurchaseListAdapter", "Mostrando adapter para orden " + order.toString());
 
