@@ -91,6 +91,8 @@
     <string name="interval_1_hour">Cada 1 hora</string>
     <string name="interval_24_hour">Cada 24 horas</string>
     <string name="interval_30_min">Cada 30 minutos</string>
+    <string name="product_novedad">Novedad</string>
+    <string name="product_sale">En Oferta</string>
 
 
 </resources>
